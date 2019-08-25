@@ -5,7 +5,8 @@ import {
     StatusBar,
     StyleSheet,
     View,
-    Image
+    Image,
+    Dimensions
 } from 'react-native';
 class Splash extends Component {
     // constructor() {
@@ -21,7 +22,7 @@ class Splash extends Component {
         return (
             <View>
                 <View style={styles.container}>
-                    <Image source={require('../assets/logo-trans.png')} style={styles.imagess} />
+                    <Image source={require('../assets/logo.png')} style={styles.imagess} />
                     <View >
                         <ActivityIndicator size="large" color="#00b5ec" style={styles.auth} />
                         <StatusBar barStyle="default" />
@@ -36,8 +37,8 @@ export default Splash
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        width: Dimensions.get('screen').width,
-        height: Dimensions.get('screen').height,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     imagess: {
         position: 'absolute',
@@ -47,13 +48,7 @@ const styles = StyleSheet.create({
     },
     auth: {
         position: 'absolute',
-        marginTop: '124%',
+        marginTop: '155%',
         color: 'black',
     },
-    imgBackground: {
-        width: '100%',
-        height: '100%',
-        position: 'absolute',
-        opacity: 1
-    }
 })

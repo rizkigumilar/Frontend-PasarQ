@@ -3,6 +3,7 @@ import { createAppContainer, createDrawerNavigator, createStackNavigator, create
 import Login from '../../screens/Login';
 import Register from '../../screens/Register';
 import AuthLoading from '../../screens/Splash';
+import Home from '../../screens/Home';
 
 const AuthStack = createStackNavigator({
     Login: {
@@ -20,7 +21,12 @@ const AuthStack = createStackNavigator({
 })
 
 const AppStack = createStackNavigator({
-
+    Home: {
+        screen: Home,
+        navigationOptions: {
+            header: null
+        }
+    }
 })
 
 
@@ -30,6 +36,9 @@ export default createAppContainer(createSwitchNavigator(
         AuthLoading: AuthLoading,
         App: AppStack,
         Auth: AuthStack
+    },
+    {
+        initialRouteName: 'Auth'
     }
 
 ))
