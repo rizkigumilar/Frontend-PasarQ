@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Data from '../dummyData/Data';
+import AwesomeAlert from 'react-native-awesome-alerts';
 import {
   StyleSheet,
   Text,
@@ -8,6 +9,8 @@ import {
   Image,
   TouchableOpacity,
   TextInput,
+  ScrollView,
+  Alert
 } from 'react-native';
 
 class Cart extends Component {
@@ -16,8 +19,25 @@ class Cart extends Component {
     this.initData = Data;
     this.state = {
       data: this.initData,
+      showAlert: false,
     };
   }
+
+  deleteItem = () => {
+    this.setState({
+      showAlert: true,
+    });
+  };
+
+  checkOut = () => {
+    Alert.alert('Check out')
+  };
+
+  hideAlert = () => {
+    this.setState({
+      showAlert: false,
+    });
+  };
 
   renderItem = ({item}) => {
     return (
@@ -45,8 +65,13 @@ class Cart extends Component {
           </TouchableOpacity>
         </View>
         <View stye={styles.delete}>
-          <TouchableOpacity style={styles.buttonDelete} onPress={this.onPress}>
-            <Image style={styles.deleteIcon} source={require('../assets/delete.png')} />
+          <TouchableOpacity
+            style={styles.buttonDelete}
+            onPress={() => this.deleteItem()}>
+            <Image
+              style={styles.deleteIcon}
+              source={require('../assets/delete.png')}
+            />
           </TouchableOpacity>
         </View>
       </View>
@@ -54,6 +79,7 @@ class Cart extends Component {
   };
 
   render() {
+    const {showAlert} = this.state;
     return (
       <View style={styles.contentContainer}>
         <View style={styles.address}>
@@ -63,19 +89,42 @@ class Cart extends Component {
             Istimewa Yogyakarta 83239
           </Text>
         </View>
-        <FlatList
-          data={this.state.data}
-          keyExtractor={item => item.id.toString()}
-          renderItem={this.renderItem}
-        />
-        <View style={styles.checkoutBtn}>
-          <TouchableOpacity style={styles.button} onPress={this.onPress}>
-            <Text style={{color: 'white'}}> Checkout </Text>
-          </TouchableOpacity>
-          <View style={styles.total}>
-            <Text style={{color: 'red'}}>Total : Rp. 50000</Text>
+        <View>
+          <FlatList
+            style={styles.flatList}
+            data={this.state.data}
+            keyExtractor={item => item.id.toString()}
+            renderItem={this.renderItem}
+          />
+          <View style={styles.checkoutBtn}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => this.checkOut()}>
+              <Text style={{color: 'white'}}> Checkout </Text>
+            </TouchableOpacity>
+            <View style={styles.total}>
+              <Text style={{color: 'red'}}>Total : Rp. 50000</Text>
+            </View>
           </View>
         </View>
+        <AwesomeAlert
+          show={showAlert}
+          showProgress={false}
+          title="Delete this item?"
+          closeOnTouchOutside={true}
+          closeOnHardwareBackPress={false}
+          showCancelButton={true}
+          showConfirmButton={true}
+          cancelText="No, cancel"
+          confirmText="Yes, delete it"
+          confirmButtonColor="#C30F42"
+          onCancelPressed={() => {
+            this.hideAlert();
+          }}
+          onConfirmPressed={() => {
+            this.hideAlert();
+          }}
+        />
       </View>
     );
   }
@@ -86,6 +135,7 @@ export default Cart;
 const styles = StyleSheet.create({
   contentContainer: {
     backgroundColor: 'white',
+    flex: 1,
   },
   address: {
     backgroundColor: 'grey',
@@ -109,7 +159,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 2,
     height: 30,
-    marginRight : 20
+    marginRight: 20,
   },
   location: {
     paddingHorizontal: 20,
@@ -161,7 +211,10 @@ const styles = StyleSheet.create({
     borderColor: 'grey',
   },
   deleteIcon: {
-    width : 25,
-    height : 25
-  }
+    width: 25,
+    height: 25,
+  },
+  flatList: {
+    marginTop: 20,
+  },
 });

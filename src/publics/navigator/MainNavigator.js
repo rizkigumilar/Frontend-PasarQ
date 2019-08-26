@@ -10,6 +10,7 @@ import Register from '../../screens/Register';
 import AuthLoading from '../../screens/Splash';
 import Home from '../../screens/Home';
 import Cart from '../../screens/Cart';
+import Payment from '../../screens/Payment';
 
 const AuthStack = createStackNavigator({
   Login: {
@@ -39,6 +40,12 @@ const AppStack = createStackNavigator({
       header: null,
     },
   },
+  Payment: {
+    screen: Payment,
+    navigationOptions: {
+      header: null,
+    },
+  },
 });
 
 export default createAppContainer(
@@ -47,10 +54,10 @@ export default createAppContainer(
       AuthLoading: AuthLoading,
       App: AppStack,
       Auth: AuthStack,
-      Cart
+      Payment
     },
     {
-      initialRouteName: 'Cart',
+      initialRouteName: 'Payment',
     },
   ),
 );
