@@ -1,0 +1,198 @@
+import React, { Component } from 'react';
+import { withNavigation } from 'react-navigation';
+import { login } from '../publics/redux/actions/user';
+import { connect } from 'react-redux';
+import {
+    AsyncStorage,
+    StyleSheet,
+    Text,
+    View,
+    TextInput,
+    TouchableHighlight,
+    Image,
+    Alert,
+} from 'react-native';
+import Logo from '../assets/logo.png'
+import { ScrollView } from 'react-native-gesture-handler';
+import GetLocation from 'react-native-get-location';
+
+
+class Login extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            data: [],
+            user: [],
+            email: '',
+            password: '',
+            latitude: 0,
+            longitude: 0,
+        };
+    }
+
+    componentDidMount = async () => {
+        await this.getCurrentPosition()
+    }
+
+    getCurrentPosition() {
+        GetLocation.getCurrentPosition({
+            enableHighAccuracy: true,
+            timeout: 15000,
+        })
+            .then(location => {
+                this.setState({
+                    latitude: location.latitude,
+                    longitude: location.longitude
+                })
+            })
+            .catch(error => {
+                const { code, message } = error;
+                console.warn(code, message);
+            })
+    }
+
+    log = async () => {
+        if (this.state.email == '' && this.state.password == '') {
+            alert('Harap mengisi Semua Form!')
+        } else {
+            this.state.data.push({
+                email: this.state.email,
+                password: this.state.password
+            });
+            await this.props.dispatch(login(this.state.data[0]))
+                .then(() => {
+                    Alert.alert(
+                        'Login',
+                        'Login Success',
+                        [
+                            {
+                                text: 'OK', onPress: () => this.props.navigation.navigate('AuthLoading', {
+                                    userid: this.state.userid,
+                                    token: this.state.token,
+                                    name: this.state.name,
+                                    email: this.state.email
+                                })
+                            },
+                        ],
+                    );
+                })
+                .catch(() => {
+                    Alert.alert(
+                        'Login',
+                        'Login Failed',
+                        [
+                            { text: 'Try Again' },
+                        ],
+                    );
+                })
+        }
+    }
+
+    render() {
+
+        return (
+            <ScrollView>
+                <View behavior="padding"
+                    style={styles.Wrapper}>
+                    <View style={styles.container}>
+                        <Image style={styles.logo} source={Logo} />
+                        <View>
+                            <Text style={styles.title}>Login</Text>
+                            <View style={styles.inputContainer}>
+                                <Image style={styles.inputIcon} source={{ uri: 'http://icons.iconarchive.com/icons/mysitemyway/blue-jeans-social-media/256/mail-icon.png' }} />
+                                <TextInput style={styles.inputs}
+                                    placeholder="Email"
+                                    keyboardType="email-address"
+                                    underlineColorAndroid='transparent'
+                                    onChangeText={(email) => this.setState({ email })} />
+                            </View>
+
+                            <View style={styles.inputContainer}>
+                                <Image style={styles.inputIcon} source={{ uri: 'https://image.flaticon.com/icons/png/512/69/69891.png' }} />
+                                <TextInput style={styles.inputs}
+                                    placeholder="Password"
+                                    secureTextEntry={true}
+                                    underlineColorAndroid='transparent'
+                                    onChangeText={(password) => this.setState({ password })} />
+                            </View>
+                            <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={this.log}>
+                                <Text style={styles.loginText}>Login</Text>
+                            </TouchableHighlight>
+                            <TouchableHighlight style={styles.buttonContainer} onPress={() => this.props.navigation.navigate('Register')}>
+                                <Text>Register</Text>
+                            </TouchableHighlight>
+                        </View>
+                    </View>
+                </View>
+            </ScrollView>
+        );
+
+    }
+}
+const mapStateToProps = state => {
+    return {
+        user: state.user
+    };
+};
+export default connect(mapStateToProps)(withNavigation(Login))
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#FFFFFF',
+    },
+    logo: {
+        top: 20,
+        height: 372,
+        width: 400
+    },
+    inputContainer: {
+        borderBottomColor: '#F5FCFF',
+        backgroundColor: '#DCDCDC',
+        borderRadius: 30,
+        borderBottomWidth: 3,
+        width: 250,
+        height: 45,
+        marginBottom: 20,
+        flexDirection: 'row',
+        alignItems: 'center',
+        bottom: 15
+    },
+    title: {
+        fontSize: 40,
+        marginBottom: 30,
+        marginLeft: 70,
+        bottom: 10,
+        fontWeight: "bold"
+    },
+    inputs: {
+        height: 45,
+        marginLeft: 16,
+        borderBottomColor: '#FFFFFF',
+        flex: 1,
+    },
+    inputIcon: {
+        width: 30,
+        height: 30,
+        marginLeft: 15,
+        justifyContent: 'center'
+    },
+    buttonContainer: {
+        height: 45,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 30,
+        width: 250,
+        borderRadius: 30,
+        bottom: 15
+    },
+    loginButton: {
+        backgroundColor: "#008000",
+    },
+    loginText: {
+        color: 'white',
+    },
+});
