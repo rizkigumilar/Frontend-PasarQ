@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { register } from '../publics/redux/actions/user';
+import { connect } from 'react-redux';
 import {
     StyleSheet,
     Text,
@@ -8,139 +10,163 @@ import {
     Image,
     Alert
 } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
+import GetLocation from 'react-native-get-location';
 
 class Register extends Component {
 
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {
-    //         name: '',
-    //         email: '',
-    //         password: '',
-    //         latitude: null,
-    //         longitude: null
-    //     };
-    // }
-    // componentDidMount = async () => {
-    //     await this.getCurrentPosition()
-    // }
+    constructor(props) {
+        super(props);
+        this.state = {
+            user: [],
+            data: []
+        };
+    }
+    componentDidMount = async () => {
+        await this.getCurrentPosition()
+    }
 
-    // getCurrentPosition() {
-    //     GetLocation.getCurrentPosition({
-    //         enableHighAccuracy: true,
-    //         timeout: 15000,
-    //     })
-    //         .then(location => {
-    //             console.warn(location.latitude);
+    getCurrentPosition() {
+        GetLocation.getCurrentPosition({
+            enableHighAccuracy: true,
+            timeout: 15000,
+        })
+            .then(location => {
+                console.warn(location.latitude);
 
-    //             let region = {
-    //                 latitude: location.latitude,
-    //                 longitude: location.longitude,
-    //                 latitudeDelta: 0.00922 * 1.5,
-    //                 longitudeDelta: 0.00421 * 1.5
-    //             }
+                let region = {
+                    latitude: location.latitude,
+                    longitude: location.longitude,
+                    latitudeDelta: 0.00922 * 1.5,
+                    longitudeDelta: 0.00421 * 1.5
+                }
 
-    //             this.setState({
-    //                 mapRegion: region,
-    //                 latitude: location.latitude,
-    //                 longitude: location.longitude
-    //             })
-    //         })
-    //         .catch(error => {
-    //             const { code, message } = error;
-    //             console.warn(code, message);
-    //         })
-    // }
+                this.setState({
+                    mapRegion: region,
+                    latitude: location.latitude,
+                    longitude: location.longitude
+                })
+            })
+            .catch(error => {
+                const { code, message } = error;
+            })
+    }
 
-    // Register = () => {
-    //     if (this.state.fullName == '' && this.state.email == '' && this.state.password == '') {
-    //         alert('Harap mengisi Semua Form!')
-    //     }
-    //     else {
-    //         Auth.createUserWithEmailAndPassword(this.state.email, this.state.password)
-    //             .then((response) => {
-    //                 console.log(response)
-    //                 Database.ref('/user/' + response.user.uid).set({
-    //                     name: this.state.name,
-    //                     status: 'Offline',
-    //                     email: this.state.email,
-    //                     photo: 'https://i.imgur.com/zpjUVPT.png',
-    //                     latitude: this.state.latitude,
-    //                     longitude: this.state.longitude,
-    //                     id: response.user.uid
-    //                 })
-    //                     .catch(error => {
-    //                         alert(error.message)
-    //                         this.setState({
-    //                             name: '',
-    //                             email: '',
-    //                             password: '',
-    //                         });
-    //                     })
-    //                 Alert.alert(
-    //                     'Register',
-    //                     'Register Success', [
-    //                         { text: 'OK', onPress: () => this.props.navigation.navigate('Login') }
-    //                     ]
-    //                 )
-    //             })
-    //             .catch(error => {
-    //                 alert(error.message)
-    //                 this.setState({
-    //                     name: '',
-    //                     email: '',
-    //                     password: '',
-    //                 });
-    //             })
-    //     }
-    // };
+    Register = async () => {
+        if (this.state.fullName == '' && this.state.email == '' && this.state.password == '') {
+            alert('Harap mengisi Semua Form!')
+        }
+        else {
+            const Data = {
+                email: this.state.email,
+                name: this.state.name,
+                password: this.state.password,
+                telp: this.state.telp,
+                address: this.state.address,
+                latitude: this.state.latitude || 0,
+                longitude: this.state.longitude || 0,
+                role_id: 4
+            }
+            await this.setState({
+                user: Data
+            })
+
+            this.props.dispatch(register(Data))
+                .then(() => {
+                    Alert.alert(
+                        'Register',
+                        'Register Success',
+                        [
+                            { text: 'OK', onPress: () => this.props.navigation.navigate('Login') },
+                        ],
+                    );
+                })
+                .catch(() => {
+                    Alert.alert(
+                        'Register',
+                        'Register Failed',
+                        [
+                            { text: 'Try Again' },
+                        ],
+                    );
+
+                });
+            console.log(this.state.user);
+            console.log(Data);
+        };
+    };
     render() {
 
         return (
+
             <View style={styles.container}>
-                <Text style={styles.title}>Register</Text>
-                <View style={styles.inputContainer}>
-                    <Image style={styles.inputIcon} source={{ uri: 'http://icons.iconarchive.com/icons/mysitemyway/blue-jeans-social-media/256/mail-icon.png' }} />
-                    <TextInput style={styles.inputs}
-                        placeholder="Email"
-                        keyboardType="email-address"
-                        underlineColorAndroid='transparent'
-                        onChangeText={(email) => this.setState({ email })} />
-                </View>
+                <ScrollView>
+                    <Text style={styles.title}>Register</Text>
 
-                <View style={styles.inputContainer}>
-                    <Image style={styles.inputIcon} source={{ uri: 'https://png.pngtree.com/svg/20170602/user_circle_1048392.png' }} />
-                    <TextInput style={styles.inputs}
-                        placeholder="name"
-                        keyboardType="default"
-                        underlineColorAndroid='transparent'
-                        onChangeText={(name) => this.setState({ name })} />
-                </View>
+                    <View style={styles.inputContainer}>
+                        <Image style={styles.inputIcon} source={{ uri: 'https://png.pngtree.com/svg/20170602/user_circle_1048392.png' }} />
+                        <TextInput style={styles.inputs}
+                            placeholder="name"
+                            keyboardType="default"
+                            underlineColorAndroid='transparent'
+                            onChangeText={val => this.setState({ 'name': val })} />
+                    </View>
 
+                    <View style={styles.inputContainer}>
+                        <Image style={styles.inputIcon} source={{ uri: 'http://cdn.onlinewebfonts.com/svg/img_21206.png' }} />
+                        <TextInput style={styles.inputs}
+                            placeholder="Phone number"
+                            keyboardType="numeric"
+                            underlineColorAndroid='transparent'
+                            onChangeText={val => this.setState({ 'telp': val })} />
+                    </View>
 
+                    <View style={styles.inputContainer}>
+                        <Image style={styles.inputIcon} source={{ uri: 'https://image.flaticon.com/icons/png/512/1239/1239525.png' }} />
+                        <TextInput style={styles.inputs}
+                            placeholder="address"
+                            keyboardType="default"
+                            underlineColorAndroid='transparent'
+                            onChangeText={val => this.setState({ 'address': val })} />
+                    </View>
 
-                <View style={styles.inputContainer}>
-                    <Image style={styles.inputIcon} source={{ uri: 'https://image.flaticon.com/icons/png/512/69/69891.png' }} />
-                    <TextInput style={styles.inputs}
-                        placeholder="Password"
-                        secureTextEntry={true}
-                        underlineColorAndroid='transparent'
-                        onChangeText={(password) => this.setState({ password })} />
-                </View>
+                    <View style={styles.inputContainer}>
+                        <Image style={styles.inputIcon} source={{ uri: 'http://icons.iconarchive.com/icons/mysitemyway/blue-jeans-social-media/256/mail-icon.png' }} />
+                        <TextInput style={styles.inputs}
+                            placeholder="Email"
+                            keyboardType="email-address"
+                            underlineColorAndroid='transparent'
+                            onChangeText={val => this.setState({ 'email': val })} />
+                    </View>
 
-                <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={this.Register}>
-                    <Text style={styles.loginText}>Register</Text>
-                </TouchableHighlight>
+                    <View style={styles.inputContainer}>
+                        <Image style={styles.inputIcon} source={{ uri: 'https://image.flaticon.com/icons/png/512/69/69891.png' }} />
+                        <TextInput style={styles.inputs}
+                            placeholder="Password"
+                            secureTextEntry={true}
+                            underlineColorAndroid='transparent'
+                            onChangeText={val => this.setState({ 'password': val })} />
+                    </View>
 
-                <TouchableHighlight style={styles.buttonContainer} onPress={() => this.props.navigation.navigate('Login')}>
-                    <Text>Login</Text>
-                </TouchableHighlight>
+                    <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={this.Register}>
+                        <Text style={styles.loginText}>Register</Text>
+                    </TouchableHighlight>
+
+                    <TouchableHighlight style={styles.buttonContainer} onPress={() => this.props.navigation.navigate('Login')}>
+                        <Text>Login</Text>
+                    </TouchableHighlight>
+                </ScrollView>
             </View>
+
         );
     }
 }
-
-export default Register;
+const mapStateToProps = state => {
+    return {
+        user: state.user
+    };
+};
+export default connect(mapStateToProps)(Register);
 
 const styles = StyleSheet.create({
     container: {
@@ -148,6 +174,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#FFFFFF',
+        top: 50
     },
     inputContainer: {
         borderBottomColor: '#F5FCFF',
@@ -162,7 +189,8 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 40,
-        marginBottom: 30
+        marginBottom: 30,
+        marginLeft: 50,
     },
     inputs: {
         height: 45,

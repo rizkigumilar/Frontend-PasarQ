@@ -6,19 +6,20 @@ import {
     StyleSheet,
     View,
     Image,
-    Dimensions
 } from 'react-native';
 class Splash extends Component {
-    // constructor() {
-    //     super();
-    //     this._bootstrapAsync();
-    // }
+    constructor() {
+        super();
+        this._bootstrapAsync();
+    }
 
-    // _bootstrapAsync = async () => {
-    //     const userToken = await AsyncStorage.getItem('userid');
-    //     this.props.navigation.navigate(userToken ? 'App' : 'Auth');
-    // };
+    _bootstrapAsync = async () => {
+        const userToken = await AsyncStorage.getItem('jwToken');
+        this.props.navigation.navigate(userToken ? 'App' : 'Auth');
+        console.log(userToken)
+    };
     render() {
+
         return (
             <View>
                 <View style={styles.container}>
