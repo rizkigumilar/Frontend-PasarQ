@@ -7,17 +7,18 @@ import {
     View,
     Image,
 } from 'react-native';
+import { withNavigation } from 'react-navigation';
 class Splash extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this._bootstrapAsync();
     }
 
     _bootstrapAsync = async () => {
         const userToken = await AsyncStorage.getItem('jwToken');
-        this.props.navigation.navigate(userToken ? 'App' : 'Auth');
         console.log(userToken)
-    };
+        this.props.navigation.navigate(userToken ? 'App' : 'Auth');
+    }
     render() {
 
         return (
@@ -34,7 +35,11 @@ class Splash extends Component {
         )
     }
 }
+
+
 export default Splash
+
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -45,11 +50,11 @@ const styles = StyleSheet.create({
         position: 'absolute',
         width: 380,
         height: 380,
-        top: 200
+        top: 150
     },
     auth: {
         position: 'absolute',
-        marginTop: '155%',
+        marginTop: '125%',
         color: 'black',
     },
 })

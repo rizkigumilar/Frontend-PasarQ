@@ -2,6 +2,17 @@ import React, { Component } from 'react';
 import { StatusBar, View, Text, TouchableHighlight, AsyncStorage, Alert, StyleSheet } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 export default class Home extends Component {
+
+    componentDidMount = async () => {
+        await AsyncStorage.getItem('jwToken', (error, result) => {
+            if (result) {
+                this.setState({
+                    token: result,
+                });
+            }
+        });
+    }
+
     render() {
 
         const del = () => {

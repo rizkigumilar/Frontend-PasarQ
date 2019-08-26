@@ -66,7 +66,7 @@ class Login extends Component {
                         'Login Success',
                         [
                             {
-                                text: 'OK', onPress: () => this.props.navigation.navigate('Home', {
+                                text: 'OK', onPress: () => this.props.navigation.navigate('AuthLoading', {
                                     userid: this.state.userid,
                                     token: this.state.token,
                                     name: this.state.name,
@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
         bottom: 15
     },
     loginButton: {
-        backgroundColor: "#27f607",
+        backgroundColor: "#008000",
     },
     loginText: {
         color: 'white',
