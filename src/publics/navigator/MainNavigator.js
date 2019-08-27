@@ -4,11 +4,13 @@ import Login from '../../screens/Login';
 import Register from '../../screens/Register';
 import AuthLoading from '../../screens/Splash';
 import Home from '../../screens/Home';
-import Produk from '../../screens/ProductList';
+import Product from '../../screens/SubCategory';
+import DetailProduct from '../../screens/DetailProduct';
 import Cart from '../../screens/Cart';
 import Payment from '../../screens/Payment';
-import Maps from '../../screens/Maps';
-import Chat from '../../screens/Chat'
+import Maps from '../../screens/MapsTransaction';
+import Chat from '../../screens/Chat';
+import Profile from '../../screens/Profile';
 
 const AuthStack = createStackNavigator({
     Login: {
@@ -32,8 +34,14 @@ const AppStack = createStackNavigator({
             header: null
         }
     },
-    Produk: {
-        screen: Produk,
+    Product: {
+        screen: Product,
+        navigationOptions: {
+            header: null
+        }
+    },
+    DetailProduct: {
+        screen: DetailProduct,
         navigationOptions: {
             header: null
         }
@@ -62,18 +70,12 @@ const AppStack = createStackNavigator({
             header: null
         }
     },
-    Login: {
-        screen: Login,
+    Profile: {
+        screen: Profile,
         navigationOptions: {
             header: null
         }
     },
-    Register: {
-        screen: Register,
-        navigationOptions: {
-            header: null
-        }
-    }
 })
 
 

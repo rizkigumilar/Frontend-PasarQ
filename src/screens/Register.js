@@ -150,6 +150,7 @@ class Register extends Component {
                     </View>
 
                     <Item rounded style={{ marginVertical: 10, borderColor: 'white', backgroundColor: '#DCDCDC', bottom: 15 }}>
+                        <Image style={styles.inputIcon} source={{ uri: 'https://png.pngtree.com/svg/20160728/role_permissions_679763.png' }} />
                         <Picker
                             mode="dropdown"
                             placeholder="Select Your role"

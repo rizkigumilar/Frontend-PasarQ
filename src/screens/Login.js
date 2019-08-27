@@ -168,6 +168,9 @@ const styles = StyleSheet.create({
         height: 372,
         width: 400
     },
+    wraper: {
+        height: '100%'
+    },
     inputContainer: {
         borderBottomColor: '#F5FCFF',
         backgroundColor: '#DCDCDC',

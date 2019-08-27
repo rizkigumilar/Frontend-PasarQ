@@ -1,30 +1,16 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Image, AsyncStorage, Alert, TouchableHighlight } from "react-native";
-import { Header, Item, Icon, Button, Input, Text } from 'native-base'
+import { StyleSheet, View, Image, AsyncStorage, Alert, TouchableHighlight, StatusBar } from "react-native";
+import { Header, Item, Icon, Button, Input, Text, Fab } from 'native-base'
 import Bottomtab from "../components/bottomTab";
 
 
 export default class Home extends Component {
 
-    del = () => {
-        AsyncStorage.removeItem('userid')
-        AsyncStorage.removeItem('jwToken')
-            .then(() => {
-                this.setState({ isLogin: false })
-                this.setState({ data: [] })
-                Alert.alert(
-                    'Logout',
-                    'Logout success', [
-                        {
-                            text: 'OK', onPress: () => this.props.navigation.navigate('Login')
-                        }
-                    ]
-                )
-            })
-    };
+
     render() {
         return (
             <View>
+                <StatusBar style={{ backgroundColor: '#008000' }} />
                 <Header style={{ backgroundColor: "#037F03" }} searchBar rounded>
                     <Item>
                         <Icon name="ios-search" />
@@ -35,13 +21,13 @@ export default class Home extends Component {
                         <Text>Search</Text>
                     </Button>
                 </Header>
+                <View style={{ top: 100 }}>
+                    <Fab position="bottomRight" onPress={() => this.props.navigation.navigate('Cart')} style={{ backgroundColor: '#008000', top: "-100%", position: "absolute" }} >
+                        <Icon name="cart" type="Ionicons" style={{ color: 'white' }} />
+                    </Fab>
 
-                <View>
-                    <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={this.del}>
-                        <Text style={styles.loginText}>Logout</Text>
-                    </TouchableHighlight>
+                    <Bottomtab style={styles.BottomtabStyele} />
                 </View>
-                <Bottomtab style={styles.BottomtabStyele} />
             </View>
         )
     }

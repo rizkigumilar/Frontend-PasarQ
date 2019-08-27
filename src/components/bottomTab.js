@@ -14,7 +14,7 @@ export class bottomTab extends Component {
     return (
       <Footer>
         <FooterTab style={{ backgroundColor: "#037F03" }}>
-          <Button onPress={() => { this.props.navigation.navigate('Produk') }} vertical>
+          <Button onPress={() => { this.props.navigation.navigate('Product') }} vertical>
             <Icon name="apps" />
             <Text style={{ color: "white" }} >Apps</Text>
           </Button>
@@ -26,9 +26,9 @@ export class bottomTab extends Component {
             <Icon name="chatboxes" />
             <Text style={{ color: "white" }}>Chat</Text>
           </Button>
-          <Button onPress={() => { this.props.navigation.navigate('Cart') }} vertical>
-            <Icon name="cart" />
-            <Text style={{ color: "white" }}>Keranjang</Text>
+          <Button onPress={() => { this.props.navigation.navigate('Profile') }} vertical>
+            <Icon name="person" />
+            <Text style={{ color: "white" }}>Profile</Text>
           </Button>
 
         </FooterTab>

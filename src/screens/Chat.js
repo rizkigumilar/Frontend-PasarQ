@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Image, AsyncStorage, Alert, TouchableHighlight } from "react-native";
+import { StyleSheet, View, Image, AsyncStorage, Alert, TouchableHighlight, Text } from "react-native";
 
 
 

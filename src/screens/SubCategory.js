@@ -1,112 +1,71 @@
 import React, { Component } from 'react';
-import {FlatList, Image ,View  ,StyleSheet} from 'react-native';
-import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right } from 'native-base';
-import data from './dummy'
-export default class CardImageExample extends Component {
-  constructor(props) {
-    super();
-    this.initData = data;
-    this.state = {
-      data: this.initData,
-      showAlert: false,
-    };
-  }
-  render() {
+import { Container, Header, Footer, TabHeading, Tab, Tabs, Item, Button, Text, Icon, Input, ScrollableTab, Fab } from 'native-base';
+import { StyleSheet } from "react-native";
+import CardProduct from './CardProduct';
+import Bottomtab from "../components/bottomTab";
 
+export default class SubCategory extends Component {
+  render() {
     return (
       <Container>
-        <Content>
-        <View style={styles.FlatList}>
-        <FlatList
-            data={this.state.data}
-            numColumns={2}
-            keyExtractor={item => item.id}
-            renderItem={({ item, index }) => {
-              return (
-                <Card >
-                  <CardItem cardBody>
-                    <Image  source={{uri: `${item.image}`}} style={styles.image}/>
-                  </CardItem>
-                  <CardItem>
-                    <Left>
-                      <Button success >
-                        <Text style={{right:"50%"}}>Rp {item.price} {item.name} / gram</Text>
-                      </Button>
-                    </Left>
-                    
-                  </CardItem>
-                </Card>
-              );
-            }}
-          />
-          </View>
-        </Content>
+        <Header hasTabs style={{ backgroundColor: "#FFFFFF" }} searchBar rounded>
+          <Item>
+            <Icon name="ios-search" />
+            <Input placeholder="Search" />
+            <Icon name="ios-people" />
+          </Item>
+          <Button transparent>
+            <Text>Search</Text>
+          </Button>
+        </Header>
+        <Tabs tabBarBackgroundColor={'#ffffff'} renderTabBar={() => <ScrollableTab underlineStyle={{ backgroundColor: '#008000' }} />}>
+          <Tab heading={<TabHeading style={{ backgroundColor: "#FFFFFF" }}>
+            <Text style={{ color: 'black' }}>Sayur Mayur</Text>
+          </TabHeading>}>
+            <CardProduct />
+          </Tab>
+          <Tab heading={<TabHeading style={{ backgroundColor: "#FFFFFF" }}>
+            <Text style={{ color: 'black' }}>Daging Dagingan</Text>
+          </TabHeading>}>
+            <CardProduct />
+          </Tab>
+          <Tab heading={<TabHeading style={{ backgroundColor: "#FFFFFF" }}>
+            <Text style={{ color: 'black' }}>Buah</Text>
+          </TabHeading>}>
+            <CardProduct />
+          </Tab>
+          <Tab heading={<TabHeading style={{ backgroundColor: "#FFFFFF" }}>
+            <Text style={{ color: 'black' }}>Sembako</Text>
+          </TabHeading>}>
+            <CardProduct />
+          </Tab>
+          <Tab heading={<TabHeading style={{ backgroundColor: "#FFFFFF" }}>
+            <Text style={{ color: 'black' }}>Bumbu Dapur</Text>
+          </TabHeading>}>
+            <CardProduct />
+          </Tab>
+        </Tabs>
+        <Fab position="bottomRight" onPress={() => this.props.navigation.navigate('Cart')} style={{ backgroundColor: '#008000', top: "-100%", position: "absolute" }} >
+          <Icon name="cart" type="Ionicons" style={{ color: 'white' }} />
+        </Fab>
+        <Bottomtab style={styles.BottomtabStyele} />
+
       </Container>
     );
   }
 }
 const styles = StyleSheet.create({
-  header: {
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#fff",
-    height: 60
-  },
-  text: {
-    fontSize: 30
-  },
-  Borrowed: {
-    fontSize: 10,
-    color: "white",
-    textAlign: "center",
-    backgroundColor: "grey",
-    borderRadius: 10,
-    paddingTop: 2,
-    justifyContent: "center",
-    position: "absolute",
-    zIndex: 1,
-    width: 60,
-    height: 20,
-    marginTop: 192
-  },
-  
-  image: {
-    width: 170,
-    height: 211,
-    borderRadius: 10
+  root: {
+    flex: 1,
+    backgroundColor: "rgba(62,220,62,1)"
   },
 
-  searchBar: {
-    zIndex: 1,
-    backgroundColor: "#fff",
-    borderBottomColor: "transparent",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 5
-    },
-    shadowOpacity: 0.34,
-    shadowRadius: 6.27,
-    elevation: 5,
-    marginTop: 15,
-    alignSelf: "center",
-    marginRight: 0,
-    height: 38,
-    width: 307,
-    position: "absolute",
-    borderRadius: 20
-  },
-  FlatList: {
-    alignItems: "center",
-    display: "flex",
-    justifyContent: "center"
-  },
-  item: {
-    backgroundColor: "black",
-    margin: 15,
-    borderRadius: 8,
-    elevation: 6,
-    width: 145,
-    height: 215
+
+  BottomtabStyele: {
+    top: "90.33%",
+    left: "-8.56%",
+    width: "117.01%",
+    height: "9.67%",
+    position: "absolute"
   }
 });
