@@ -5,7 +5,8 @@ import Register from '../../screens/Register';
 import AuthLoading from '../../screens/Splash';
 import Home from '../../screens/Home';
 import Produk from '../../screens/produk';
-
+import Cart from '../../screens/Cart';
+import Payment from '../../screens/Payment';
 
 const AuthStack = createStackNavigator({
     Login: {
@@ -35,6 +36,30 @@ const AppStack = createStackNavigator({
             header: null
         }
     },
+    Cart: {
+        screen: Cart,
+        navigationOptions: {
+            header: null
+        }
+    },
+    Payment: {
+        screen: Payment,
+        navigationOptions: {
+            header: null
+        }
+    },
+    Login: {
+        screen: Login,
+        navigationOptions: {
+            header: null
+        }
+    },
+    Register: {
+        screen: Register,
+        navigationOptions: {
+            header: null
+        }
+    }
 })
 
 
