@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import {FlatList, Image ,View  ,StyleSheet} from 'react-native';
+import { FlatList, Image, View, StyleSheet } from 'react-native';
 import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right } from 'native-base';
-import data from './dummy'
-export default class CardImageExample extends Component {
+import data from './dummy';
+import { withNavigation } from 'react-navigation';
+class CardProduct extends Component {
   constructor(props) {
     super();
     this.initData = data;
@@ -16,35 +17,37 @@ export default class CardImageExample extends Component {
     return (
       <Container>
         <Content>
-        <View style={styles.FlatList}>
-        <FlatList
-            data={this.state.data}
-            numColumns={2}
-            keyExtractor={item => item.id}
-            renderItem={({ item, index }) => {
-              return (
-                <Card >
-                  <CardItem cardBody>
-                    <Image  source={{uri: `${item.image}`}} style={styles.image}/>
-                  </CardItem>
-                  <CardItem>
-                    <Left>
-                      <Button success >
-                        <Text style={{right:"50%"}}>Rp {item.price} {item.name} / gram</Text>
-                      </Button>
-                    </Left>
-                    
-                  </CardItem>
-                </Card>
-              );
-            }}
-          />
+          <View style={styles.FlatList}>
+            <FlatList
+              data={this.state.data}
+              numColumns={2}
+              keyExtractor={item => item.id}
+              renderItem={({ item, index }) => {
+                return (
+                  <Card >
+                    <CardItem cardBody button onPress={() => { this.props.navigation.navigate('DetailProduct') }}>
+                      <Image source={{ uri: `${item.image}` }} style={styles.image} />
+                    </CardItem>
+                    <CardItem>
+                      <Left>
+                        <Button success >
+                          <Text style={{ padding: 10, justifyContent: "center", textAlign: "center" }}>Rp {item.price} {item.name} / gram</Text>
+                        </Button>
+                      </Left>
+
+                    </CardItem>
+                  </Card>
+                );
+              }}
+            />
           </View>
         </Content>
       </Container>
     );
   }
 }
+
+export default withNavigation(CardProduct)
 const styles = StyleSheet.create({
   header: {
     alignItems: "center",
@@ -69,7 +72,7 @@ const styles = StyleSheet.create({
     height: 20,
     marginTop: 192
   },
-  
+
   image: {
     width: 170,
     height: 211,
