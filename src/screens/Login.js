@@ -12,6 +12,10 @@ import {
     Image,
     Alert,
 } from 'react-native';
+import {
+    Picker,
+    Item
+} from 'native-base'
 import Logo from '../assets/logo.png'
 import { ScrollView } from 'react-native-gesture-handler';
 import GetLocation from 'react-native-get-location';
@@ -57,7 +61,8 @@ class Login extends Component {
         } else {
             this.state.data.push({
                 email: this.state.email,
-                password: this.state.password
+                password: this.state.password,
+                role: this.state.role_id
             });
             await this.props.dispatch(login(this.state.data[0]))
                 .then(() => {
@@ -115,6 +120,22 @@ class Login extends Component {
                                     underlineColorAndroid='transparent'
                                     onChangeText={(password) => this.setState({ password })} />
                             </View>
+                            <Item rounded style={{ marginVertical: 10, borderColor: 'white', backgroundColor: '#DCDCDC', bottom: 30 }}>
+                                <Image style={styles.inputIcon} source={{ uri: 'https://png.pngtree.com/svg/20160728/role_permissions_679763.png' }} />
+                                <Picker
+                                    mode="dropdown"
+                                    placeholder="Select Your role"
+                                    selectedValue={this.state.role_id}
+                                    placeholderStyle="#DCDCDC"
+                                    placeholderIconColor="#DCDCDC"
+                                    style={{ paddingLeft: 20, color: 'black' }}
+                                    onValueChange={(itemValue, itemIndex) =>
+                                        this.setState({ role_id: itemValue })
+                                    }>
+                                    <Picker.Item label="User" value="4" />
+                                    <Picker.Item label="Driver" value="3" />
+                                </Picker>
+                            </Item>
                             <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={this.log}>
                                 <Text style={styles.loginText}>Login</Text>
                             </TouchableHighlight>
@@ -144,9 +165,11 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFFFFF',
     },
     logo: {
-        top: 20,
         height: 372,
         width: 400
+    },
+    wraper: {
+        height: '100%'
     },
     inputContainer: {
         borderBottomColor: '#F5FCFF',

@@ -9,10 +9,14 @@ import Login from '../../screens/Login';
 import Register from '../../screens/Register';
 import AuthLoading from '../../screens/Splash';
 import Home from '../../screens/Home';
-import Produk from '../../screens/produk';
+import Product from '../../screens/SubCategory';
+import DetailProduct from '../../screens/DetailProduct';
 import Cart from '../../screens/Cart';
 import Payment from '../../screens/Payment';
 import ChatRoom from '../../components/ChatRoom';
+import Maps from '../../screens/MapsTransaction';
+import Chat from '../../screens/Chat';
+import Profile from '../../screens/Profile';
 
 const AuthStack = createStackNavigator({
   Login: {
@@ -35,11 +39,17 @@ const AppStack = createStackNavigator({
     navigationOptions: {
       header: null,
     },
-  },
-  Produk: {
-    screen: Produk,
-    navigationOptions: {
-      header: null,
+    Product: {
+        screen: Product,
+        navigationOptions: {
+            header: null
+        }
+    },
+    DetailProduct: {
+        screen: DetailProduct,
+        navigationOptions: {
+            header: null
+        }
     },
   },
   Cart: {
@@ -53,26 +63,33 @@ const AppStack = createStackNavigator({
     navigationOptions: {
       header: null,
     },
-  },
-  Login: {
-    screen: Login,
-    navigationOptions: {
-      header: null,
-    },
-  },
-  Register: {
-    screen: Register,
-    navigationOptions: {
-      header: null,
-    },
+
   },
   ChatRoom: {
     screen: ChatRoom,
     navigationOptions: {
       header: null,
+    Maps: {
+        screen: Maps,
+        navigationOptions: {
+            header: null
+        }
     },
-  },
-});
+    Chat: {
+        screen: Chat,
+        navigationOptions: {
+            header: null
+        }
+    },
+    Profile: {
+        screen: Profile,
+        navigationOptions: {
+            header: null
+        }
+    },
+})
+
+
 
 export default createAppContainer(
   createSwitchNavigator({
