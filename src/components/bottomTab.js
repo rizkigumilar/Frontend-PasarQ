@@ -13,25 +13,28 @@ export class bottomTab extends Component {
     render() {
     return (
       <Footer>
-      <FooterTab style={{backgroundColor:"#037F03"}}>
-        <Button onPress={ ()=> { this.props.navigation.navigate('Produk')}} badge vertical>
-          <Badge><Text>2</Text></Badge>
-          <Icon name="apps" />
-          <Text style={{color:"white"}} >Apps</Text>
-        </Button>
-        <Button onPress={ ()=> { this.props.navigation.navigate('Register')}} vertical>
-          <Icon name="camera" />
-          <Text style={{color:"white"}}>Camera</Text>
-        </Button>
-        <Button onPress={ ()=> { this.props.navigation.navigate('Swiper')}}  badge vertical>
-          <Badge warning ><Text>51</Text></Badge>
-          <Icon  name="cart" />
-          <Text style={{color:"white"}}>Keranjang</Text>
-        </Button>
-        
-      </FooterTab>
-    </Footer>
-      
+
+        <FooterTab style={{ backgroundColor: "#037F03" }}>
+          <Button onPress={() => { this.props.navigation.navigate('Product') }} vertical>
+            <Icon name="apps" />
+            <Text style={{ color: "white" }} >Apps</Text>
+          </Button>
+          <Button onPress={() => { this.props.navigation.navigate('Maps') }} vertical>
+            <Icon name="repeat" />
+            <Text style={{ color: "white" }}>Transaksi</Text>
+          </Button>
+          <Button onPress={() => { this.props.navigation.navigate('Chat') }} vertical>
+            <Icon name="chatboxes" />
+            <Text style={{ color: "white" }}>Chat</Text>
+          </Button>
+          <Button onPress={() => { this.props.navigation.navigate('Profile') }} vertical>
+            <Icon name="person" />
+            <Text style={{ color: "white" }}>Profile</Text>
+          </Button>
+
+        </FooterTab>
+      </Footer>
+
     )
   }
 }
