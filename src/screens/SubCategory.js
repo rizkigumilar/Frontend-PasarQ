@@ -18,10 +18,11 @@ export default class SubCategory extends Component {
             <Text>Search</Text>
           </Button>
         </Header>
-        <Tabs tabBarBackgroundColor={'#ffffff'} renderTabBar={() => <ScrollableTab underlineStyle={{ backgroundColor: '#008000' }} />}>
-          <Tab heading={<TabHeading style={{ backgroundColor: "#FFFFFF" }}>
-            <Text style={{ color: 'black' }}>Sayur Mayur</Text>
-          </TabHeading>}>
+        <Tabs  renderTabBar={() => <ScrollableTab underlineStyle={{ backgroundColor: '#008000' }} />}>
+          <Tab heading={
+            <TabHeading style={{ backgroundColor: "#FFFFFF" }}>
+              <Text style={{ color: 'black' }}>Sayur Mayur</Text>
+            </TabHeading>}>
             <CardProduct />
           </Tab>
           <Tab heading={<TabHeading style={{ backgroundColor: "#FFFFFF" }}>

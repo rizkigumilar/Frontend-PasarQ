@@ -18,6 +18,8 @@ import ChatRoom from '../../components/ChatRoom';
 import Maps from '../../screens/MapsTransaction';
 import Chat from '../../screens/Chat';
 import Profile from '../../screens/Profile';
+import DriverJob from '../../screens/DriverJob';
+import DriverMap from '../../screens/DriverMap';
 
 
 const AuthStack = createStackNavigator({
@@ -36,6 +38,18 @@ const AuthStack = createStackNavigator({
 });
 
 const AppStack = createStackNavigator({
+    DriverMap: {
+        screen: DriverMap,
+        navigationOptions: {
+            header: null,
+        },
+    },
+    DriverJob: {
+        screen: DriverJob,
+        navigationOptions: {
+            header: null,
+        },
+    },
     Home: {
         screen: Swiper,
         navigationOptions: {
