@@ -6,19 +6,21 @@ import {
     StyleSheet,
     View,
     Image,
-    Dimensions
 } from 'react-native';
-class Splash extends Component {
-    // constructor() {
-    //     super();
-    //     this._bootstrapAsync();
-    // }
 
-    // _bootstrapAsync = async () => {
-    //     const userToken = await AsyncStorage.getItem('userid');
-    //     this.props.navigation.navigate(userToken ? 'App' : 'Auth');
-    // };
+class Splash extends Component {
+    constructor(props) {
+        super(props);
+        this._bootstrapAsync();
+    }
+
+    _bootstrapAsync = async () => {
+        const userToken = await AsyncStorage.getItem('jwToken');
+        console.log(userToken)
+        this.props.navigation.navigate(userToken ? 'App' : 'Auth');
+    }
     render() {
+
         return (
             <View>
                 <View style={styles.container}>
@@ -33,7 +35,11 @@ class Splash extends Component {
         )
     }
 }
+
+
 export default Splash
+
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -44,11 +50,11 @@ const styles = StyleSheet.create({
         position: 'absolute',
         width: 380,
         height: 380,
-        top: 200
+        top: 150
     },
     auth: {
         position: 'absolute',
-        marginTop: '155%',
+        marginTop: '125%',
         color: 'black',
     },
 })
