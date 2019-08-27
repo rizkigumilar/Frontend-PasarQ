@@ -5,6 +5,7 @@ import Register from '../../screens/Register';
 import AuthLoading from '../../screens/Splash';
 import Home from '../../screens/Home';
 import Produk from '../../screens/produk';
+import Swiper from '../../screens/Homelist';
 
 
 const AuthStack = createStackNavigator({
@@ -23,6 +24,12 @@ const AuthStack = createStackNavigator({
 })
 
 const AppStack = createStackNavigator({
+    Swiper: {
+        screen: Swiper,
+        navigationOptions: {
+            header: null
+        }
+    },
     Home: {
         screen: Home,
         navigationOptions: {
@@ -35,6 +42,7 @@ const AppStack = createStackNavigator({
             header: null
         }
     },
+   
 })
 
 

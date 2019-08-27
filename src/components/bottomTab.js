@@ -4,34 +4,34 @@ import { withNavigation } from 'react-navigation';
 import { Container, Header, Badge, Footer, FooterTab, Button, Icon } from 'native-base';
 
 export class bottomTab extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-
+    constructor(props) {
+      super(props);
+      this.state = { 
+        
+        }
     }
-  }
-  render() {
+    render() {
     return (
       <Footer>
-        <FooterTab style={{ backgroundColor: "#037F03" }}>
-          <Button onPress={() => { this.props.navigation.navigate('Produk') }} badge vertical>
-            <Badge><Text>2</Text></Badge>
-            <Icon name="apps" />
-            <Text style={{ color: "white" }} >Apps</Text>
-          </Button>
-          <Button onPress={() => { this.props.navigation.navigate('Register') }} vertical>
-            <Icon name="camera" />
-            <Text style={{ color: "white" }}>Camera</Text>
-          </Button>
-          <Button onPress={() => { this.props.navigation.navigate('Login') }} badge vertical>
-            <Badge warning ><Text>51</Text></Badge>
-            <Icon name="cart" />
-            <Text style={{ color: "white" }}>Keranjang</Text>
-          </Button>
-
-        </FooterTab>
-      </Footer>
-
+      <FooterTab style={{backgroundColor:"#037F03"}}>
+        <Button onPress={ ()=> { this.props.navigation.navigate('Produk')}} badge vertical>
+          <Badge><Text>2</Text></Badge>
+          <Icon name="apps" />
+          <Text style={{color:"white"}} >Apps</Text>
+        </Button>
+        <Button onPress={ ()=> { this.props.navigation.navigate('Register')}} vertical>
+          <Icon name="camera" />
+          <Text style={{color:"white"}}>Camera</Text>
+        </Button>
+        <Button onPress={ ()=> { this.props.navigation.navigate('Swiper')}}  badge vertical>
+          <Badge warning ><Text>51</Text></Badge>
+          <Icon  name="cart" />
+          <Text style={{color:"white"}}>Keranjang</Text>
+        </Button>
+        
+      </FooterTab>
+    </Footer>
+      
     )
   }
 }

@@ -144,9 +144,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFFFFF',
     },
     logo: {
-        top: 20,
-        height: 372,
-        width: 400
+        height: 250,
+        width: 250
     },
     inputContainer: {
         borderBottomColor: '#F5FCFF',
