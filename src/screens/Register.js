@@ -8,8 +8,9 @@ import {
     TextInput,
     TouchableHighlight,
     Image,
-    Alert
+    Alert,
 } from 'react-native';
+import { Picker, Item } from 'native-base'
 import { ScrollView } from 'react-native-gesture-handler';
 import GetLocation from 'react-native-get-location';
 
@@ -65,7 +66,7 @@ class Register extends Component {
                 address: this.state.address,
                 latitude: this.state.latitude || 0,
                 longitude: this.state.longitude || 0,
-                role_id: 4
+                role_id: this.state.role_id
             }
             await this.setState({
                 user: Data
@@ -147,6 +148,22 @@ class Register extends Component {
                             underlineColorAndroid='transparent'
                             onChangeText={val => this.setState({ 'password': val })} />
                     </View>
+
+                    <Item rounded style={{ marginVertical: 10, borderColor: 'white', backgroundColor: '#DCDCDC', bottom: 15 }}>
+                        <Picker
+                            mode="dropdown"
+                            placeholder="Select Your role"
+                            selectedValue={this.state.role_id}
+                            placeholderStyle="#DCDCDC"
+                            placeholderIconColor="#DCDCDC"
+                            style={{ paddingLeft: 20, color: 'black' }}
+                            onValueChange={(itemValue, itemIndex) =>
+                                this.setState({ role_id: itemValue })
+                            }>
+                            <Picker.Item label="User" value="4" />
+                            <Picker.Item label="Driver" value="3" />
+                        </Picker>
+                    </Item>
 
                     <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={this.Register}>
                         <Text style={styles.loginText}>Register</Text>
