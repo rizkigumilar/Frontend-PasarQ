@@ -23,7 +23,7 @@ export class bottomTab extends Component {
             <Icon name="camera" />
             <Text style={{ color: "white" }}>Camera</Text>
           </Button>
-          <Button onPress={() => { this.props.navigation.navigate('Login') }} badge vertical>
+          <Button onPress={() => { this.props.navigation.navigate('Cart') }} badge vertical>
             <Badge warning ><Text>51</Text></Badge>
             <Icon name="cart" />
             <Text style={{ color: "white" }}>Keranjang</Text>

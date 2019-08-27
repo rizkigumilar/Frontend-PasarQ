@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Image, AsyncStorage, ScrollView, TouchableHighlight } from "react-native";
+import { StyleSheet, View, Image, AsyncStorage, Alert, TouchableHighlight } from "react-native";
 import { Container, Header, Item, Input, Icon, Button, Text, Fab } from 'native-base'
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps'
 import Bottomtab from "../components/bottomTab";
