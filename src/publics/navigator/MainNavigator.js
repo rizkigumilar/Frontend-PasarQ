@@ -1,8 +1,8 @@
 import {
-  createAppContainer,
-  createDrawerNavigator,
-  createStackNavigator,
-  createSwitchNavigator,
+    createAppContainer,
+    createDrawerNavigator,
+    createStackNavigator,
+    createSwitchNavigator,
 } from 'react-navigation';
 
 import Login from '../../screens/Login';
@@ -19,25 +19,26 @@ import Chat from '../../screens/Chat';
 import Profile from '../../screens/Profile';
 
 const AuthStack = createStackNavigator({
-  Login: {
-    screen: Login,
-    navigationOptions: {
-      header: null,
+    Login: {
+        screen: Login,
+        navigationOptions: {
+            header: null,
+        },
     },
-  },
-  Register: {
-    screen: Register,
-    navigationOptions: {
-      header: null,
+    Register: {
+        screen: Register,
+        navigationOptions: {
+            header: null,
+        },
     },
-  },
 });
 
 const AppStack = createStackNavigator({
-  Home: {
-    screen: Home,
-    navigationOptions: {
-      header: null,
+    Home: {
+        screen: Home,
+        navigationOptions: {
+            header: null,
+        },
     },
     Product: {
         screen: Product,
@@ -51,24 +52,25 @@ const AppStack = createStackNavigator({
             header: null
         }
     },
-  },
-  Cart: {
-    screen: Cart,
-    navigationOptions: {
-      header: null,
+    Cart: {
+        screen: Cart,
+        navigationOptions: {
+            header: null,
+        },
     },
-  },
-  Payment: {
-    screen: Payment,
-    navigationOptions: {
-      header: null,
-    },
+    Payment: {
+        screen: Payment,
+        navigationOptions: {
+            header: null,
+        },
 
-  },
-  ChatRoom: {
-    screen: ChatRoom,
-    navigationOptions: {
-      header: null,
+    },
+    ChatRoom: {
+        screen: ChatRoom,
+        navigationOptions: {
+            header: null,
+        }
+    },
     Maps: {
         screen: Maps,
         navigationOptions: {
@@ -92,9 +94,9 @@ const AppStack = createStackNavigator({
 
 
 export default createAppContainer(
-  createSwitchNavigator({
-    AuthLoading: AuthLoading,
-    App: AppStack,
-    Auth: AuthStack,
-  }),
+    createSwitchNavigator({
+        AuthLoading: AuthLoading,
+        App: AppStack,
+        Auth: AuthStack,
+    }),
 );
