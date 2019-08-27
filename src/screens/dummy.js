@@ -35,4 +35,10 @@ export default Data = [
     image: 'https://i1.wp.com/wp.tumbasin.id/wp-content/uploads/2019/06/masako-sapi.png',
     price: 12000,
   },
+  {
+    id: 7,
+    name: 'Masako',
+    image: 'https://i1.wp.com/wp.tumbasin.id/wp-content/uploads/2019/06/masako-sapi.png',
+    price: 12000,
+  },
 ];
