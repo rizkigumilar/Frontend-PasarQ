@@ -8,19 +8,6 @@ import Produk from '../../screens/produk';
 
 
 const AuthStack = createStackNavigator({
-    Produk: {
-        screen: Produk,
-        navigationOptions: {
-            header: null
-        }
-    },
-    Home: {
-        screen: Home,
-        navigationOptions: {
-            header: null
-        }
-    },
-    
     Login: {
         screen: Login,
         navigationOptions: {
@@ -41,7 +28,13 @@ const AppStack = createStackNavigator({
         navigationOptions: {
             header: null
         }
-    }
+    },
+    Produk: {
+        screen: Produk,
+        navigationOptions: {
+            header: null
+        }
+    },
 })
 
 
@@ -52,8 +45,5 @@ export default createAppContainer(createSwitchNavigator(
         App: AppStack,
         Auth: AuthStack
     },
-    {
-        initialRouteName: 'Auth'
-    }
 
 ))
