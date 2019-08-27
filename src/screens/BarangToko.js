@@ -14,7 +14,7 @@ import {
   StatusBar,
 } from 'react-native';
 
-class Cart extends Component {
+class BarangToko extends Component {
   constructor(props) {
     super();
     this.initData = Data;
@@ -50,21 +50,6 @@ class Cart extends Component {
           <Text style={styles.textProduct}>{item.name}</Text>
           <Text style={styles.textProduct}>Rp. {item.price}</Text>
         </View>
-        <View style={styles.qty}>
-          <TouchableOpacity style={styles.buttonMin} onPress={this.onPress}>
-            <Text style={{color: 'white'}}> - </Text>
-          </TouchableOpacity>
-          <TextInput
-            style={styles.inputQty}
-            placeholder="0"
-            keyboardType="default"
-            underlineColorAndroid="transparent"
-            textAlign={'center'}
-          />
-          <TouchableOpacity style={styles.buttonMin} onPress={this.onPress}>
-            <Text style={{color: 'white'}}> + </Text>
-          </TouchableOpacity>
-        </View>
         <View stye={styles.delete}>
           <TouchableOpacity
             style={styles.buttonDelete}
@@ -87,9 +72,7 @@ class Cart extends Component {
         <View style={styles.contentContainer}>
           <View style={styles.address}>
             <Text style={styles.location}>
-              Address: {'\n'}Jl. Selokan Mataram Gg. Nakula No. 303 C, Sinduaji,
-              Mlati, Kutu Dukuh, Sinduadi, Sleman, Kabupaten Sleman, Daerah
-              Istimewa Yogyakarta 83239
+              Toko Sejahtera
             </Text>
           </View>
           <View>
@@ -102,12 +85,9 @@ class Cart extends Component {
             <View style={styles.checkoutBtn}>
               <TouchableOpacity
                 style={styles.button}
-                onPress={() => this.props.navigation.navigate('Payment')}>
-                <Text style={{color: 'white'}}> Checkout </Text>
+                onPress={() => alert('tambah barang')}>
+                <Text style={{color: 'white'}}> Tambah Barang </Text>
               </TouchableOpacity>
-              <View style={styles.total}>
-                <Text style={{color: 'red'}}>Total : Rp. 50000</Text>
-              </View>
             </View>
           </View>
           <AwesomeAlert
@@ -134,7 +114,7 @@ class Cart extends Component {
   }
 }
 
-export default Cart;
+export default BarangToko;
 
 const styles = StyleSheet.create({
   contentContainer: {
@@ -142,7 +122,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   address: {
-    backgroundColor: 'grey',
+    backgroundColor: '#008000',
+    height : 60,
+    justifyContent: "center"
   },
   image: {
     flex: 1,
