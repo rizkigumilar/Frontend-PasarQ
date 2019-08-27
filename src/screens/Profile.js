@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Image, AsyncStorage, Alert, TouchableHighlight, Text } from "react-native";
+import { StyleSheet, View, Image, AsyncStorage, Alert, TouchableHighlight, Text, StatusBar } from "react-native";
+import BottomTab from '../components/bottomTab';
 
 
 
@@ -24,6 +25,7 @@ export default class Profile extends Component {
     render() {
         return (
             <View>
+                <StatusBar backgroundColor="green" />
                 <View>
                     <Text>Profile</Text>
 
@@ -33,6 +35,7 @@ export default class Profile extends Component {
                         </TouchableHighlight>
                     </View>
                 </View>
+                <BottomTab />
             </View>
         )
     }

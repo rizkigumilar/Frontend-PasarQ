@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet, View, Image, AsyncStorage, Alert, TouchableHighlight, StatusBar } from "react-native";
 import { Header, Item, Icon, Button, Input, Text, Fab } from 'native-base'
-import Bottomtab from "../components/bottomTab";
+import Bottomtab from "../components/BottomTabMitra";
 
 
 export default class Home extends Component {
@@ -11,19 +11,10 @@ export default class Home extends Component {
         return (
             <View>
                 <StatusBar style={{ backgroundColor: '#008000' }} />
-                <Header style={{ backgroundColor: "#037F03" }} searchBar rounded>
-                    <Item>
-                        <Icon name="ios-search" />
-                        <Input placeholder="Search" />
-                        <Icon name="ios-people" />
-                    </Item>
-                    <Button transparent>
-                        <Text>Search</Text>
-                    </Button>
-                </Header>
+
                 <View style={{ top: 100 }}>
-                    <Fab position="bottomRight" onPress={() => this.props.navigation.navigate('Cart')} style={{ backgroundColor: '#008000', top: "-100%", position: "absolute" }} >
-                        <Icon name="cart" type="Ionicons" style={{ color: 'white' }} />
+                    <Fab position="bottomRight" onPress={() => this.props.navigation.navigate('Add')} style={{ backgroundColor: '#008000', top: "-100%", position: "absolute" }} >
+                        <Icon name="add" type="Ionicons" style={{ color: 'white' }} />
                     </Fab>
 
                     <Bottomtab style={styles.BottomtabStyele} />

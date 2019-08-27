@@ -8,8 +8,8 @@ import {
 import Login from '../../screens/Login';
 import Register from '../../screens/Register';
 import AuthLoading from '../../screens/Splash';
-import Home from '../../screens/Home';
-import Swiper from '../../screens/Homelist';
+import HomeMitra from '../../screens/HomeMitra';
+import HomeUser from '../../screens/Homelist';
 import Product from '../../screens/SubCategory';
 import DetailProduct from '../../screens/DetailProduct';
 import Cart from '../../screens/Cart';
@@ -18,6 +18,7 @@ import ChatRoom from '../../components/ChatRoom';
 import Maps from '../../screens/MapsTransaction';
 import Chat from '../../screens/Chat';
 import Profile from '../../screens/Profile';
+import Add from '../../screens/AddProduct';
 
 
 const AuthStack = createStackNavigator({
@@ -37,10 +38,16 @@ const AuthStack = createStackNavigator({
 
 const AppStack = createStackNavigator({
     Home: {
-        screen: Swiper,
+        screen: HomeMitra,
         navigationOptions: {
             header: null,
         },
+    },
+    Add: {
+        screen: Add,
+        navigationOptions: {
+            header: null
+        }
     },
     Product: {
         screen: Product,
