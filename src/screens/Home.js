@@ -35,6 +35,7 @@ export default class Home extends Component {
             <ScrollView>
                 <View>
                     <StatusBar backgroundColor='white' barStyle='dark-content' />
+
                     <Text>Home</Text>
                     <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={del}>
                         <Text style={styles.loginText}>Logout</Text>
