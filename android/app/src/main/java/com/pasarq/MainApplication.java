@@ -2,12 +2,14 @@ package com.pasarq;
 
 import android.app.Application;
 import android.util.Log;
-
+import com.bottomsheetbehavior.BottomSheetBehaviorPackage;
 import com.facebook.react.PackageList;
 import com.facebook.hermes.reactexecutor.HermesExecutorFactory;
 import com.facebook.react.bridge.JavaScriptExecutorFactory;
 import com.facebook.react.ReactApplication;
-import com.github.douglasjunior.reactNativeGetLocation.ReactNativeGetLocationPackage;
+import com.bottomsheetbehavior.BottomSheetBehaviorPackage;
+import com.oblador.vectoricons.VectorIconsPackage;
+import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;

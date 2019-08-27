@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { withNavigation } from 'react-navigation';
-import { login } from '../publics/redux/actions/user';
-import { connect } from 'react-redux';
 import {
     AsyncStorage,
     StyleSheet,
@@ -14,82 +12,79 @@ import {
 } from 'react-native';
 import Logo from '../assets/logo.png'
 import { ScrollView } from 'react-native-gesture-handler';
-import GetLocation from 'react-native-get-location';
 
 
 class Login extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            data: [],
-            user: [],
-            email: '',
-            password: '',
-            latitude: 0,
-            longitude: 0,
-        };
-    }
+    // constructor(props) {
+    //     super(props);
+    //     this.state = {
+    //         user: [],
+    //         email: '',
+    //         password: '',
+    //         latitude: null,
+    //         longitude: null,
+    //     };
+    // }
 
-    componentDidMount = async () => {
-        await this.getCurrentPosition()
-    }
+    // componentDidMount = async () => {
+    //     await this.getCurrentPosition()
+    // }
 
-    getCurrentPosition() {
-        GetLocation.getCurrentPosition({
-            enableHighAccuracy: true,
-            timeout: 15000,
-        })
-            .then(location => {
-                this.setState({
-                    latitude: location.latitude,
-                    longitude: location.longitude
-                })
-            })
-            .catch(error => {
-                const { code, message } = error;
-                console.warn(code, message);
-            })
-    }
+    // getCurrentPosition() {
+    //     GetLocation.getCurrentPosition({
+    //         enableHighAccuracy: true,
+    //         timeout: 15000,
+    //     })
+    //         .then(location => {
+    //             this.setState({
+    //                 latitude: location.latitude,
+    //                 longitude: location.longitude
+    //             })
+    //         })
+    //         .catch(error => {
+    //             const { code, message } = error;
+    //             console.warn(code, message);
+    //         })
+    // }
 
-    log = async () => {
-        if (this.state.email == '' && this.state.password == '') {
-            alert('Harap mengisi Semua Form!')
-        } else {
-            this.state.data.push({
-                email: this.state.email,
-                password: this.state.password
-            });
-            await this.props.dispatch(login(this.state.data[0]))
-                .then(() => {
-                    Alert.alert(
-                        'Login',
-                        'Login Success',
-                        [
-                            {
-                                text: 'OK', onPress: () => this.props.navigation.navigate('AuthLoading', {
-                                    userid: this.state.userid,
-                                    token: this.state.token,
-                                    name: this.state.name,
-                                    email: this.state.email
-                                })
-                            },
-                        ],
-                    );
-                })
-                .catch(() => {
-                    Alert.alert(
-                        'Login',
-                        'Login Failed',
-                        [
-                            { text: 'Try Again' },
-                        ],
-                    );
-                })
-        }
-    }
+    // log = async () => {
+    //     if (this.state.email == '' && this.state.password == '') {
+    //         alert('Harap mengisi Semua Form!')
+    //     } else {
+    //         Database.ref('/user').orderByChild('email').equalTo(this.state.email).once('value', (result) => {
+    //             let data = result.val();
+    //             if (data !== null) {
+    //                 let user = Object.values(data);
+    //                 console.log(user);
+    //                 AsyncStorage.setItem('user', user[0].email)
+    //                 AsyncStorage.setItem('name', user[0].name)
+    //                 AsyncStorage.setItem('photo', user[0].photo)
+    //             }
+    //         });
+
+    //         await Auth.signInWithEmailAndPassword(this.state.email, this.state.password)
+    //             .then((response) => {
+    //                 Database.ref('/user/' + response.user.uid).update({ status: "Online" })
+    //                 AsyncStorage.setItem('userid', response.user.uid)
+    //                 Alert.alert(
+    //                     'Login',
+    //                     'Login Success', [
+    //                         { text: 'OK', onPress: () => this.props.navigation.navigate('Maps') }
+    //                     ]
+    //                 )
+    //             })
+    //             .catch(error => {
+    //                 alert(error.message)
+    //                 this.setState({
+    //                     email: '',
+    //                     password: '',
+    //                     refreshing: false
+    //                 });
+    //             })
+    //     }
+    // };
 
     render() {
-
         return (
             <ScrollView>
                 <View behavior="padding"
@@ -129,12 +124,8 @@ class Login extends Component {
 
     }
 }
-const mapStateToProps = state => {
-    return {
-        user: state.user
-    };
-};
-export default connect(mapStateToProps)(withNavigation(Login))
+
+export default withNavigation(Login)
 
 const styles = StyleSheet.create({
     container: {
@@ -144,7 +135,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFFFFF',
     },
     logo: {
-        top: 20,
+        marginBottom: 10,
         height: 372,
         width: 400
     },
@@ -158,13 +149,13 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         flexDirection: 'row',
         alignItems: 'center',
-        bottom: 15
+        bottom: 30
     },
     title: {
         fontSize: 40,
         marginBottom: 30,
         marginLeft: 70,
-        bottom: 10,
+        bottom: 30,
         fontWeight: "bold"
     },
     inputs: {
@@ -187,12 +178,54 @@ const styles = StyleSheet.create({
         marginBottom: 30,
         width: 250,
         borderRadius: 30,
-        bottom: 15
+        bottom: 30
     },
     loginButton: {
-        backgroundColor: "#008000",
+        backgroundColor: "#27f607",
     },
     loginText: {
         color: 'white',
     },
+    avatar: {
+        width: 130,
+        height: 130,
+        borderRadius: 70,
+        borderWidth: 4,
+        borderColor: "white",
+        marginBottom: 10,
+        alignSelf: 'center',
+        position: 'absolute',
+        marginTop: -70,
+        backgroundColor: 'white'
+    },
+    name: {
+        fontSize: 22,
+        color: "#FFFFFF",
+        fontWeight: '600',
+    },
+    body: {
+        marginTop: 40,
+    },
+    bodyContent: {
+        flex: 1,
+        alignItems: 'center',
+        padding: 30,
+    },
+    name: {
+        fontSize: 28,
+        color: "#696969",
+        fontWeight: "600"
+    },
+    info: {
+        fontSize: 16,
+        color: "#00BFFF",
+        marginTop: 5
+    },
+    description: {
+        fontSize: 16,
+        color: "#696969",
+        marginTop: 10,
+        textAlign: 'center',
+        marginBottom: 50
+    }
 });
