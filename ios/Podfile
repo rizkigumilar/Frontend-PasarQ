@@ -27,10 +27,13 @@ target 'PasarQ' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
+<<<<<<< HEAD
   pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
+=======
+>>>>>>> d983e8ff28543bd3a1f3f43d1b410fac0c2998d1
   target 'PasarQTests' do
     inherit! :search_paths
     # Pods for testing
