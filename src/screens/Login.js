@@ -165,8 +165,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFFFFF',
     },
     logo: {
-        height: 372,
-        width: 400
+        height: 250,
+        width: 250
     },
     wraper: {
         height: '100%'
