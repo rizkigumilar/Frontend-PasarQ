@@ -18,7 +18,7 @@ class App extends Component {
             this.setState({
                 view: <MainNavigator />
             })
-        }, 200)
+        }, 2000)
     }
     render() {
         return (
