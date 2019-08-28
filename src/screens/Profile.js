@@ -9,6 +9,7 @@ export default class Profile extends Component {
     del = () => {
         AsyncStorage.removeItem('userid')
         AsyncStorage.removeItem('jwToken')
+        AsyncStorage.removeItem('role_id')
             .then(() => {
                 this.setState({ isLogin: false })
                 this.setState({ data: [] })

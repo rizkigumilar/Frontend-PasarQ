@@ -2,10 +2,10 @@ import axios from 'axios';
 import { AsyncStorage } from 'react-native'
 let url = ` http://pasarqita.muhammadrisano.online`
 
-export const getCategory = () => {
+export const getPayment = () => {
     return {
-        type: 'GET_CATEGORY',
-        payload: axios.get(`${url}/category`,
+        type: 'GET_PAYMENT',
+        payload: axios.get(`${url}/payment`,
             {
                 headers: {
                     "authorization": "semangat-team-faraday"
@@ -14,10 +14,10 @@ export const getCategory = () => {
     }
 }
 
-export const getCategoryId = (id_category) => {
+export const getPaymentId = (id_payment) => {
     return {
-        type: 'GET_CATEGORYID', id_category,
-        payload: axios.get(`${url}/category/${id_category}`,
+        type: 'GET_PAYMENTID', id_payment,
+        payload: axios.get(`${url}/payment/${id_payment}`,
             {
                 headers: {
                     "authorization": "semangat-team-faraday"
@@ -26,10 +26,10 @@ export const getCategoryId = (id_category) => {
     }
 }
 
-export const postCategory = () => {
+export const postPayment = () => {
     return {
-        type: 'POST_CATEGORY',
-        payload: axios.post(`${url}/category`,
+        type: 'POST_PAYMENT',
+        payload: axios.post(`${url}/payment`,
             {
                 headers: {
                     "authorization": "semangat-team-faraday"
@@ -38,10 +38,10 @@ export const postCategory = () => {
     }
 }
 
-export const editCategory = (data, id_category) => {
+export const editPayment = (data, id_payment) => {
     return {
-        type: 'PATCH_CATEGORY', id_category,
-        payload: axios.patch(`${url}/category/${id_category}`,
+        type: 'PATCH_PAYMENT', id_payment,
+        payload: axios.patch(`${url}/payment/${id_payment}`,
             {
                 headers: {
                     "authorization": "semangat-team-faraday"
@@ -50,10 +50,10 @@ export const editCategory = (data, id_category) => {
     }
 }
 
-export const editCategory = (data, id_category) => {
+export const editPayment = (data, id_payment) => {
     return {
-        type: 'PATCH_CATEGORY', id_category,
-        payload: axios.patch(`${url}/category/${id_category}`,
+        type: 'PATCH_PAYMENT', id_payment,
+        payload: axios.patch(`${url}/payment/${id_payment}`,
             {
                 headers: {
                     "authorization": "semangat-team-faraday"
@@ -62,10 +62,10 @@ export const editCategory = (data, id_category) => {
     }
 }
 
-export const deleteCategory = (id_category) => {
+export const deletePayment = (id_payment) => {
     return {
-        type: 'PATCH_CATEGORY', id_category,
-        payload: axios.delete(`${url}/category/${id_category}`,
+        type: 'PATCH_PAYMENT', id_payment,
+        payload: axios.delete(`${url}/payment/${id_payment}`,
             {
                 headers: {
                     "authorization": "semangat-team-faraday"
