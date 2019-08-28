@@ -8,7 +8,7 @@ import {
 import Login from '../../screens/Login';
 import Register from '../../screens/Register';
 import AuthLoading from '../../screens/Splash';
-import HomeMitra from '../../screens/ProfileMitra';
+import ProfileMitra from '../../screens/ProfileMitra';
 import HomeUser from '../../screens/HomeUser';
 import HomeDriver from '../../screens/HomeDriver'
 import Product from '../../screens/SubCategory';
@@ -23,7 +23,7 @@ import DriverMap from '../../screens/DriverMap';
 import BarangToko from '../../screens/BarangToko';
 import Add from '../../screens/AddProduct';
 import DriverJob from '../../screens/DriverJob';
-import HomeMitra1 from '../../screens/HomeMitra1';
+import HomeMitra from '../../screens/HomeMitra';
 import AddToko from '../../screens/AddToko';
 
 const AuthStack = createStackNavigator({
@@ -108,13 +108,13 @@ const UserStack = createStackNavigator({
 
 const MitraStack = createStackNavigator({
     Home: {
-        screen: HomeMitra1,
+        screen: HomeMitra,
         navigationOptions: {
             header: null,
         },
     },
     Toko: {
-        screen: HomeMitra,
+        screen: ProfileMitra,
         navigationOptions: {
             header: null,
         },
