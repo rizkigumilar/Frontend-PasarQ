@@ -82,10 +82,10 @@ export default class App extends Component {
     return (
       <Container>
         <StatusBar backgroundColor="green" />
-        <Header style={{ backgroundColor: 'green' }} searchBar rounded>
+        <Header style={{ backgroundColor: 'white' }} searchBar rounded>
           <Item>
             <Icon name="ios-search" />
-            <Input placeholder="Search" />
+            <Input placeholder="Search" style={{ borderColor: 'green' }} />
             <Icon name="ios-people" />
           </Item>
           <Button transparent>
@@ -110,8 +110,7 @@ export default class App extends Component {
           position={this.state.position}
           onPositionChanged={position => this.setState({ position })} />
         <Card style={{ height: 150 }}>
-          <Text>Kategori Produk</Text>
-
+          <Text style={{ fontSize: 20, fontWeight: 'bold', justifyContent: 'center', textAlign: 'center' }}>Kategori Produk</Text>
           <FlatList
             horizontal
             data={this.state.data2}

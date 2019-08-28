@@ -149,10 +149,12 @@ const DriverStack = createStackNavigator({
             header: null
         }
     },
-  DriverMap: {
-    screen: DriverMap,
-    navigationOptions: {
-      header: null
+    DriverMap: {
+        screen: DriverMap,
+        navigationOptions: {
+            header: null
+        }
+    }
 })
 
 
@@ -163,5 +165,5 @@ export default createAppContainer(
         HomeMitra: MitraStack,
         HomeDriver: DriverStack,
         Auth: AuthStack,
-    }),
-);
+    })
+)

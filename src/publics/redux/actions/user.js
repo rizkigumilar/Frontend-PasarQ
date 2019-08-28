@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { AsyncStorage } from 'react-native'
-let url = ` http://192.168.6.112:4000`
+let url = ` http://pasarqita.muhammadrisano.online`
 
 export const getUsers = () => {
     return {
@@ -15,7 +15,6 @@ export const getUsers = () => {
             })
     }
 }
-
 
 export const register = (data) => {
     console.log(data)
