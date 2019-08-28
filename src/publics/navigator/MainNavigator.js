@@ -8,7 +8,7 @@ import {
 import Login from '../../screens/Login';
 import Register from '../../screens/Register';
 import AuthLoading from '../../screens/Splash';
-import HomeMitra from '../../screens/HomeMitra';
+import HomeMitra from '../../screens/ProfileMitra';
 import HomeUser from '../../screens/HomeUser';
 import HomeDriver from '../../screens/HomeDriver'
 import Product from '../../screens/SubCategory';
