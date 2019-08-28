@@ -44,7 +44,10 @@ class Chat extends Component {
     return (
       <View style={styles.item}>
         <View style={styles.image}>
-          <Image style={styles.imageProduct} source={require('../assets/group.png')} />
+          <Image
+            style={styles.imageProduct}
+            source={require('../assets/group.png')}
+          />
         </View>
         <View style={styles.desc}>
           <Text style={styles.textProduct}>Nama Juragan</Text>
@@ -73,16 +76,19 @@ class Chat extends Component {
               <Text>Home</Text>
             </View>
           </View>
-          <View>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('ChatRoom')}>
-              <FlatList
-                style={styles.flatList}
-                data={this.state.data}
-                keyExtractor={item => item.id.toString()}
-                renderItem={this.renderItem}
-              />
-            </TouchableOpacity>
-          </View>
+          <ScrollView>
+            <View>
+              <TouchableOpacity
+                onPress={() => this.props.navigation.navigate('ChatRoom')}>
+                <FlatList
+                  style={styles.flatList}
+                  data={this.state.data}
+                  keyExtractor={item => item.id.toString()}
+                  renderItem={this.renderItem}
+                />
+              </TouchableOpacity>
+            </View>
+          </ScrollView>
         </View>
       </Fragment>
     );

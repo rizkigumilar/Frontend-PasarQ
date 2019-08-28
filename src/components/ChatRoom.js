@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import {GiftedChat} from 'react-native-gifted-chat';
-import {StyleSheet, View, Text, Image} from 'react-native';
+import {StyleSheet, View, Text, Image, ScrollView} from 'react-native';
 import {Icon} from 'native-base';
 
 class ChatRoom extends React.Component {
@@ -54,13 +54,13 @@ class ChatRoom extends React.Component {
             <Text style={styles.juragan}>Nama Juragan</Text>
           </View>
         </View>
-        <GiftedChat
-          messages={this.state.messages}
-          onSend={messages => this.onSend(messages)}
-          user={{
-            _id: 1,
-          }}
-        />
+          <GiftedChat
+            messages={this.state.messages}
+            onSend={messages => this.onSend(messages)}
+            user={{
+              _id: 1,
+            }}
+          />
       </Fragment>
     );
   }
@@ -85,20 +85,20 @@ const styles = StyleSheet.create({
   },
   label: {
     justifyContent: 'center',
-    flexDirection : 'row',
-    flex : 1
+    flexDirection: 'row',
+    flex: 1,
   },
   imageProduct: {
     width: 50,
     height: 50,
-    justifyContent : "center",
-    marginTop : 5
+    justifyContent: 'center',
+    marginTop: 5,
   },
-  juragan : {
+  juragan: {
     flex: 1,
-    color : 'black',
-    justifyContent : "center",
-    marginTop : 20,
-    marginLeft : 5
-  }
+    color: 'black',
+    justifyContent: 'center',
+    marginTop: 20,
+    marginLeft: 5,
+  },
 });
