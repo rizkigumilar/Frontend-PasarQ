@@ -38,12 +38,6 @@ const AuthStack = createStackNavigator({
 });
 
 const AppStack = createStackNavigator({
-    DriverMap: {
-        screen: DriverMap,
-        navigationOptions: {
-            header: null,
-        },
-    },
     DriverJob: {
         screen: DriverJob,
         navigationOptions: {
@@ -52,6 +46,12 @@ const AppStack = createStackNavigator({
     },
     Home: {
         screen: Swiper,
+        navigationOptions: {
+            header: null,
+        },
+    },
+    DriverMap: {
+        screen: DriverMap,
         navigationOptions: {
             header: null,
         },

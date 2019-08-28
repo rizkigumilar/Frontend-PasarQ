@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import { View, Text, FlatList, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native'
 import Data from '../components/Data'
 import { Header,Left,Body,Title,Button,Icon } from 'native-base'
+import { withNavigation } from 'react-navigation';
 
-export default class ListSend extends Component {
+export class ListJob extends Component {
     constructor(props){
         super(props)
         this.initData = Data
@@ -22,7 +23,7 @@ export default class ListSend extends Component {
                     <Text style={styles.textProduct}>Quantity: {item.qyt}</Text>
                 </View>
                 <View style={styles.qty}>
-                    <TouchableOpacity style={styles.buttonMin}>
+                    <TouchableOpacity onPress={() => { this.props.navigation.navigate('DriverMap') }} style={styles.buttonMin}>
                         <Text style={{ color: 'white' }}> Antar Barang </Text>
                     </TouchableOpacity>
                 </View>
@@ -46,6 +47,9 @@ export default class ListSend extends Component {
         )
     }
 }
+
+export default withNavigation(ListJob)
+
 
 const styles = StyleSheet.create({
     item: {
