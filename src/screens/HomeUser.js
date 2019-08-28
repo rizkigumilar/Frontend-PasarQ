@@ -84,11 +84,10 @@ export default class App extends Component {
         <StatusBar backgroundColor="green" />
         <Header style={{ backgroundColor: 'white' }} searchBar rounded>
           <Item>
+            <Input placeholder="Search" />
             <Icon name="ios-search" />
-            <Input placeholder="Search" style={{ borderColor: 'green' }} />
-            <Icon name="ios-people" />
           </Item>
-          <Button transparent>
+          <Button>
             <Text>Search</Text>
           </Button>
         </Header>
