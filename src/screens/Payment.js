@@ -10,13 +10,79 @@ import {
   TextInput,
   ScrollView,
   Alert,
+  AsyncStorage,
 } from 'react-native';
-import {withNavigation} from 'react-navigation';
+import {withNavigation, NavigationEvents} from 'react-navigation';
+import Geocoder from 'react-native-geocoder';
 
 class Payment extends Component {
+  state = {
+    email: '',
+    name: '',
+    address: '',
+    telp: '',
+  };
+
+  constructor(props) {
+    super(props);
+    AsyncStorage.getItem('email').then(value => {
+      this.setState({email: value});
+    });
+    AsyncStorage.getItem('name').then(value => {
+      this.setState({name: value});
+    });
+    AsyncStorage.getItem('address').then(value => {
+      this.setState({address: value});
+    });
+    AsyncStorage.getItem('telp').then(value => {
+      this.setState({telp: value});
+    });
+  }
+
+  
+  
+
+  geocode = async () => {
+    var lat = this.state.region.latitude
+    var lng = this.state.region.longitude
+    var Location = {lat, lng};
+    Geocoder.geocodePosition(Location);
+    const address = res[0].subLocality + ', ' + res[0].subAdminArea + ', ' + res[0].adminArea;
+
+    return address
+  };
+
   render() {
     return (
       <Fragment>
+        <NavigationEvents
+          onWillFocus={() =>
+            AsyncStorage.getItem('email').then(value => {
+              this.setState({email: value});
+            })
+          }
+        />
+        <NavigationEvents
+          onWillFocus={() =>
+            AsyncStorage.getItem('name').then(value => {
+              this.setState({name: value});
+            })
+          }
+        />
+        <NavigationEvents
+          onWillFocus={() =>
+            AsyncStorage.getItem('address').then(value => {
+              this.setState({address: value});
+            })
+          }
+        />
+        <NavigationEvents
+          onWillFocus={() =>
+            AsyncStorage.getItem('telp').then(value => {
+              this.setState({telp: value});
+            })
+          }
+        />
         <View style={styles.header}>
           <View style={styles.back}>
             <Icon
@@ -32,22 +98,18 @@ class Payment extends Component {
           </View>
         </View>
         <View style={styles.containerProfile}>
-          <Text style={{marginBottom: 5}}>Rezha Riansyah R</Text>
+          <Text style={{marginBottom: 5}}>{this.state.name}</Text>
           <View style={{flexDirection: 'row'}}>
             <Icon name="pin" size={32} />
-            <Text style={styles.text}>
-              Jl. Selokan Mataram Gg. Nakula No. 303 C, Sinduaji, Mlati, Kutu
-              Dukuh, Sinduadi, Sleman, Kabupaten Sleman, Daerah Istimewa
-              Yogyakarta 83239
-            </Text>
+            <Text style={styles.text}>{this.state.address}</Text>
           </View>
           <View style={{flexDirection: 'row', marginTop: 5}}>
             <Icon name="call" size={32} />
-            <Text style={styles.text}>0198239082398398</Text>
+            <Text style={styles.text}>{this.state.telp}</Text>
           </View>
           <View style={{flexDirection: 'row', marginTop: 5}}>
             <Icon name="mail" size={32} />
-            <Text style={styles.text}>rezhariansyah@gmail.com</Text>
+            <Text style={styles.text}>{this.state.email}</Text>
           </View>
         </View>
         <View style={styles.containerDelivery}>
