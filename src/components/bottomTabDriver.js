@@ -30,12 +30,13 @@ export class bottomTab extends Component {
     render() {
     return (
       <Footer>
-
         <FooterTab style={{ backgroundColor: "#037F03" }}>
+
           <Button onPress={() => { this.props.navigation.navigate('DetailPelanggan') }} vertical>
             <Icon type="FontAwesome" name="user-circle" />
             <Text style={{ color: "white" }} >Detail Job</Text>
           </Button>
+
           <Button onPress={() => { this.JobDone()}} vertical>
             <Icon type="FontAwesome" name="check-circle" />
             <Text style={{ color: "white" }}>Selesai Antar</Text>
@@ -43,7 +44,6 @@ export class bottomTab extends Component {
 
         </FooterTab>
       </Footer>
-
     )
   }
 }

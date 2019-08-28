@@ -38,14 +38,14 @@ const AuthStack = createStackNavigator({
 });
 
 const AppStack = createStackNavigator({
-    DriverJob: {
-        screen: DriverJob,
+    Home: {
+        screen: Swiper,
         navigationOptions: {
             header: null,
         },
     },
-    Home: {
-        screen: Swiper,
+    DriverJob: {
+        screen: DriverJob,
         navigationOptions: {
             header: null,
         },
