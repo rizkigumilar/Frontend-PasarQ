@@ -9,7 +9,7 @@ import Login from '../../screens/Login';
 import Register from '../../screens/Register';
 import AuthLoading from '../../screens/Splash';
 import HomeMitra from '../../screens/HomeMitra';
-import HomeUser from '../../screens/Homelist';
+import HomeUser from '../../screens/HomeUser';
 import Product from '../../screens/SubCategory';
 import DetailProduct from '../../screens/DetailProduct';
 import Cart from '../../screens/Cart';
@@ -18,8 +18,8 @@ import ChatRoom from '../../components/ChatRoom';
 import Maps from '../../screens/MapsTransaction';
 import Chat from '../../screens/Chat';
 import Profile from '../../screens/Profile';
-import Add from '../../screens/AddProduct';
-
+import BarangToko from '../../screens/BarangToko';
+import Add from '../../screens/AddProduct'
 
 const AuthStack = createStackNavigator({
     Login: {
@@ -36,30 +36,24 @@ const AuthStack = createStackNavigator({
     },
 });
 
-const AppStack = createStackNavigator({
+const UserStack = createStackNavigator({
     Home: {
-        screen: HomeMitra,
+        screen: HomeUser,
         navigationOptions: {
             header: null,
         },
     },
-    Add: {
-        screen: Add,
-        navigationOptions: {
-            header: null
-        }
-    },
     Product: {
         screen: Product,
         navigationOptions: {
-            header: null
-        }
+            header: null,
+        },
     },
     DetailProduct: {
         screen: DetailProduct,
         navigationOptions: {
-            header: null
-        }
+            header: null,
+        },
     },
     Cart: {
         screen: Cart,
@@ -72,40 +66,73 @@ const AppStack = createStackNavigator({
         navigationOptions: {
             header: null,
         },
-
     },
     ChatRoom: {
         screen: ChatRoom,
         navigationOptions: {
             header: null,
-        }
+        },
     },
     Maps: {
         screen: Maps,
         navigationOptions: {
-            header: null
-        }
+            header: null,
+        },
     },
     Chat: {
         screen: Chat,
         navigationOptions: {
-            header: null
-        }
+            header: null,
+        },
     },
     Profile: {
         screen: Profile,
         navigationOptions: {
-            header: null
-        }
+            header: null,
+        },
+    },
+
+});
+
+const MitraStack = createStackNavigator({
+    Home: {
+        screen: HomeMitra,
+        navigationOptions: {
+            header: null,
+        },
+    },
+    Add: {
+        screen: Add,
+        navigationOptions: {
+            header: null,
+        },
+    },
+    BarangToko: {
+        screen: BarangToko,
+        navigationOptions: {
+            header: null,
+        },
+    },
+    Chat: {
+        screen: Chat,
+        navigationOptions: {
+            header: null,
+        },
+    },
+    ChatRoom: {
+        screen: ChatRoom,
+        navigationOptions: {
+            header: null,
+        },
     },
 })
-
 
 
 export default createAppContainer(
     createSwitchNavigator({
         AuthLoading: AuthLoading,
-        App: AppStack,
+        HomeUser: UserStack,
+        HomeMitra: MitraStack,
         Auth: AuthStack,
     }),
 );

@@ -9,16 +9,28 @@ import {
 } from 'react-native';
 import { withNavigation } from 'react-navigation';
 class Splash extends Component {
-    constructor(props) {
-        super(props);
-        this._bootstrapAsync();
-    }
+    constructor() {
+        super();
 
-    _bootstrapAsync = async () => {
-        const userToken = await AsyncStorage.getItem('jwToken');
-        console.log(userToken)
-        this.props.navigation.navigate(userToken ? 'App' : 'Auth');
     }
+    componentDidMount = async () => {
+        await this._bootstrapAsync();
+    }
+    _bootstrapAsync = async () => {
+        const roleid = await AsyncStorage.getItem('role_id')
+        console.log(roleid)
+        console.log(this.props)
+        if (roleid == 4) {
+            this.props.navigation.navigate('HomeUser')
+        } else if (roleid == 3) {
+            this.props.navigation.navigate('HomeDriver')
+        } else if (roleid == 2) {
+            this.props.navigation.navigate('HomeMitra')
+        } else {
+            this.props.navigation.navigate('Auth')
+        }
+
+    };
     render() {
 
         return (

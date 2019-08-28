@@ -76,7 +76,8 @@ class Login extends Component {
                                     userid: this.state.userid,
                                     token: this.state.token,
                                     name: this.state.name,
-                                    email: this.state.email
+                                    email: this.state.email,
+                                    role: this.state.role_id
                                 })
                             },
                         ],
