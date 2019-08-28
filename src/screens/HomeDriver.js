@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet, View, Image, AsyncStorage, Alert, TouchableHighlight, StatusBar } from "react-native";
 import { Container, Content, Form, Label, Header, Item, Icon, Button, Input, Text, Fab } from 'native-base'
-import Bottomtab from "../components/BottomTabDriver";
+import Bottomtab from "../components/BottomTabsDriver";
 
 
 export default class Home extends Component {
