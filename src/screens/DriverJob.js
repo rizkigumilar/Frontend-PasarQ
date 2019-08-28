@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Container, Header,Body, Title,Left,Button,Icon, Tab, Tabs,TabHeading,Text,ScrollableTab } from 'native-base';
-import Tab1 from './SubCategory';
 import Tab2 from '../components/ListJob';
 import { withNavigation } from 'react-navigation';
 

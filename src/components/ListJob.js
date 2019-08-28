@@ -4,8 +4,9 @@ import Data from '../components/Data'
 import { Header,Left,Body,Title,Button,Icon } from 'native-base'
 import { withNavigation } from 'react-navigation';
 
-export class ListJob extends Component {
-    constructor(props){
+export default class ListJob extends Component {
+    constructor(props) {
+
         super(props)
         this.initData = Data
         this.state = {
@@ -13,7 +14,7 @@ export class ListJob extends Component {
         }
     }
     renderItem = ({ item }) => {
-        return(
+        return (
             <View style={styles.item}>
                 <View style={styles.image}>
                     <Image style={styles.imageProduct} source={{ uri: `${item.image}` }} />
@@ -31,25 +32,25 @@ export class ListJob extends Component {
         )
     }
 
-    render(){
-        return(
+
+    render() {
+        return (
             <ScrollView>
-            
-            <View style={styles.contentContainer}>
-                <FlatList
+                <View style={styles.contentContainer}>
+                    <FlatList
                         style={styles.flatList}
                         data={this.state.data}
                         keyExtractor={item => item.id_item.toString()}
                         renderItem={this.renderItem}
                     />
-            </View>
+
+                </View>
             </ScrollView>
         )
     }
 }
 
 export default withNavigation(ListJob)
-
 
 const styles = StyleSheet.create({
     item: {

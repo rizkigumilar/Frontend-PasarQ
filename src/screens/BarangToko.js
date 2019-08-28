@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from 'react';
+import React, { Component, Fragment } from 'react';
 import Data from '../dummyData/Data';
 import AwesomeAlert from 'react-native-awesome-alert';
 import {
@@ -13,8 +13,9 @@ import {
   Alert,
   StatusBar,
 } from 'react-native';
+import { Fab, Icon } from 'native-base';
 
-class Cart extends Component {
+class BarangToko extends Component {
   constructor(props) {
     super();
     this.initData = Data;
@@ -40,30 +41,15 @@ class Cart extends Component {
     });
   };
 
-  renderItem = ({item}) => {
+  renderItem = ({ item }) => {
     return (
       <View style={styles.item}>
         <View style={styles.image}>
-          <Image style={styles.imageProduct} source={{uri: `${item.image}`}} />
+          <Image style={styles.imageProduct} source={{ uri: `${item.image}` }} />
         </View>
         <View style={styles.desc}>
           <Text style={styles.textProduct}>{item.name}</Text>
           <Text style={styles.textProduct}>Rp. {item.price}</Text>
-        </View>
-        <View style={styles.qty}>
-          <TouchableOpacity style={styles.buttonMin} onPress={this.onPress}>
-            <Text style={{color: 'white'}}> - </Text>
-          </TouchableOpacity>
-          <TextInput
-            style={styles.inputQty}
-            placeholder="0"
-            keyboardType="default"
-            underlineColorAndroid="transparent"
-            textAlign={'center'}
-          />
-          <TouchableOpacity style={styles.buttonMin} onPress={this.onPress}>
-            <Text style={{color: 'white'}}> + </Text>
-          </TouchableOpacity>
         </View>
         <View stye={styles.delete}>
           <TouchableOpacity
@@ -80,16 +66,14 @@ class Cart extends Component {
   };
 
   render() {
-    const {showAlert} = this.state;
+    const { showAlert } = this.state;
     return (
       <Fragment>
         <StatusBar backgroundColor="#008000" />
         <View style={styles.contentContainer}>
           <View style={styles.address}>
             <Text style={styles.location}>
-              Address: {'\n'}Jl. Selokan Mataram Gg. Nakula No. 303 C, Sinduaji,
-              Mlati, Kutu Dukuh, Sinduadi, Sleman, Kabupaten Sleman, Daerah
-              Istimewa Yogyakarta 83239
+              Toko Sejahtera
             </Text>
           </View>
           <View>
@@ -100,14 +84,9 @@ class Cart extends Component {
               renderItem={this.renderItem}
             />
             <View style={styles.checkoutBtn}>
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => this.props.navigation.navigate('Payment')}>
-                <Text style={{color: 'white'}}> Checkout </Text>
-              </TouchableOpacity>
-              <View style={styles.total}>
-                <Text style={{color: 'red'}}>Total : Rp. 50000</Text>
-              </View>
+              <Fab position="bottomRight" onPress={() => this.props.navigation.navigate('Add')} style={{ backgroundColor: '#008000', top: "-100%", position: "absolute" }} >
+                <Icon name="add" type="Ionicons" style={{ color: 'white' }} />
+              </Fab>
             </View>
           </View>
           <AwesomeAlert
@@ -134,7 +113,7 @@ class Cart extends Component {
   }
 }
 
-export default Cart;
+export default BarangToko;
 
 const styles = StyleSheet.create({
   contentContainer: {
@@ -142,7 +121,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   address: {
-    backgroundColor: 'grey',
+    backgroundColor: '#008000',
+    height: 60,
+    justifyContent: "center"
   },
   image: {
     flex: 1,
@@ -185,9 +166,9 @@ const styles = StyleSheet.create({
     marginLeft: 20,
   },
   checkoutBtn: {
-    flexDirection: 'row-reverse',
+    flexDirection: 'row',
     marginHorizontal: '6%',
-    marginTop: 20,
+    marginTop: 300,
   },
   total: {
     alignItems: 'center',
