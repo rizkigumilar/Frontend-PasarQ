@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from 'react';
+import React, { Component, Fragment } from 'react';
 import Data from '../dummyData/Data';
 import AwesomeAlert from 'react-native-awesome-alert';
 import {
@@ -13,6 +13,7 @@ import {
   Alert,
   StatusBar,
 } from 'react-native';
+import { Fab, Icon } from 'native-base';
 
 class BarangToko extends Component {
   constructor(props) {
@@ -40,11 +41,11 @@ class BarangToko extends Component {
     });
   };
 
-  renderItem = ({item}) => {
+  renderItem = ({ item }) => {
     return (
       <View style={styles.item}>
         <View style={styles.image}>
-          <Image style={styles.imageProduct} source={{uri: `${item.image}`}} />
+          <Image style={styles.imageProduct} source={{ uri: `${item.image}` }} />
         </View>
         <View style={styles.desc}>
           <Text style={styles.textProduct}>{item.name}</Text>
@@ -65,7 +66,7 @@ class BarangToko extends Component {
   };
 
   render() {
-    const {showAlert} = this.state;
+    const { showAlert } = this.state;
     return (
       <Fragment>
         <StatusBar backgroundColor="#008000" />
@@ -83,11 +84,9 @@ class BarangToko extends Component {
               renderItem={this.renderItem}
             />
             <View style={styles.checkoutBtn}>
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => alert('tambah barang')}>
-                <Text style={{color: 'white'}}> Tambah Barang </Text>
-              </TouchableOpacity>
+              <Fab position="bottomRight" onPress={() => this.props.navigation.navigate('Add')} style={{ backgroundColor: '#008000', top: "-100%", position: "absolute" }} >
+                <Icon name="add" type="Ionicons" style={{ color: 'white' }} />
+              </Fab>
             </View>
           </View>
           <AwesomeAlert
@@ -123,7 +122,7 @@ const styles = StyleSheet.create({
   },
   address: {
     backgroundColor: '#008000',
-    height : 60,
+    height: 60,
     justifyContent: "center"
   },
   image: {
@@ -167,9 +166,9 @@ const styles = StyleSheet.create({
     marginLeft: 20,
   },
   checkoutBtn: {
-    flexDirection: 'row-reverse',
+    flexDirection: 'row',
     marginHorizontal: '6%',
-    marginTop: 20,
+    marginTop: 300,
   },
   total: {
     alignItems: 'center',
