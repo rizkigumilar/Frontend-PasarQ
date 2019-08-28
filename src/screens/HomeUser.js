@@ -109,37 +109,38 @@ export default class App extends Component {
           dataSource={this.state.dataSource}
           position={this.state.position}
           onPositionChanged={position => this.setState({ position })} />
-        <Text>Kategori Produk </Text>
-        <FlatList
-          horizontal
-          data={this.state.data2}
-          renderItem={({ item: rowData }) => {
-            return (
-              <Card style={{ height: 150, width: 100 }}>
-                <CardItem button onPress={() => alert("This is Card Footer")} cardBody>
-                  <Image style={{ width: 100, height: 60 }} source={{ uri: `${rowData.imageUrl}` }} />
-                </CardItem>
-                <CardItem footer button onPress={() => alert("This is Card Footer")}>
-                  <Text>telor</Text>
-                </CardItem>
-              </Card>
-            );
-          }}
-          keyExtractor={(item, index) => index}
-        />
-        <Card>
-          <Text>test</Text>
+        <Card style={{ height: 150 }}>
+          <Text>Kategori Produk</Text>
+
+          <FlatList
+            horizontal
+            data={this.state.data2}
+            renderItem={({ item: rowData }) => {
+              return (
+                <Card style={{ width: 100 }}>
+                  <CardItem button onPress={() => this.props.navigation.navigate('Product')} cardBody>
+                    <Image style={{ width: 100, height: 60 }} source={{ uri: `${rowData.imageUrl}` }} />
+                  </CardItem>
+                  <CardItem footer button onPress={() => this.props.navigation.navigate('Product')}>
+                    <Text>telor</Text>
+                  </CardItem>
+                </Card>
+              );
+            }}
+            keyExtractor={(item, index) => index}
+          />
         </Card>
+
         <FlatList
           horizontal
           data={this.state.data}
           renderItem={({ item: rowData }) => {
             return (
               <Card style={{ heigth: 300, width: 200 }}>
-                <CardItem button onPress={() => alert("This is Card Footer")} cardBody>
-                  <Image style={{ width: 180, height: 100 }} source={{ uri: `${rowData.image}` }} />
+                <CardItem button onPress={() => this.props.navigation.navigate('Product')} cardBody>
+                  <Image style={{ width: 180, height: 170 }} source={{ uri: `${rowData.image}` }} />
                 </CardItem>
-                <CardItem footer button onPress={() => alert("This is Card Footer")}>
+                <CardItem footer button onPress={() => this.props.navigation.navigate('Product')}>
                   <Text>{rowData.name}</Text>
                 </CardItem>
               </Card>

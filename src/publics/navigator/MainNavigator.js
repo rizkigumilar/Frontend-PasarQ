@@ -10,6 +10,7 @@ import Register from '../../screens/Register';
 import AuthLoading from '../../screens/Splash';
 import HomeMitra from '../../screens/HomeMitra';
 import HomeUser from '../../screens/HomeUser';
+import HomeDriver from '../../screens/HomeDriver'
 import Product from '../../screens/SubCategory';
 import DetailProduct from '../../screens/DetailProduct';
 import Cart from '../../screens/Cart';
@@ -19,7 +20,8 @@ import Maps from '../../screens/MapsTransaction';
 import Chat from '../../screens/Chat';
 import Profile from '../../screens/Profile';
 import BarangToko from '../../screens/BarangToko';
-import Add from '../../screens/AddProduct'
+import Add from '../../screens/AddProduct';
+import DriverJob from '../../screens/DriverJob';
 
 const AuthStack = createStackNavigator({
     Login: {
@@ -126,6 +128,20 @@ const MitraStack = createStackNavigator({
         },
     },
 })
+const DriverStack = createStackNavigator({
+    Home: {
+        screen: HomeDriver,
+        navigationOptions: {
+            header: null,
+        },
+    },
+    DriverJob: {
+        screen: DriverJob,
+        navigationOptions: {
+            header: null
+        }
+    }
+})
 
 
 export default createAppContainer(
@@ -133,6 +149,7 @@ export default createAppContainer(
         AuthLoading: AuthLoading,
         HomeUser: UserStack,
         HomeMitra: MitraStack,
+        HomeDriver: DriverStack,
         Auth: AuthStack,
     }),
 );

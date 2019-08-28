@@ -7,7 +7,6 @@ import {
     View,
     Image,
 } from 'react-native';
-import { withNavigation } from 'react-navigation';
 class Splash extends Component {
     constructor() {
         super();
