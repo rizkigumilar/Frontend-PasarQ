@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import { View, Text, FlatList, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native'
 import Data from '../components/Data'
-import { Header,Left,Body,Title,Button,Icon } from 'native-base'
+import { Header, Left, Body, Title, Button, Icon } from 'native-base'
 import { withNavigation } from 'react-navigation';
-
-export default class ListJob extends Component {
+class ListJob extends Component {
     constructor(props) {
 
         super(props)

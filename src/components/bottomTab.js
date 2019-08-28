@@ -31,10 +31,6 @@ export class bottomTab extends Component {
             <Icon name="person" />
             <Text style={{ color: "white" }}>Profile</Text>
           </Button>
-          <Button onPress={() => { this.props.navigation.navigate('DriverJob') }} vertical>
-            <Icon name="person" />
-            <Text style={{ color: "white" }}>DriverJob test</Text>
-          </Button>
 
         </FooterTab>
       </Footer>
