@@ -46,6 +46,7 @@ export const login = (data) => {
             const latitude = res.data.result.latitude
             const longitude = res.data.result.longitude
             const role_id = res.data.result.role_id.toString()
+            const telp = res.data.result.telp
             AsyncStorage.setItem('role_id', role_id)
             AsyncStorage.setItem('longitude', longitude)
             AsyncStorage.setItem('latitude', latitude)
@@ -54,6 +55,7 @@ export const login = (data) => {
             AsyncStorage.setItem('userid', userid)
             AsyncStorage.setItem('jwToken', token)
             AsyncStorage.setItem('name', name)
+            AsyncStorage.setItem('telp', telp)
 
         })
     }
