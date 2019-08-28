@@ -14,6 +14,7 @@ export default class Home extends Component {
     del = () => {
         AsyncStorage.removeItem('userid')
         AsyncStorage.removeItem('jwToken')
+        AsyncStorage.removeItem('role_id')
             .then(() => {
                 this.setState({ isLogin: false })
                 this.setState({ data: [] })
