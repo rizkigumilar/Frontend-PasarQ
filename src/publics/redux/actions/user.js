@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { AsyncStorage } from 'react-native'
-let url = ` http://192.168.6.112:4000`
+let url = ` http://pasarqita.muhammadrisano.online`
 
 export const getUsers = () => {
     return {
@@ -15,7 +15,6 @@ export const getUsers = () => {
             })
     }
 }
-
 
 export const register = (data) => {
     console.log(data)
@@ -38,6 +37,7 @@ export const login = (data) => {
             }
         }).then(res => {
             console.log(res)
+            console.log(res.data.result.role_id)
             const token = res.data.result.token
             const userid = res.data.result.id_user.toString()
             const name = res.data.result.name
@@ -45,6 +45,8 @@ export const login = (data) => {
             const email = res.data.result.email
             const latitude = res.data.result.latitude
             const longitude = res.data.result.longitude
+            const role_id = res.data.result.role_id.toString()
+            AsyncStorage.setItem('role_id', role_id)
             AsyncStorage.setItem('longitude', longitude)
             AsyncStorage.setItem('latitude', latitude)
             AsyncStorage.setItem('email', email)

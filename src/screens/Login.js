@@ -11,6 +11,7 @@ import {
     TouchableHighlight,
     Image,
     Alert,
+    StatusBar
 } from 'react-native';
 import {
     Picker,
@@ -75,7 +76,8 @@ class Login extends Component {
                                     userid: this.state.userid,
                                     token: this.state.token,
                                     name: this.state.name,
-                                    email: this.state.email
+                                    email: this.state.email,
+                                    role: this.state.role_id
                                 })
                             },
                         ],
@@ -97,6 +99,7 @@ class Login extends Component {
 
         return (
             <ScrollView>
+                <StatusBar backgroundColor="transparent" />
                 <View behavior="padding"
                     style={styles.Wrapper}>
                     <View style={styles.container}>
@@ -134,6 +137,7 @@ class Login extends Component {
                                     }>
                                     <Picker.Item label="User" value="4" />
                                     <Picker.Item label="Driver" value="3" />
+                                    <Picker.Item label="Toko Mitra" value="2" />
                                 </Picker>
                             </Item>
                             <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={this.log}>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Header, Footer, TabHeading, Tab, Tabs, Item, Button, Text, Icon, Input, ScrollableTab, Fab } from 'native-base';
-import { StyleSheet } from "react-native";
+import { StyleSheet, StatusBar } from "react-native";
 import CardProduct from './CardProduct';
 import Bottomtab from "../components/bottomTab";
 
@@ -8,6 +8,7 @@ export default class SubCategory extends Component {
   render() {
     return (
       <Container>
+        <StatusBar backgroundColor="transparent" />
         <Header hasTabs style={{ backgroundColor: "#FFFFFF" }} searchBar rounded>
           <Item>
             <Icon name="ios-search" />

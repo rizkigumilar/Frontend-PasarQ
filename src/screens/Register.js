@@ -9,6 +9,7 @@ import {
     TouchableHighlight,
     Image,
     Alert,
+    StatusBar
 } from 'react-native';
 import { Picker, Item } from 'native-base'
 import { ScrollView } from 'react-native-gesture-handler';
@@ -101,6 +102,7 @@ class Register extends Component {
         return (
 
             <View style={styles.container}>
+                <StatusBar translucent={true} backgroundColor="transparent" />
                 <ScrollView>
                     <Text style={styles.title}>Register</Text>
 
@@ -161,8 +163,10 @@ class Register extends Component {
                             onValueChange={(itemValue, itemIndex) =>
                                 this.setState({ role_id: itemValue })
                             }>
+                            <Picker.Item label="Select Your Role" value="" />
                             <Picker.Item label="User" value="4" />
                             <Picker.Item label="Driver" value="3" />
+                            <Picker.Item label="Toko Mitra" value="2" />
                         </Picker>
                     </Item>
 
