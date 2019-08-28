@@ -19,6 +19,7 @@ import ChatRoom from '../../components/ChatRoom';
 import Maps from '../../screens/MapsTransaction';
 import Chat from '../../screens/Chat';
 import Profile from '../../screens/Profile';
+import DriverMap from '../../screens/DriverMap';
 import BarangToko from '../../screens/BarangToko';
 import Add from '../../screens/AddProduct';
 import DriverJob from '../../screens/DriverJob';
@@ -38,9 +39,16 @@ const AuthStack = createStackNavigator({
     },
 });
 
+
 const UserStack = createStackNavigator({
     Home: {
         screen: HomeUser,
+        navigationOptions: {
+            header: null,
+        },
+    },
+    DriverMap: {
+        screen: DriverMap,
         navigationOptions: {
             header: null,
         },
@@ -140,7 +148,11 @@ const DriverStack = createStackNavigator({
         navigationOptions: {
             header: null
         }
-    }
+    },
+  DriverMap: {
+    screen: DriverMap,
+    navigationOptions: {
+      header: null
 })
 
 

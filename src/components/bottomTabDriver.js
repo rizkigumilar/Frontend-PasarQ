@@ -1,39 +1,44 @@
 import React, { Component } from "react";
-import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
+import { StyleSheet, View, Alert,TouchableOpacity, Text } from "react-native";
 import { withNavigation } from 'react-navigation';
 import { Container, Header, Badge, Footer, FooterTab, Button, Icon } from 'native-base';
 
 export class bottomTab extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-
+    constructor(props) {
+      super(props);
+      this.state = { 
+        
+        }
     }
-  }
-  render() {
+    JobDone () {
+      
+      Alert.alert(
+        'pastikan barang sudah tiba',
+        'di kediaman pelanggan',
+        [
+          {text: 'sampai', onPress: () => { this.props.navigation.navigate('DriverJob') }},
+          {
+            text: '',
+            onPress: () => console.log('Cancel Pressed'),
+            style: 'cancel',
+          },
+          {text: 'Belum sampai', onPress: () => console.log('OK Pressed')},
+        ],
+        {cancelable: false},
+      );
+    }
+    render() {
     return (
       <Footer>
 
         <FooterTab style={{ backgroundColor: "#037F03" }}>
-          <Button onPress={() => { this.props.navigation.navigate('Home') }} vertical>
-            <Icon name="home" />
-            <Text style={{ color: "white" }} >Home</Text>
+          <Button onPress={() => { this.props.navigation.navigate('DetailPelanggan') }} vertical>
+            <Icon type="FontAwesome" name="user-circle" />
+            <Text style={{ color: "white" }} >Detail Job</Text>
           </Button>
-          <Button onPress={() => { this.props.navigation.navigate('Maps') }} vertical>
-            <Icon name="repeat" />
-            <Text style={{ color: "white" }}>Transaksi</Text>
-          </Button>
-          <Button onPress={() => { this.props.navigation.navigate('Chat') }} vertical>
-            <Icon name="chatboxes" />
-            <Text style={{ color: "white" }}>Chat</Text>
-          </Button>
-          <Button onPress={() => { this.props.navigation.navigate('Profile') }} vertical>
-            <Icon name="person" />
-            <Text style={{ color: "white" }}>Profile</Text>
-          </Button>
-          <Button onPress={() => { this.props.navigation.navigate('DriverJob') }} vertical>
-            <Icon name="person" />
-            <Text style={{ color: "white" }}>DriverJob test</Text>
+          <Button onPress={() => { this.JobDone()}} vertical>
+            <Icon type="FontAwesome" name="check-circle" />
+            <Text style={{ color: "white" }}>Selesai Antar</Text>
           </Button>
 
         </FooterTab>

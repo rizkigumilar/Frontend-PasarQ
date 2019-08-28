@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import { View, Text, FlatList, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native'
 import Data from '../components/Data'
-import { Header, Left, Body, Title, Button, Icon } from 'native-base'
+import { Header,Left,Body,Title,Button,Icon } from 'native-base'
+import { withNavigation } from 'react-navigation';
 
-export default class ListSend extends Component {
+export default class ListJob extends Component {
     constructor(props) {
+
         super(props)
         this.initData = Data
         this.state = {
@@ -22,7 +24,7 @@ export default class ListSend extends Component {
                     <Text style={styles.textProduct}>Quantity: {item.qyt}</Text>
                 </View>
                 <View style={styles.qty}>
-                    <TouchableOpacity style={styles.buttonMin}>
+                    <TouchableOpacity onPress={() => { this.props.navigation.navigate('DriverMap') }} style={styles.buttonMin}>
                         <Text style={{ color: 'white' }}> Antar Barang </Text>
                     </TouchableOpacity>
                 </View>
@@ -30,10 +32,10 @@ export default class ListSend extends Component {
         )
     }
 
+
     render() {
         return (
             <ScrollView>
-
                 <View style={styles.contentContainer}>
                     <FlatList
                         style={styles.flatList}
@@ -41,11 +43,14 @@ export default class ListSend extends Component {
                         keyExtractor={item => item.id_item.toString()}
                         renderItem={this.renderItem}
                     />
+
                 </View>
             </ScrollView>
         )
     }
 }
+
+export default withNavigation(ListJob)
 
 const styles = StyleSheet.create({
     item: {
