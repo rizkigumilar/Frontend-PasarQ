@@ -23,6 +23,8 @@ import DriverMap from '../../screens/DriverMap';
 import BarangToko from '../../screens/BarangToko';
 import Add from '../../screens/AddProduct';
 import DriverJob from '../../screens/DriverJob';
+import HomeMitra1 from '../../screens/HomeMitra1';
+import AddToko from '../../screens/AddToko';
 
 const AuthStack = createStackNavigator({
     Login: {
@@ -106,7 +108,19 @@ const UserStack = createStackNavigator({
 
 const MitraStack = createStackNavigator({
     Home: {
+        screen: HomeMitra1,
+        navigationOptions: {
+            header: null,
+        },
+    },
+    Toko: {
         screen: HomeMitra,
+        navigationOptions: {
+            header: null,
+        },
+    },
+    AddToko: {
+        screen: AddToko,
         navigationOptions: {
             header: null,
         },
