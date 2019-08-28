@@ -51,6 +51,7 @@ class ChatRoom extends React.Component {
                 source={require('../assets/group.png')}
               />
             </View>
+            <Text style={styles.juragan}>Nama Juragan</Text>
           </View>
         </View>
         <GiftedChat
@@ -84,9 +85,8 @@ const styles = StyleSheet.create({
   },
   label: {
     justifyContent: 'center',
-  },
-  image: {
-    flex: 1,
+    flexDirection : 'row',
+    flex : 1
   },
   imageProduct: {
     width: 50,
@@ -94,4 +94,11 @@ const styles = StyleSheet.create({
     justifyContent : "center",
     marginTop : 5
   },
+  juragan : {
+    flex: 1,
+    color : 'black',
+    justifyContent : "center",
+    marginTop : 20,
+    marginLeft : 5
+  }
 });
