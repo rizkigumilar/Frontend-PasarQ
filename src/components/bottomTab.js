@@ -19,7 +19,7 @@ export class bottomTab extends Component {
             <Icon name="home" />
             <Text style={{ color: "white" }} >Home</Text>
           </Button>
-          <Button onPress={() => { this.props.navigation.navigate('Maps') }} vertical>
+          <Button onPress={() => { this.props.navigation.navigate('listStatusOrder') }} vertical>
             <Icon name="repeat" />
             <Text style={{ color: "white" }}>Transaksi</Text>
           </Button>
