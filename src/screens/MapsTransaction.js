@@ -10,11 +10,10 @@ export default class Untitled extends Component {
         return (
             <Container>
 
-                <Header style={{ backgroundColor: "#037F03" }} searchBar rounded>
+                <Header style={{ backgroundColor: "#FFFFFF" }} searchBar rounded>
                     <Item>
-                        <Icon name="ios-search" />
                         <Input placeholder="Search" />
-                        <Icon name="ios-people" />
+                        <Icon name="ios-search" />
                     </Item>
                     <Button transparent>
                         <Text>Search</Text>
