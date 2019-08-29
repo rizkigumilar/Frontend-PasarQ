@@ -18,8 +18,10 @@ import { TouchableHighlight } from 'react-native-gesture-handler';
 export default class Home extends Component {
     state = {
         name: '',
+        userid: '',
         email: '',
         telp: '',
+        photo: '',
         latitude: '',
         longitude: '',
         address: null,
@@ -28,6 +30,9 @@ export default class Home extends Component {
         super(props);
         AsyncStorage.getItem('email').then(value => {
             this.setState({ email: value });
+        });
+        AsyncStorage.getItem('userid').then(value => {
+            this.setState({ userid: value });
         });
         AsyncStorage.getItem('name').then(value => {
             this.setState({ name: value });
@@ -40,6 +45,9 @@ export default class Home extends Component {
         });
         AsyncStorage.getItem('telp').then(value => {
             this.setState({ telp: value });
+        });
+        AsyncStorage.getItem('photo').then(value => {
+            this.setState({ photo: value });
         });
     }
 
@@ -93,6 +101,13 @@ export default class Home extends Component {
                         })
                     }
                 />
+                <NavigationEvents
+                    onWillFocus={() =>
+                        AsyncStorage.getItem('photo').then(value => {
+                            this.setState({ photo: value });
+                        })
+                    }
+                />
                 <View style={styles.linearGradient}>
                     <View style={{ marginLeft: '85%', marginTop: '4%' }}>
                         <TouchableOpacity onPress={this.del}>
@@ -110,10 +125,7 @@ export default class Home extends Component {
                                     backgroundColor: '#fff',
                                     marginTop: 20,
                                 }}
-                                source={{
-                                    uri:
-                                        'https://icons-for-free.com/iconfiles/png/512/agenda+app+contacts+online+profile+user+icon-1320183042135412367.png',
-                                }}
+                                source={{ uri: this.state.photo }}
                             />
                             <Text
                                 style={{
@@ -147,7 +159,7 @@ export default class Home extends Component {
                             <Text style={{ color: 'white', width: '100%', borderTopWidth: 1, padding: 10 }}>Handphone : {this.state.telp}</Text>
                         </View>
                     </View>
-                    <TouchableHighlight onPress={() => this.props.navigation.navigate('EditProfile', { name: this.state.name, telp: this.state.telp, email: this.state.email, address: this.state.address })} style={styles.linearGradientB}>
+                    <TouchableHighlight onPress={() => this.props.navigation.navigate('EditProfile', { name: this.state.name, telp: this.state.telp, email: this.state.email, address: this.state.address, id_user: this.state.userid })} style={styles.linearGradientB}>
                         <View>
                             <Text style={{ alignSelf: 'center', marginBottom: 10, color: 'white', fontSize: 20 }}>Edit Profile</Text>
                         </View>

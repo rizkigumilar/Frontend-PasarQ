@@ -69,6 +69,26 @@ const user = (state = initialState, action) => {
                 isFulfilled: true,
                 userList: action.payload.data.result
             };
+        case 'PATCH_USER_PENDING':
+            return {
+                ...state,
+                isLoading: true,
+                isFulfilled: false,
+                isRejected: false
+            };
+        case 'PATCH_USER_REJECTED':
+            return {
+                ...state,
+                isLoading: false,
+                isRejected: true
+            };
+        case 'PATCH_USER_FULFILLED':
+            return {
+                ...state,
+                isLoading: false,
+                isFulfilled: true,
+                userList: [state.storeList, action.payload.data[0]]
+            };
         default:
             return state;
     }
