@@ -12,17 +12,33 @@ import {
   ScrollView,
   Alert,
   StatusBar,
+  AsyncStorage,
 } from 'react-native';
+import {getCartUser} from '../publics/redux/actions/cart';
+import {connect} from 'react-redux';
 
 class Cart extends Component {
   constructor(props) {
     super();
-    this.initData = Data;
     this.state = {
-      data: this.initData,
-      showAlert: false,
+      cartList: [],
+      iduser: '',
     };
+    AsyncStorage.getItem('userid').then(value => {
+      this.setState({iduser: value});
+    });
   }
+
+  componentDidMount = () => {
+    setTimeout(() => {
+      this.props.dispatch(getCartUser(this.state.iduser))
+      .then(res => {
+        this.setState({
+          cartList : this.props.cartList
+        })
+      });
+    }, 1000);
+  };
 
   deleteItem = () => {
     this.setState({
@@ -41,6 +57,7 @@ class Cart extends Component {
   };
 
   renderItem = ({item}) => {
+    console.log("itemitem", item)
     return (
       <View style={styles.item}>
         <View style={styles.image}>
@@ -80,7 +97,7 @@ class Cart extends Component {
   };
 
   render() {
-    const {showAlert} = this.state;
+    console.log('data cart', this.state.cartList);
     return (
       <Fragment>
         <StatusBar backgroundColor="#008000" />
@@ -95,7 +112,7 @@ class Cart extends Component {
           <View>
             <FlatList
               style={styles.flatList}
-              data={this.state.data}
+              data={this.state.cartList}
               keyExtractor={item => item.id.toString()}
               renderItem={this.renderItem}
             />
@@ -110,31 +127,18 @@ class Cart extends Component {
               </View>
             </View>
           </View>
-          <AwesomeAlert
-            show={showAlert}
-            showProgress={false}
-            title="Delete this item?"
-            closeOnTouchOutside={true}
-            closeOnHardwareBackPress={false}
-            showCancelButton={true}
-            showConfirmButton={true}
-            cancelText="No, cancel"
-            confirmText="Yes, delete it"
-            confirmButtonColor="#008000"
-            onCancelPressed={() => {
-              this.hideAlert();
-            }}
-            onConfirmPressed={() => {
-              this.hideAlert();
-            }}
-          />
         </View>
       </Fragment>
     );
   }
 }
 
-export default Cart;
+const mapStateToProp = state => {
+  return {
+    cartList: state.cart.cartList,
+  };
+};
+export default connect(mapStateToProp)(Cart);
 
 const styles = StyleSheet.create({
   contentContainer: {

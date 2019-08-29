@@ -61,3 +61,15 @@ export const deleteCart = (id_cart) => {
             })
     }
 }
+
+export const getCartUser = (id_user) => {
+    return {
+        type: 'GET_CART_USER',
+        payload: axios.get(`${url}/cart/byuser/${id_user}`,
+            {
+                headers: {
+                    "authorization": "semangat-team-faraday"
+                }
+            })
+    }
+}
