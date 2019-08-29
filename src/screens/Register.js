@@ -163,8 +163,8 @@ class Register extends Component {
                             onValueChange={(itemValue, itemIndex) =>
                                 this.setState({ role_id: itemValue })
                             }>
-                            <Picker.Item label="Select Your Role" value="" />
-                            <Picker.Item label="User" value="4" />
+                            <Picker.Item label="Daftar Sebagai" value="" />
+                            <Picker.Item label="Pembeli" value="4" />
                             <Picker.Item label="Driver" value="3" />
                             <Picker.Item label="Toko Mitra" value="2" />
                         </Picker>
