@@ -3,6 +3,7 @@ const initialState = {
     isLoading: false,
     isFulfilled: false,
     isRejected: false,
+    itemDetail: null
 }
 
 const item = (state = initialState, action) => {
@@ -27,8 +28,7 @@ const item = (state = initialState, action) => {
                 isFulfilled: true,
                 itemList: action.payload.data.result
             };
-/////////////////////////////////////////////////////////            
-            case 'GET_ITEM_BY_SUBID_PENDING':
+        case 'GET_ITEM_BY_SUBID_PENDING':
             return {
                 ...state,
                 isLoading: true,
@@ -48,7 +48,6 @@ const item = (state = initialState, action) => {
                 isFulfilled: true,
                 itemList: action.payload.data.result
             };
-/////////////////////////////////////////////////////////            
         case 'GET_ITEMID_PENDING':
             return {
                 ...state,
@@ -67,9 +66,8 @@ const item = (state = initialState, action) => {
                 ...state,
                 isLoading: false,
                 isFulfilled: true,
-                itemList: action.payload.data.result
+                itemDetail: action.payload.data.result
             };
-/////////////////////////////////////////////////////////            
         case 'POST_ITEM_PENDING':
             return {
                 ...state,
@@ -90,7 +88,7 @@ const item = (state = initialState, action) => {
                 isFulfilled: true,
                 itemList: [state.itemList, action.payload.data[0]]
             };
-/////////////////////////////////////////////////////////            
+        /////////////////////////////////////////////////////////            
         case 'EDIT_ITEM_PENDING':
             return {
                 ...state,
@@ -111,7 +109,7 @@ const item = (state = initialState, action) => {
                 isFulfilled: true,
                 itemList: [state.itemList, action.payload.data[0]]
             };
-/////////////////////////////////////////////////////////            
+        /////////////////////////////////////////////////////////            
         case 'DELETE_ITEM_PENDING':
             return {
                 ...state,

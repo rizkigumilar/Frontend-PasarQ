@@ -26,10 +26,10 @@ export const getCartId = (id_cart) => {
     }
 }
 
-export const postCart = () => {
+export const postCart = (data) => {
     return {
         type: 'POST_CART',
-        payload: axios.post(`${url}/cart`,
+        payload: axios.post(`${url}/cart`, data,
             {
                 headers: {
                     "authorization": "semangat-team-faraday"
@@ -52,7 +52,7 @@ export const editCart = (data, id_cart) => {
 
 export const deleteCart = (id_cart) => {
     return {
-        type: 'PATCH_CART', id_cart,
+        type: 'DELETE_ITEM_CART', id_cart,
         payload: axios.delete(`${url}/cart/${id_cart}`,
             {
                 headers: {

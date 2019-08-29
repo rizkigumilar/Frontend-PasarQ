@@ -37,10 +37,10 @@ export const getItemBySubId = (id_subcategory) => {
     }
 }
 
-export const postItem = () => {
+export const postItem = (data) => {
     return {
         type: 'POST_ITEM',
-        payload: axios.post(`${url}/item`,
+        payload: axios.post(`${url}/item`, data,
             {
                 headers: {
                     "authorization": "semangat-team-faraday"

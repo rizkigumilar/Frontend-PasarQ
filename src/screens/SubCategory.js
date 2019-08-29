@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Header, Footer, TabHeading, Tab, Tabs, Item, Button, Text, Icon, Input, ScrollableTab, Fab } from 'native-base';
-import { StyleSheet, StatusBar ,FlatList} from "react-native";
+import { StyleSheet, StatusBar, FlatList } from "react-native";
 import CardProduct from './CardProduct';
 import Bottomtab from "../components/bottomTab";
 import { connect } from 'react-redux'
@@ -22,40 +22,33 @@ class SubCategory extends Component {
   };
 
   render() {
-    console.log("param",this.state.data)
+    console.log("param", this.state.data)
+    console.log("id category", this.state.idCat)
     return (
       <Container>
 
-        <Header hasTabs style={{ backgroundColor: "#FFFFFF" }} searchBar rounded>
-          <Item>
-            <Icon name="ios-search" />
-            <Input placeholder="Search" />
-            <Icon name="ios-people" />
-          </Item>
-          <Button transparent>
-            <Text>Search</Text>
-          </Button>
+        <Header hasTabs style={{ backgroundColor: "#008000" }} searchBar rounded>
         </Header>
 
-          <FlatList
+        <FlatList
           pagingEnabled={true}
-            horizontal
-            data={this.state.data}
-            renderItem={({ item: rowData }) => {
-              return (
-                <Tabs>
-                  <Tab heading={ <TabHeading><Icon name="camera" /><Text>{rowData.name_subcategory}</Text></TabHeading>}>
-                    <CardProduct id_subcategory={rowData.id_subcategory} />
-                  </Tab>
-                </Tabs>
-              );
-            }}
-            keyExtractor={(item, index) => index}
-          />
-           
-         
-          
-  
+          horizontal
+          data={this.state.data}
+          renderItem={({ item: rowData }) => {
+            return (
+              <Tabs>
+                <Tab heading={<TabHeading style={{ backgroundColor: "#008000" }}><Text style={{ color: '#FFFFFF' }}>{rowData.name_subcategory}</Text></TabHeading>}>
+                  <CardProduct id_subcategory={rowData.id_subcategory} />
+                </Tab>
+              </Tabs>
+            );
+          }}
+          keyExtractor={(item, index) => index}
+        />
+
+
+
+
         <Fab position="bottomRight" onPress={() => this.props.navigation.navigate('Cart')} style={{ backgroundColor: '#008000', top: "-100%", position: "absolute" }} >
           <Icon name="cart" type="Ionicons" style={{ color: 'white' }} />
         </Fab>
@@ -67,7 +60,7 @@ class SubCategory extends Component {
 }
 const mapStateToProps = state => {
   return {
-    subcategory: state.subcategory.subcategoryList 
+    subcategory: state.subcategory.subcategoryList
   }
 }
 
