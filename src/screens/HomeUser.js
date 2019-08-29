@@ -165,7 +165,7 @@ const mapStateToProps = state => {
     category: state.category,
     cartList: state.cart.cartList,
     store: state.store
-  }r
+  }
 }
 
 export default connect(mapStateToProps)(withNavigation(Home));
