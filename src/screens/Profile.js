@@ -50,7 +50,6 @@ export default class Home extends Component {
             this.setState({ photo: value });
         });
     }
-
     del = () => {
         AsyncStorage.removeItem('userid');
         AsyncStorage.removeItem('jwToken');
@@ -66,7 +65,7 @@ export default class Home extends Component {
         });
     };
     EditProfile = () => {
-        Alert.alert('Edit Profile');
+        Alert.alert('Still Development');
     };
 
     render() {
@@ -159,7 +158,7 @@ export default class Home extends Component {
                             <Text style={{ color: 'white', width: '100%', borderTopWidth: 1, padding: 10 }}>Handphone : {this.state.telp}</Text>
                         </View>
                     </View>
-                    <TouchableHighlight onPress={() => this.props.navigation.navigate('EditProfile', { name: this.state.name, telp: this.state.telp, email: this.state.email, address: this.state.address, id_user: this.state.userid })} style={styles.linearGradientB}>
+                    <TouchableHighlight onPress={this.EditProfile} style={styles.linearGradientB}>
                         <View>
                             <Text style={{ alignSelf: 'center', marginBottom: 10, color: 'white', fontSize: 20 }}>Edit Profile</Text>
                         </View>

@@ -8,13 +8,7 @@ import { getStore } from '../publics/redux/actions/store';
 import { connect } from 'react-redux'
 import Bottomtab from "../components/bottomTab";
 import { ScrollView } from "react-native-gesture-handler";
-import {
-  getCartUser,
-  deleteCart,
-  quantityplus,
-  quantitymin,
-  checkoutCart
-} from '../publics/redux/actions/cart';
+import { getCartUser } from '../publics/redux/actions/cart';
 import { withNavigation } from "react-navigation";
 
 class Home extends Component {
@@ -63,18 +57,6 @@ class Home extends Component {
       store: this.props.store.storeList
     })
   };
-  componentWillMount() {
-    this.setState({
-      interval: setInterval(() => {
-        this.setState({
-          position: this.state.position === this.state.dataSource.length ? 0 : this.state.position + 1
-        })
-      }, 2000)
-    })
-  }
-  componentWillUnmount() {
-    clearInterval(this.state.interval)
-  }
   render() {
     return (
       <Container>
