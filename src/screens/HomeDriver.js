@@ -3,6 +3,7 @@ import { StyleSheet, View, Image, AsyncStorage, Alert, TouchableHighlight, Statu
 import { Container, Content, Form, Label, Header, Item, Icon, Button, Input, Text, Fab } from 'native-base'
 import Bottomtab from "../components/BottomTabsDriver";
 import { NavigationEvents } from 'react-navigation';
+import { Database, Auth } from '../publics/firebase/index'
 
 
 export default class Home extends Component {
@@ -37,21 +38,28 @@ export default class Home extends Component {
         });
     }
 
-    del = () => {
+    LOG_OUT = async () => {
+        const userToken = await AsyncStorage.getItem('id_firebase');
+        Database.ref('/driver/' + userToken).update({ status: "offline" })
+        Auth.signOut().then(() => {
+            Alert.alert(
+                'Logout',
+                'Logout success', [
+                    {
+                        text: 'OK', onPress: () => this.props.navigation.navigate('Auth')
+                    }
+                ]
+            )
+                AsyncStorage.clear();
+                this.props.navigation.navigate('auth');
+            }).catch(error => { alert(error.message) })
         AsyncStorage.removeItem('userid')
         AsyncStorage.removeItem('jwToken')
         AsyncStorage.removeItem('role_id')
             .then(() => {
                 this.setState({ isLogin: false })
                 this.setState({ data: [] })
-                Alert.alert(
-                    'Logout',
-                    'Logout success', [
-                        {
-                            text: 'OK', onPress: () => this.props.navigation.navigate('Auth')
-                        }
-                    ]
-                )
+                
             })
     };
 
@@ -120,7 +128,7 @@ export default class Home extends Component {
                     <View>
                         <StatusBar style={{ backgroundColor: '#008000' }} />
                         <View>
-                            <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={this.del}>
+                            <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={this.LOG_OUT}>
                                 <Text style={styles.loginText}>Logout</Text>
                             </TouchableHighlight>
                         </View>

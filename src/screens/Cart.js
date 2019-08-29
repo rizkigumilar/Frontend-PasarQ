@@ -12,6 +12,7 @@ import {
   StatusBar,
   AsyncStorage,
 } from 'react-native';
+import { Container, Header, Left, Body, Right, Button, Icon, Title } from 'native-base';
 import {
   getCartUser,
   deleteCart,
@@ -145,12 +146,24 @@ class Cart extends Component {
 
   render() {
     return (
-      <Fragment>
-        <StatusBar backgroundColor="#008000" />
+      <Container>
+        <Header>
+          <Left>
+            <Button onPress={() => this.props.navigation.navigate('Home')} transparent>
+              <Icon name='arrow-back' />
+            </Button>
+          </Left>
+          <Body>
+            <Title>Keranjang mu</Title>
+          </Body>
+          <Right>
+            <Button transparent>
+              <Icon name='menu' />
+            </Button>
+          </Right>
+        </Header>
         <View style={styles.contentContainer}>
-          <View style={styles.address}>
-            <Text style={styles.location}>Your Cart</Text>
-          </View>
+          
           <View>
             <FlatList
               style={styles.flatList}
@@ -167,7 +180,7 @@ class Cart extends Component {
             </View>
           </View>
         </View>
-      </Fragment>
+        </Container>
     );
   }
 }

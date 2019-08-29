@@ -42,7 +42,6 @@ class DetailProduct extends Component {
         console.warn(this.state.idUser)
         return (
             <View>
-                <StatusBar backgroundColor='#1bbd19' />
                 <View style={styles.header}>
                     <View style={styles.back}>
                         <Icon
