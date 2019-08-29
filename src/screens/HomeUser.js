@@ -76,8 +76,6 @@ class Home extends Component {
     clearInterval(this.state.interval)
   }
   render() {
-    // console.log('data', this.state.category)
-    // console.log('data store', this.state.store)
     return (
       <Container>
         <Header style={{ backgroundColor: '#008000' }} searchBar rounded>

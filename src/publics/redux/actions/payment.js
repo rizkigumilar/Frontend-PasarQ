@@ -14,6 +14,18 @@ export const getPayment = (id_user) => {
     }
 }
 
+export const paymentSend = (id_payment, data) => {
+    return {
+        type: 'BUAT_PESANAN',
+        payload: axios.patch(`${url}/payment/checkoutpayment/${id_payment}`, data,
+            {
+                headers: {
+                    "authorization": "semangat-team-faraday"
+                }
+            })
+    }
+}
+
 export const getPaymentId = (id_payment) => {
     return {
         type: 'GET_PAYMENTID', id_payment,

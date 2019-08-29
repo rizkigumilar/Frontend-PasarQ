@@ -18,9 +18,10 @@ import {
   deleteCart,
   quantityplus,
   quantitymin,
-  checkoutCart
+  checkoutCart,
 } from '../publics/redux/actions/cart';
 import {connect} from 'react-redux';
+import NumberFormat from 'react-number-format';
 
 class Cart extends Component {
   constructor(props) {
@@ -96,10 +97,10 @@ class Cart extends Component {
     });
   };
 
-  checkout = async (id_user) => {
-    await this.props.dispatch(checkoutCart(id_user))
-    this.props.navigation.navigate('Payment')
-  }
+  checkout = async id_user => {
+    await this.props.dispatch(checkoutCart(id_user));
+    this.props.navigation.navigate('Payment');
+  };
 
   renderItem = ({item}) => {
     return (
@@ -109,7 +110,13 @@ class Cart extends Component {
         </View>
         <View style={styles.desc}>
           <Text style={styles.textProduct}>{item.name_item}</Text>
-          <Text style={styles.textProduct}>Rp. {item.price}</Text>
+          <NumberFormat
+                value={item.price}
+                displayType={'text'}
+                thousandSeparator={true}
+                prefix={'Rp '}
+                renderText={value => <Text style={styles.textProduct}>{value}</Text>}
+              />
         </View>
         <View style={styles.quantity}>
           <TouchableOpacity
@@ -163,22 +170,26 @@ class Cart extends Component {
           </Right>
         </Header>
         <View style={styles.contentContainer}>
-          
-          <View>
-            <FlatList
-              style={styles.flatList}
-              data={this.state.cartList}
-              keyExtractor={item => item.id_cart}
-              renderItem={this.renderItem}
-            />
-            <View style={styles.checkoutBtn}>
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => this.checkout(this.state.iduser)}>
-                <Text style={{color: 'white'}}> Checkout </Text>
-              </TouchableOpacity>
-            </View>
+          <View style={styles.address}>
+            <Text style={styles.location}>Your Cart</Text>
           </View>
+          <ScrollView>
+            <View>
+              <FlatList
+                style={styles.flatList}
+                data={this.state.cartList}
+                keyExtractor={item => item.id_cart}
+                renderItem={this.renderItem}
+              />
+            </View>
+          </ScrollView>
+        </View>
+        <View style={styles.checkoutBtn}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => this.checkout(this.state.iduser)}>
+            <Text style={{color: 'white'}}> Checkout </Text>
+          </TouchableOpacity>
         </View>
         </Container>
     );
@@ -201,7 +212,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   address: {
-    backgroundColor: 'grey',
+    backgroundColor: '#008000',
+    height : 60,
+    justifyContent : "center"
   },
   image: {
     flex: 1,
@@ -228,6 +241,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     color: 'white',
     paddingVertical: 10,
+    fontSize : 18
   },
   item: {
     borderBottomWidth: 1,
@@ -244,9 +258,10 @@ const styles = StyleSheet.create({
     marginLeft: 20,
   },
   checkoutBtn: {
-    flexDirection: 'row-reverse',
     marginHorizontal: '6%',
-    marginTop: 20,
+    height : 60,
+    justifyContent : 'center',
+    alignSelf : "center"
   },
   total: {
     alignItems: 'center',
@@ -257,6 +272,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#008000',
     padding: 10,
+    justifyContent : 'center',
+    width : 150
   },
   buttonMin: {
     width: 30,
