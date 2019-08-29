@@ -41,18 +41,18 @@ class Home extends Component {
       category: this.props.category.categoryList,
     });
   };
-  // componentWillMount() {
-  //   this.setState({
-  //     interval: setInterval(() => {
-  //       this.setState({
-  //         position: this.state.position === this.state.dataSource.length ? 0 : this.state.position + 1
-  //       })
-  //     }, 2000)
-  //   })
-  // }
-  // componentWillUnmount() {
-  //   clearInterval(this.state.interval)
-  // }
+  componentWillMount() {
+    this.setState({
+      interval: setInterval(() => {
+        this.setState({
+          position: this.state.position === this.state.dataSource.length ? 0 : this.state.position + 1
+        })
+      }, 2000)
+    })
+  }
+  componentWillUnmount() {
+    clearInterval(this.state.interval)
+  }
   render() {
     console.log('data', this.state.category)
     return (
