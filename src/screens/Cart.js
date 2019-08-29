@@ -1,6 +1,4 @@
 import React, {Component, Fragment} from 'react';
-import Data from '../dummyData/Data';
-import AwesomeAlert from 'react-native-awesome-alert';
 import {
   StyleSheet,
   Text,
@@ -14,7 +12,7 @@ import {
   StatusBar,
   AsyncStorage,
 } from 'react-native';
-import {getCartUser} from '../publics/redux/actions/cart';
+import {getCartUser, deleteCart} from '../publics/redux/actions/cart';
 import {connect} from 'react-redux';
 
 class Cart extends Component {
@@ -31,24 +29,51 @@ class Cart extends Component {
 
   componentDidMount = () => {
     setTimeout(() => {
-      this.props.dispatch(getCartUser(this.state.iduser))
-      .then(res => {
+      this.props.dispatch(getCartUser(this.state.iduser)).then(res => {
         this.setState({
-          cartList : this.props.cartList
-        })
+          cartList: this.props.cartList,
+        });
       });
     }, 1000);
   };
 
-  deleteItem = () => {
-    this.setState({
-      showAlert: true,
+  getData = () => {
+    this.props.dispatch(getCartUser(this.state.iduser)).then(res => {
+      this.setState({
+        cartList: this.props.cartList,
+      });
     });
   };
 
-  checkOut = () => {
-    Alert.alert('Check out');
+  delete = async (id_cart) => {
+    await this.props.dispatch(deleteCart(id_cart)).then(() => {
+      this.getData()
+    });
   };
+
+  deleteItem = (id_cart) => {
+    Alert.alert(
+      'Delete Item',
+      'Are you sure? ',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {text: 'OK', onPress: () => this.delete(id_cart)},
+      ],
+      {cancelable: false},
+    );
+  }
+
+  onBtnMin = () => {
+    Alert.alert("min button")
+  }
+
+  onBtnPlus = () => {
+    Alert.alert("plus button")
+  }
 
   hideAlert = () => {
     this.setState({
@@ -57,35 +82,34 @@ class Cart extends Component {
   };
 
   renderItem = ({item}) => {
-    console.log("itemitem", item)
     return (
       <View style={styles.item}>
         <View style={styles.image}>
           <Image style={styles.imageProduct} source={{uri: `${item.image}`}} />
         </View>
         <View style={styles.desc}>
-          <Text style={styles.textProduct}>{item.name}</Text>
+          <Text style={styles.textProduct}>{item.name_item}</Text>
           <Text style={styles.textProduct}>Rp. {item.price}</Text>
         </View>
-        <View style={styles.qty}>
-          <TouchableOpacity style={styles.buttonMin} onPress={this.onPress}>
+        <View style={styles.quantity}>
+          <TouchableOpacity style={styles.buttonMin} onPress={this.onBtnMin}>
             <Text style={{color: 'white'}}> - </Text>
           </TouchableOpacity>
           <TextInput
             style={styles.inputQty}
-            placeholder="0"
+            value={`${item.quantity}`}
             keyboardType="default"
             underlineColorAndroid="transparent"
             textAlign={'center'}
           />
-          <TouchableOpacity style={styles.buttonMin} onPress={this.onPress}>
+          <TouchableOpacity style={styles.buttonMin} onPress={this.onBtnPlus}>
             <Text style={{color: 'white'}}> + </Text>
           </TouchableOpacity>
         </View>
         <View stye={styles.delete}>
           <TouchableOpacity
             style={styles.buttonDelete}
-            onPress={() => this.deleteItem()}>
+            onPress={() => this.deleteItem(item.id_cart)}>
             <Image
               style={styles.deleteIcon}
               source={require('../assets/delete.png')}
@@ -97,23 +121,20 @@ class Cart extends Component {
   };
 
   render() {
-    console.log('data cart', this.state.cartList);
     return (
       <Fragment>
         <StatusBar backgroundColor="#008000" />
         <View style={styles.contentContainer}>
           <View style={styles.address}>
             <Text style={styles.location}>
-              Address: {'\n'}Jl. Selokan Mataram Gg. Nakula No. 303 C, Sinduaji,
-              Mlati, Kutu Dukuh, Sinduadi, Sleman, Kabupaten Sleman, Daerah
-              Istimewa Yogyakarta 83239
+              Your Cart
             </Text>
           </View>
           <View>
             <FlatList
               style={styles.flatList}
               data={this.state.cartList}
-              keyExtractor={item => item.id.toString()}
+              keyExtractor={item => item.id_cart}
               renderItem={this.renderItem}
             />
             <View style={styles.checkoutBtn}>
@@ -122,9 +143,6 @@ class Cart extends Component {
                 onPress={() => this.props.navigation.navigate('Payment')}>
                 <Text style={{color: 'white'}}> Checkout </Text>
               </TouchableOpacity>
-              <View style={styles.total}>
-                <Text style={{color: 'red'}}>Total : Rp. 50000</Text>
-              </View>
             </View>
           </View>
         </View>
@@ -144,6 +162,9 @@ const styles = StyleSheet.create({
   contentContainer: {
     backgroundColor: 'white',
     flex: 1,
+  },
+  quantity: {
+    flexDirection: 'row',
   },
   address: {
     backgroundColor: 'grey',
