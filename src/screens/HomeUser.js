@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { FlatList, Text, Image, StatusBar, View } from "react-native";
+import { FlatList, Text, Image, StatusBar, View, StyleSheet} from "react-native";
 import data from './dummy'
 import Slideshow from 'react-native-image-slider-show'
 import { Container, Header, Item, Input, Content, Card, CardItem, Fab, Button, Icon, Left, Body, Right } from 'native-base';
@@ -7,8 +7,7 @@ import { getCategory } from '../publics/redux/actions/category';
 import { connect } from 'react-redux'
 import Bottomtab from "../components/bottomTab";
 import { ScrollView } from "react-native-gesture-handler";
-import { connect } from 'react-redux'
-import getSubcategory from '../publics/redux/actions/subcategory';
+import {getSubcategory} from '../publics/redux/actions/subcategory';
 
 class Home extends Component {
 
@@ -61,7 +60,7 @@ class Home extends Component {
     console.log('data', this.state.category)
     return (
       <Container>
-        <StatusBar backgroundColor="green" />
+
         <Header style={{ backgroundColor: 'white' }} searchBar rounded>
           <Item>
             <Input placeholder="Search" />
@@ -71,6 +70,7 @@ class Home extends Component {
             <Text>Search</Text>
           </Button>
         </Header>
+        <ScrollView>
         <Slideshow titleStyle={{
           fontWeight: 'bold',
           color: 'white',
@@ -128,12 +128,14 @@ class Home extends Component {
             keyExtractor={(item, index) => index}
           />
         </Card>
+        
+        </ScrollView>
         <View>
-          <Fab position="bottomRight" onPress={() => this.props.navigation.navigate('Cart')} style={{ backgroundColor: '#008000', top: "-100%", position: "absolute" }} >
+          <Fab position="bottomRight" onPress={() => this.props.navigation.navigate('Cart')} style={{ backgroundColor: '#008000', top: "-80%", position: "absolute" }} >
             <Icon name="cart" type="Ionicons" style={{ color: 'white' }} />
           </Fab>
-          <Bottomtab />
         </View>
+        <Bottomtab style={styles.BottomtabStyele} />  
       </Container>
     );
   }
@@ -145,3 +147,18 @@ const mapStateToProps = state => {
 }
 
 export default connect(mapStateToProps)(Home);
+const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+    backgroundColor: "rgba(62,220,62,1)"
+  },
+
+
+  BottomtabStyele: {
+    top: "90.33%",
+    left: "-8.56%",
+    width: "117.01%",
+    height: "9.67%",
+    position: "absolute"
+  }
+});

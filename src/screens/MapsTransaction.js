@@ -46,13 +46,14 @@ export default class Untitled extends Component {
                             description={"tes"}
                             title={"pasar non malioboro juga"}
                         />
+                        
                     </MapView>
                     <View style={{ top: 5 }}>
                         <Fab position="bottomRight" onPress={() => this.getCurrentPosition()} style={{ backgroundColor: 'white', top: "-100%", position: "absolute" }} >
                             <Icon name="locate" type="Ionicons" style={{ color: 'steelblue' }} />
                         </Fab>
-
                         <Bottomtab style={styles.BottomtabStyele} />
+                        
                     </View>
                 </View>
             </Container>
@@ -67,7 +68,7 @@ const styles = StyleSheet.create({
     },
     mapView: {
         position: "relative",
-        height: "92%",
+        height: "90%",
         width: "100%",
 
     },
@@ -75,8 +76,8 @@ const styles = StyleSheet.create({
     BottomtabStyele: {
         top: "100%",
         left: "-8.56%",
-        width: "117.01%",
-        height: "9.67%",
+        width: "100%",
+        height: "91.67%",
         position: "absolute",
     },
 
