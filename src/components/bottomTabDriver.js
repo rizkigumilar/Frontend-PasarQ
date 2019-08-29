@@ -30,7 +30,6 @@ export class bottomTab extends Component {
   render() {
     return (
       <Footer>
-
         <FooterTab style={{ backgroundColor: "#008000" }}>
           <Button onPress={() => { this.props.navigation.navigate('DetailPelanggan') }} vertical>
             <Icon type="FontAwesome" name="user-circle" />
@@ -43,7 +42,6 @@ export class bottomTab extends Component {
 
         </FooterTab>
       </Footer>
-
     )
   }
 }

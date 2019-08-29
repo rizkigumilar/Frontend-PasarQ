@@ -50,18 +50,6 @@ export const editCategory = (data, id_category) => {
     }
 }
 
-export const editCategory = (data, id_category) => {
-    return {
-        type: 'PATCH_CATEGORY', id_category,
-        payload: axios.patch(`${url}/category/${id_category}`,
-            {
-                headers: {
-                    "authorization": "semangat-team-faraday"
-                }
-            })
-    }
-}
-
 export const deleteCategory = (id_category) => {
     return {
         type: 'PATCH_CATEGORY', id_category,

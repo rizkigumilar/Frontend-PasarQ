@@ -188,6 +188,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-geocoder')
     implementation "com.android.support:design:${rootProject.ext.supportLibVersion}"
     implementation project(':react-native-bottom-sheet-behavior')
     implementation project(':react-native-vector-icons')

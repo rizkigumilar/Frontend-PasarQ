@@ -14,6 +14,7 @@ import {withNavigation, NavigationEvents} from 'react-navigation';
 import Geocoder from 'react-native-geocoder';
 import {TouchableHighlight} from 'react-native-gesture-handler';
 
+
 export default class Home extends Component {
   state = {
     name: '',
