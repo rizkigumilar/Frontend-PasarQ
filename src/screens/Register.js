@@ -23,7 +23,8 @@ class Register extends Component {
         this.state = {
             user: [],
             data: [],
-            rolenya:""
+            rolenya:"",
+            id_firebase:""
         };
     }
     componentDidMount = async () => {
@@ -69,16 +70,7 @@ class Register extends Component {
                 this.setState({ rolenya :"Pembeli"})
             }
             console.warn("response",this.state.rolenya)
-            const Data = {
-                email: this.state.email,
-                name: this.state.name,
-                password: this.state.password,
-                telp: this.state.telp,
-                address: this.state.address,
-                latitude: this.state.latitude || 0,
-                longitude: this.state.longitude || 0,
-                role_id: this.state.role_id
-            }
+            
             Auth.createUserWithEmailAndPassword(this.state.email, this.state.password)
             .then((response) => {
                 console.warn(response)
@@ -93,19 +85,30 @@ class Register extends Component {
                     longitude: this.state.longitude || 0,
                     status: 'offline'
                 })
+                this.setState({
+                    id_firebase:response.user.uid
+                })
                 this.props.navigation.navigate('Login')
             })
             .catch(error => {
                 alert(error.message)
                 this.setState({
-                    fullname: '',
-                    email: '',
-                    password: ''
+                   
                 })
   
                 this.props.navigation.navigate('Register')
             })
-            
+            const Data = {
+                email: this.state.email,
+                name: this.state.name,
+                password: this.state.password,
+                telp: this.state.telp,
+                address: this.state.address,
+                latitude: this.state.latitude || 0,
+                longitude: this.state.longitude || 0,
+                role_id: this.state.role_id,
+                id_firebase:this.state.id_firebase
+            }
             await this.setState({ user: Data })
 
             this.props.dispatch(register(Data))
