@@ -1,27 +1,31 @@
-import React, {Component} from 'react';
-import {View, Text, StyleSheet, StatusBar, AsyncStorage} from 'react-native';
-import {TouchableOpacity, ScrollView} from 'react-native-gesture-handler';
-import {connect} from 'react-redux';
-import {
-  Header,
-  Left,
-  Button,
-  Icon,
-  Body,
-  Title,
-  Thumbnail,
-  Fab,
-} from 'native-base';
-import {getItemId} from '../publics/redux/actions/item';
-import {postCart} from '../publics/redux/actions/cart';
+import React, { Component } from 'react'
+import { View, Text, StyleSheet, StatusBar, AsyncStorage, Alert } from 'react-native'
+import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler'
+import { connect } from 'react-redux';
+import { Header, Left, Button, Icon, Body, Title, Thumbnail, Fab } from 'native-base'
+import { getItemId } from '../publics/redux/actions/item';
+import { postCart } from '../publics/redux/actions/cart';
+
+
 
 class DetailProduct extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      idItem: props.navigation.getParam('idItem'),
-      data: [],
-      idUser: '',
+    constructor(props) {
+        super(props)
+        this.state = {
+            idItem: props.navigation.getParam('idItem'),
+            data: [],
+            idUser: ''
+        }
+        AsyncStorage.getItem('userid').then(value => {
+            this.setState({ idUser: value });
+        });
+    }
+    componentDidMount = async () => {
+        await this.props.dispatch(getItemId(this.state.idItem))
+        this.setState({
+            data: this.props.item,
+        });
+
     };
     addToCart = async () => {
         let data = {
@@ -84,65 +88,65 @@ class DetailProduct extends Component {
     }
 }
 const mapStateToProps = state => {
-  return {
-    item: state.item.itemDetail,
-  };
-};
-export default connect(mapStateToProps)(DetailProduct);
+    return {
+        item: state.item.itemDetail,
+    }
+}
+export default connect(mapStateToProps)(DetailProduct)
 
 const styles = StyleSheet.create({
-  img: {
-    height: '50%',
-    width: '100%',
-  },
-  buttonText: {
-    fontSize: 18,
-    fontFamily: 'Gill Sans',
-    textAlign: 'center',
-    margin: 10,
-    color: '#ffffff',
-    backgroundColor: 'transparent',
-    left: 20,
-  },
-  button: {
-    backgroundColor: '#008000',
-    paddingLeft: 10,
-    paddingRight: 10,
-    borderRadius: 8,
-    marginTop: '10%',
-    width: 280,
-    alignSelf: 'center',
-    flexDirection: 'row',
-  },
-  itemName: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginLeft: '5%',
-    marginTop: '4%',
-  },
-  itemPrice: {
-    fontSize: 15,
-    fontWeight: 'bold',
-    marginLeft: '6%',
-    marginTop: '2%',
-  },
-  desc: {
-    marginLeft: '4%',
-    marginTop: '4%',
-  },
-  header: {
-    flexDirection: 'row',
-    height: 60,
-  },
-  back: {
-    justifyContent: 'center',
-    marginHorizontal: 20,
-  },
-  menuIcon: {
-    width: 20,
-    height: 30,
-  },
-  label: {
-    justifyContent: 'center',
-  },
-});
+    img: {
+        height: '50%',
+        width: '100%'
+    },
+    buttonText: {
+        fontSize: 18,
+        fontFamily: 'Gill Sans',
+        textAlign: 'center',
+        margin: 10,
+        color: '#ffffff',
+        backgroundColor: 'transparent',
+        left: 20
+    },
+    button: {
+        backgroundColor: '#008000',
+        paddingLeft: 10,
+        paddingRight: 10,
+        borderRadius: 8,
+        marginTop: '10%',
+        width: 280,
+        alignSelf: 'center',
+        flexDirection: "row"
+    },
+    itemName: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginLeft: '5%',
+        marginTop: '4%'
+    },
+    itemPrice: {
+        fontSize: 15,
+        fontWeight: 'bold',
+        marginLeft: '6%',
+        marginTop: '2%'
+    },
+    desc: {
+        marginLeft: '4%',
+        marginTop: '4%'
+    },
+    header: {
+        flexDirection: 'row',
+        height: 60,
+    },
+    back: {
+        justifyContent: 'center',
+        marginHorizontal: 20,
+    },
+    menuIcon: {
+        width: 20,
+        height: 30,
+    },
+    label: {
+        justifyContent: 'center',
+    },
+})
