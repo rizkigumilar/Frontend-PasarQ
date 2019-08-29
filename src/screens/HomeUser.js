@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { FlatList, Text, Image, StatusBar, View } from "react-native";
+import { FlatList, Text, Image, StatusBar, View, StyleSheet } from "react-native";
 import data from './dummy'
 import Slideshow from 'react-native-image-slider-show'
 import { Container, Header, Item, Input, Content, Card, CardItem, Fab, Button, Icon, Left, Body, Right } from 'native-base';
@@ -59,7 +59,7 @@ class Home extends Component {
     console.log('data', this.state.category)
     return (
       <Container>
-        <StatusBar backgroundColor="green" />
+
         <Header style={{ backgroundColor: 'white' }} searchBar rounded>
           <Item>
             <Input placeholder="Search" />
@@ -69,69 +69,72 @@ class Home extends Component {
             <Text>Search</Text>
           </Button>
         </Header>
-        <Slideshow titleStyle={{
-          fontWeight: 'bold',
-          color: 'white',
-          textShadowColor: 'black',
-          textShadowOffset: { width: -1, height: -1 },
-          textShadowRadius: 5,
-          fontSize: 19
-        }}
-          captionStyle={{
-            fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowOffset: { width: -1, height: -1 }, textShadowRadius: 5,
-
+        <ScrollView>
+          <Slideshow titleStyle={{
+            fontWeight: 'bold',
+            color: 'white',
+            textShadowColor: 'black',
+            textShadowOffset: { width: -1, height: -1 },
+            textShadowRadius: 5,
+            fontSize: 19
           }}
-          height={200}
-          arrowSize={15}
-          dataSource={this.state.dataSource}
-          position={this.state.position}
-          onPositionChanged={position => this.setState({ position })} />
-        <Card style={{ height: 150 }}>
-          <Text style={{ fontSize: 20, fontWeight: 'bold', justifyContent: 'center', textAlign: 'center' }}>Kategori Produk</Text>
-          <FlatList
-            horizontal
-            data={this.state.category}
-            renderItem={({ item: rowData }) => {
-              return (
-                <Card style={{ width: 100 }}>
-                  <CardItem button onPress={() => this.props.navigation.navigate('Product', { idCat: rowData.id_category })} cardBody>
-                    <Image style={{ width: 100, height: 60 }} source={{ uri: `${rowData.image}` }} />
-                  </CardItem>
-                  <CardItem footer button onPress={() => this.props.navigation.navigate('Product', { idCat: rowData.id_category })}>
-                    <Text>{rowData.name_category}</Text>
-                  </CardItem>
-                </Card>
-              );
+            captionStyle={{
+              fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowOffset: { width: -1, height: -1 }, textShadowRadius: 5,
+
             }}
-            keyExtractor={(item, index) => index}
-          />
-        </Card>
-        <Card style={{ height: 280 }}>
-          <Text style={{ fontSize: 20, fontWeight: 'bold', justifyContent: 'center', textAlign: 'center' }}>Produk Terlaris</Text>
-          <FlatList
-            horizontal
-            data={this.state.data}
-            renderItem={({ item: rowData }) => {
-              return (
-                <Card style={{ heigth: 300, width: 200 }}>
-                  <CardItem button onPress={() => this.props.navigation.navigate('Product')} cardBody>
-                    <Image style={{ width: 180, height: 170 }} source={{ uri: `${rowData.image}` }} />
-                  </CardItem>
-                  <CardItem footer button onPress={() => this.props.navigation.navigate('Product')}>
-                    <Text>{rowData.name}</Text>
-                  </CardItem>
-                </Card>
-              );
-            }}
-            keyExtractor={(item, index) => index}
-          />
-        </Card>
+            height={200}
+            arrowSize={15}
+            dataSource={this.state.dataSource}
+            position={this.state.position}
+            onPositionChanged={position => this.setState({ position })} />
+          <Card style={{ height: 150 }}>
+            <Text style={{ fontSize: 20, fontWeight: 'bold', justifyContent: 'center', textAlign: 'center' }}>Kategori Produk</Text>
+            <FlatList
+              horizontal
+              data={this.state.category}
+              renderItem={({ item: rowData }) => {
+                return (
+                  <Card style={{ width: 100 }}>
+                    <CardItem button onPress={() => this.props.navigation.navigate('Product', { idCat: rowData.id_category })} cardBody>
+                      <Image style={{ width: 100, height: 60 }} source={{ uri: `${rowData.image}` }} />
+                    </CardItem>
+                    <CardItem footer button onPress={() => this.props.navigation.navigate('Product', { idCat: rowData.id_category })}>
+                      <Text>{rowData.name_category}</Text>
+                    </CardItem>
+                  </Card>
+                );
+              }}
+              keyExtractor={(item, index) => index}
+            />
+          </Card>
+          <Card style={{ height: 280 }}>
+            <Text style={{ fontSize: 20, fontWeight: 'bold', justifyContent: 'center', textAlign: 'center' }}>Produk Terlaris</Text>
+            <FlatList
+              horizontal
+              data={this.state.data}
+              renderItem={({ item: rowData }) => {
+                return (
+                  <Card style={{ heigth: 300, width: 200 }}>
+                    <CardItem button onPress={() => this.props.navigation.navigate('Product')} cardBody>
+                      <Image style={{ width: 180, height: 170 }} source={{ uri: `${rowData.image}` }} />
+                    </CardItem>
+                    <CardItem footer button onPress={() => this.props.navigation.navigate('Product')}>
+                      <Text>{rowData.name}</Text>
+                    </CardItem>
+                  </Card>
+                );
+              }}
+              keyExtractor={(item, index) => index}
+            />
+          </Card>
+
+        </ScrollView>
         <View>
-          <Fab position="bottomRight" onPress={() => this.props.navigation.navigate('Cart')} style={{ backgroundColor: '#008000', top: "-100%", position: "absolute" }} >
+          <Fab position="bottomRight" onPress={() => this.props.navigation.navigate('Cart')} style={{ backgroundColor: '#008000', top: "-80%", position: "absolute" }} >
             <Icon name="cart" type="Ionicons" style={{ color: 'white' }} />
           </Fab>
-          <Bottomtab />
         </View>
+        <Bottomtab style={styles.BottomtabStyele} />
       </Container>
     );
   }
@@ -143,3 +146,18 @@ const mapStateToProps = state => {
 }
 
 export default connect(mapStateToProps)(Home);
+const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+    backgroundColor: "rgba(62,220,62,1)"
+  },
+
+
+  BottomtabStyele: {
+    top: "90.33%",
+    left: "-8.56%",
+    width: "117.01%",
+    height: "9.67%",
+    position: "absolute"
+  }
+});

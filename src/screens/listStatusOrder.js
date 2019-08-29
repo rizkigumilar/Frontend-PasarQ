@@ -62,7 +62,7 @@ export default class ListThumbnailExample extends Component {
           renderItem={({ item: rowData }) => {
             return (
               <List>
-                <ListItem thumbnail onPress={() => { this.props.navigation.navigate('DriverMap') }}>
+                <ListItem thumbnail onPress={() => { this.props.navigation.navigate('Maps') }}>
                   <Left>
                     <Thumbnail square source={{ uri: `${rowData.imageUrl}` }} />
                   </Left>

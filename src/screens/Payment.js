@@ -39,16 +39,15 @@ class Payment extends Component {
     });
   }
 
-
-
   geocode = async () => {
-    var lat = this.state.region.latitude
-    var lng = this.state.region.longitude
+    var lat = this.state.region.latitude;
+    var lng = this.state.region.longitude;
     var Location = { lat, lng };
     Geocoder.geocodePosition(Location);
-    const address = res[0].subLocality + ', ' + res[0].subAdminArea + ', ' + res[0].adminArea;
+    const address =
+      res[0].subLocality + ', ' + res[0].subAdminArea + ', ' + res[0].adminArea;
 
-    return address
+    return address;
   };
 
   render() {
@@ -82,6 +81,7 @@ class Payment extends Component {
             })
           }
         />
+
         <View style={styles.header}>
           <View style={styles.back}>
             <Icon

@@ -45,6 +45,7 @@ const AuthStack = createStackNavigator({
 
 
 const UserStack = createStackNavigator({
+    
     Home: {
         screen: HomeUser,
         navigationOptions: {

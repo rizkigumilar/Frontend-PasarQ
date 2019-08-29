@@ -90,7 +90,7 @@ export default class Home extends Component {
                     <View style={styles.container}>
                         <Image
                             style={styles.profileImage}
-                            source={{ uri: this.state.photo }}
+                            source={require('../assets/group.png')}
                         />
                     </View>
                     <Form style={styles.formInput}>
