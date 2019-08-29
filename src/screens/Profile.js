@@ -62,8 +62,8 @@ export default class Home extends Component {
     };
 
     render() {
-        var lat = parseInt(this.state.latitude);
-        var lng = parseInt(this.state.longitude);
+        var lat = -7.7584928
+        var lng = 110.3781484
         var Location = { lat, lng };
         Geocoder.geocodePosition(Location).then(res => {
             this.setState({

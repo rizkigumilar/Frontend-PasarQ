@@ -23,92 +23,65 @@ class DetailProduct extends Component {
       data: [],
       idUser: '',
     };
-    AsyncStorage.getItem('userid').then(value => {
-      this.setState({idUser: value});
-    });
-  }
-  componentDidMount = async () => {
-    await this.props.dispatch(getItemId(this.state.idItem));
-    this.setState({
-      data: this.props.item,
-    });
-  };
-  addToCart = async () => {
-    let data = {
-      id_item: this.state.data.id_item,
-      id_user: this.state.idUser,
+    addToCart = async () => {
+        let data = {
+            id_item: this.state.data.id_item,
+            id_user: this.state.idUser
+        }
+        await this.props.dispatch(postCart(data)).then((res) => {
+            this.props.navigation.navigate('Cart')
+        }).catch(() => {
+            Alert.alert("Barang sudah ditambahkan")
+        })
     };
-    await this.props.dispatch(postCart(data)).then(() => {
-      this.props.navigation.navigate('Cart');
-    });
-  };
-  render() {
-    console.warn(this.state.idUser);
-    return (
-      <View>
-        <StatusBar backgroundColor="#1bbd19" />
-        <View style={styles.header}>
-          <View style={styles.back}>
-            <Icon
-              name="arrow-back"
-              color="#000000"
-              size={32}
-              style={styles.menuIcon}
-              onPress={() => this.props.navigation.navigate('Product')}
-            />
-          </View>
-          <View style={styles.label}>
-            <Text>Product</Text>
-          </View>
-        </View>
-
-        <View>
-          <Thumbnail
-            square
-            source={{uri: this.state.data.image}}
-            style={styles.img}
-          />
-          <Text style={styles.itemName}> {this.state.data.name_item} </Text>
-          <Text style={styles.itemPrice}> Rp. {this.state.data.price} </Text>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => this.addToCart()}>
+    render() {
+        console.warn(this.state.idUser)
+        return (
             <View>
-              <Text style={styles.buttonText}>Tambah ke Keranjang</Text>
+                <StatusBar backgroundColor='#1bbd19' />
+                <View style={styles.header}>
+                    <View style={styles.back}>
+                        <Icon
+                            name="arrow-back"
+                            color="#000000"
+                            size={32}
+                            style={styles.menuIcon}
+                            onPress={() => this.props.navigation.navigate('Product')}
+                        />
+                    </View>
+                    <View style={styles.label}>
+                        <Text>Product</Text>
+                    </View>
+                </View>
+                <View>
+                    <Thumbnail square source={{ uri: this.state.data.image }} style={styles.img} />
+                    <Text style={styles.itemName}> {this.state.data.name_item} </Text>
+                    <Text style={styles.itemPrice}> Rp. {this.state.data.price} </Text>
+                    <TouchableOpacity style={styles.button} onPress={() => this.addToCart()}>
+                        <View>
+                            <Text style={styles.buttonText}>
+                                Tambah ke Keranjang
+                            </Text>
+                        </View>
+                        <View>
+                            <Icon
+                                name="cart"
+                                style={{ color: 'white', top: 10, left: 10 }}
+                                size={32}
+                            />
+                        </View>
+                    </TouchableOpacity>
+                    <Text style={styles.desc}>Deskripsi Produk :</Text>
+                    <Text style={styles.desc}> {this.state.data.description} </Text>
+                </View>
+                <View style={{ marginTop: 50 }}>
+                    <Fab position="bottomRight" onPress={() => this.props.navigation.navigate('ChatRoom', { idStore: this.state.data.id_store, idItem: this.state.data.id_item })} style={{ backgroundColor: '#008000', top: "-100%", position: "absolute" }} >
+                        <Icon name="chatboxes" type="Ionicons" style={{ color: 'white' }} />
+                    </Fab>
+                </View>
             </View>
-            <View>
-              <Icon
-                name="cart"
-                style={{color: 'white', top: 10, left: 10}}
-                size={32}
-              />
-            </View>
-          </TouchableOpacity>
-          <Text style={styles.desc}>Deskripsi Produk :</Text>
-          <ScrollView>
-            <Text style={styles.desc}> {this.state.data.description} </Text>
-          </ScrollView>
-        </View>
-        <View style={{marginTop: 50}}>
-          <Fab
-            position="bottomRight"
-            onPress={() =>
-              this.props.navigation.navigate('ChatRoom', {
-                idStore: this.state.data.id_store,
-                idItem: this.state.data.id_item,
-              })
-            }
-            style={{
-              backgroundColor: '#008000',
-              top: '-100%',
-              position: 'absolute',
-            }}>
-            <Icon name="chatboxes" type="Ionicons" style={{color: 'white'}} />
-          </Fab>
-        </View>
-      </View>
-    );
-  }
+        )
+    }
 }
 const mapStateToProps = state => {
   return {
