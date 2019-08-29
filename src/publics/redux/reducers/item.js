@@ -68,6 +68,26 @@ const item = (state = initialState, action) => {
                 isFulfilled: true,
                 itemDetail: action.payload.data.result
             };
+        case 'GET_ITEMID_BYSTORE_PENDING':
+            return {
+                ...state,
+                isLoading: true,
+                isFulfilled: false,
+                isRejected: false,
+            };
+        case 'GET_ITEMID_BYSTORE_REJECTED':
+            return {
+                ...state,
+                isLoading: false,
+                isRejected: true,
+            };
+        case 'GET_ITEMID_BYSTORE_FULFILLED':
+            return {
+                ...state,
+                isLoading: false,
+                isFulfilled: true,
+                itemList: action.payload.data.result
+            };
         case 'POST_ITEM_PENDING':
             return {
                 ...state,
