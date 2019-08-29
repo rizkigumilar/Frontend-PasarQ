@@ -61,13 +61,7 @@ class Home extends Component {
       <Container>
 
         <Header style={{ backgroundColor: 'white' }} searchBar rounded>
-          <Item>
-            <Input placeholder="Search" />
-            <Icon name="ios-search" />
-          </Item>
-          <Button>
-            <Text>Search</Text>
-          </Button>
+          <Image />
         </Header>
         <ScrollView>
           <Slideshow titleStyle={{

@@ -26,10 +26,10 @@ export const getCartId = (id_cart) => {
     }
 }
 
-export const postCart = () => {
+export const postCart = (data) => {
     return {
         type: 'POST_CART',
-        payload: axios.post(`${url}/cart`,
+        payload: axios.post(`${url}/cart`, data,
             {
                 headers: {
                     "authorization": "semangat-team-faraday"

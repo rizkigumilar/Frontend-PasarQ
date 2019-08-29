@@ -13,37 +13,37 @@ class CardProduct extends Component {
     this.state = {
       data: this.initData,
       showAlert: false,
-      isidatanya:""
+      data: []
     };
   }
 
   componentDidMount = async () => {
     await this.props.dispatch(getItemBySubId(this.props.id_subcategory));
     this.setState({
-      isidatanya: this.props.itemsProps,
+      data: this.props.itemsProps,
     });
   };
 
   render() {
-console.log('isidatanya', this.state.isidatanya)
+    console.log('isidatanya', this.state.data)
     return (
       <Container>
         <Content>
           <View style={styles.FlatList}>
             <FlatList
-              data={this.state.isidatanya}
+              data={this.state.data}
               numColumns={2}
               keyExtractor={item => item.id_item}
               renderItem={({ item, index }) => {
                 return (
                   <Card >
-                    <CardItem cardBody button onPress={() => { this.props.navigation.navigate('DetailProduct') }}>
+                    <CardItem cardBody button onPress={() => { this.props.navigation.navigate('DetailProduct', { idItem: item.id_item }) }}>
                       <Image source={{ uri: `${item.image}` }} style={styles.image} />
                     </CardItem>
                     <CardItem>
                       <Left>
                         <Button success >
-                          <Text style={{ padding: 10, justifyContent: "center", textAlign: "center" }}>Rp {item.price} {item.name_item} / gram</Text>
+                          <Text style={{ padding: 10, justifyContent: "center", textAlign: "center" }}>Rp {item.price} {item.name_item} </Text>
                         </Button>
                       </Left>
                     </CardItem>
@@ -64,9 +64,7 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(CardProduct)
-
-// export default withNavigation(CardProduct)
+export default connect(mapStateToProps)(withNavigation(CardProduct))
 const styles = StyleSheet.create({
   header: {
     alignItems: "center",
