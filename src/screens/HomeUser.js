@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { FlatList, Text, Image, StatusBar, View, StyleSheet } from "react-native";
 import data from './dummy'
 import Slideshow from 'react-native-image-slider-show'
-import { Container, Header, Item, Input, Content, Card, CardItem, Fab, Button, Icon, Left, Body, Right } from 'native-base';
+import { Container, Header, Badge, Input, Content, Card, CardItem, Fab, Button, Icon, Left, Body, Right } from 'native-base';
 import { getCategory } from '../publics/redux/actions/category';
 import { connect } from 'react-redux'
 import Bottomtab from "../components/bottomTab";
@@ -126,6 +126,7 @@ class Home extends Component {
         </ScrollView>
         <View>
           <Fab position="bottomRight" onPress={() => this.props.navigation.navigate('Cart')} style={{ backgroundColor: '#008000', top: "-80%", position: "absolute" }} >
+          <Badge warning><Text>2</Text></Badge>
             <Icon name="cart" type="Ionicons" style={{ color: 'white' }} />
           </Fab>
         </View>

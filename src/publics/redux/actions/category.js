@@ -8,7 +8,9 @@ export const getCategory = () => {
         payload: axios.get(`${url}/category`,
             {
                 headers: {
-                    "authorization": "semangat-team-faraday"
+                    "authorization": "semangat-team-faraday",
+                    "x-access-token": `token: ${AsyncStorage.jwToken}`,
+                    "x-control-user": AsyncStorage.userid
                 }
             })
     }
@@ -20,7 +22,9 @@ export const getCategoryId = (id_category) => {
         payload: axios.get(`${url}/category/${id_category}`,
             {
                 headers: {
-                    "authorization": "semangat-team-faraday"
+                    "authorization": "semangat-team-faraday",
+                    "x-access-token": `token: ${AsyncStorage.jwToken}`,
+                    "x-control-user": AsyncStorage.userid
                 }
             })
     }
