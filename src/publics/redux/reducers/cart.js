@@ -108,20 +108,20 @@ const cart = (state = initialState, action) => {
                 cartList: [state.cartList, action.payload.data[0]]
             };
         // get cart user
-        case 'GET_CART_USER':
+        case 'GET_CART_USER_PENDING':
             return {
                 ...state,
                 isLoading: true,
                 isFulfilled: false,
                 isRejected: false
             };
-        case 'GET_CART_USER':
+        case 'GET_CART_USER_REJECTED':
             return {
                 ...state,
                 isLoading: false,
                 isRejected: true
             };
-        case 'GET_CART_USER':
+        case 'GET_CART_USER_FULFILLED':
             return {
                 ...state,
                 isLoading: false,

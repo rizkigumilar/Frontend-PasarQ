@@ -1,6 +1,4 @@
 import React, {Component, Fragment} from 'react';
-import Data from '../dummyData/Data';
-import AwesomeAlert from 'react-native-awesome-alert';
 import {
   StyleSheet,
   Text,
@@ -33,6 +31,8 @@ class Cart extends Component {
     setTimeout(() => {
       this.props.dispatch(getCartUser(this.state.iduser))
       .then(res => {
+        console.log("ini data cart",this.props.cartList);
+        
         this.setState({
           cartList : this.props.cartList
         })
@@ -57,17 +57,16 @@ class Cart extends Component {
   };
 
   renderItem = ({item}) => {
-    console.log("itemitem", item)
     return (
       <View style={styles.item}>
         <View style={styles.image}>
           <Image style={styles.imageProduct} source={{uri: `${item.image}`}} />
         </View>
         <View style={styles.desc}>
-          <Text style={styles.textProduct}>{item.name}</Text>
+          <Text style={styles.textProduct}>{item.name_item}</Text>
           <Text style={styles.textProduct}>Rp. {item.price}</Text>
         </View>
-        <View style={styles.qty}>
+        <View style={styles.quantity}>
           <TouchableOpacity style={styles.buttonMin} onPress={this.onPress}>
             <Text style={{color: 'white'}}> - </Text>
           </TouchableOpacity>
@@ -97,7 +96,6 @@ class Cart extends Component {
   };
 
   render() {
-    console.log('data cart', this.state.cartList);
     return (
       <Fragment>
         <StatusBar backgroundColor="#008000" />
@@ -113,7 +111,7 @@ class Cart extends Component {
             <FlatList
               style={styles.flatList}
               data={this.state.cartList}
-              keyExtractor={item => item.id.toString()}
+              keyExtractor={item => item.id_cart}
               renderItem={this.renderItem}
             />
             <View style={styles.checkoutBtn}>
@@ -144,6 +142,9 @@ const styles = StyleSheet.create({
   contentContainer: {
     backgroundColor: 'white',
     flex: 1,
+  },
+  quantity: {
+    flexDirection : 'row',
   },
   address: {
     backgroundColor: 'grey',
