@@ -5,7 +5,6 @@ import Bottomtab from "../components/BottomTabsDriver";
 import { NavigationEvents } from 'react-navigation';
 import { Database, Auth } from '../publics/firebase/index'
 
-
 export default class Home extends Component {
     state = {
         email: '',

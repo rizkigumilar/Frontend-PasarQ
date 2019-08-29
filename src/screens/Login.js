@@ -32,7 +32,8 @@ class Login extends Component {
             email: '',
             password: '',
             latitude: 0,
-            longitude: 0,
+						longitude: 0,
+						rolenya:""
         };
     }
 
@@ -61,21 +62,35 @@ class Login extends Component {
         if (this.state.email == '' && this.state.password == '') {
             alert('Harap mengisi Semua Form!')
         } else {
+					if (this.state.role_id == 2) {
+							this.setState({ rolenya :"Toko"})
+							} else if (this.state.role_id == 3){
+									this.setState({ rolenya :"Driver"})
+							} else {
+									this.setState({ rolenya :"Pembeli"})
+							}
             this.state.data.push({
                 email: this.state.email,
                 password: this.state.password,
                 role: this.state.role_id
 						});
-						if (this.state.role_id == 3) {
+						
 							await Auth.signInWithEmailAndPassword(this.state.email, this.state.password)
 							.then((response) => { 
-								Database.ref('/driver/' + response.user.uid).update({ status: 'online' })
+								Database.ref('/'+this.state.rolenya+'/' + response.user.uid).update({ 
+									status: 'online',
+									password: this.state.password,
+									email: this.state.email,
+									latitude:this.state.latitude,
+									longitude:this.state.longitude,
+									avatar:"https://res.cloudinary.com/dnqtceffv/image/upload/v1566043986/srhwjzljnfq79cg2glov.png"
+								 })
 								AsyncStorage.setItem('id_firebase', response.user.uid)
 							})
 							.catch(error => {
 								alert(error.message)
 							})
-						} 
+
             await this.props.dispatch(login(this.state.data[0]))
                 .then(() => {
 									Alert.alert(

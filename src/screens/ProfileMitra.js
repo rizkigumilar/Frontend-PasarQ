@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import { StyleSheet, View, Image, AsyncStorage, Alert, TouchableHighlight, StatusBar } from "react-native";
 import { Container, Content, Form, Label, Header, Item, Icon, Button, Input, Text, Fab } from 'native-base'
 import Bottomtab from "../components/BottomTabMitra";
+import { Database, Auth } from '../publics/firebase/index'
 import { NavigationEvents } from 'react-navigation';
+
 
 export default class Home extends Component {
     constructor(props) {
@@ -37,21 +39,26 @@ export default class Home extends Component {
         });
     }
     del = () => {
+const userToken = await AsyncStorage.getItem('id_firebase');
+
+        Database.ref('/Toko/' + userToken).update({ status: "offline" })
+        Auth.signOut().then(() => {
+            this.setState({ isLogin: false })
+            this.setState({ data: [] })
+            Alert.alert(
+                'Logout',
+                'Logout success', [
+                    {
+                        text: 'OK', onPress: () => this.props.navigation.navigate('Auth')
+                    }
+                ]
+            )
+                AsyncStorage.clear();
+                this.props.navigation.navigate('auth');
+            }).catch(error => { alert(error.message) })
         AsyncStorage.removeItem('userid')
         AsyncStorage.removeItem('jwToken')
         AsyncStorage.removeItem('role_id')
-            .then(() => {
-                this.setState({ isLogin: false })
-                this.setState({ data: [] })
-                Alert.alert(
-                    'Logout',
-                    'Logout success', [
-                        {
-                            text: 'OK', onPress: () => this.props.navigation.navigate('Auth')
-                        }
-                    ]
-                )
-            })
     };
 
     render() {

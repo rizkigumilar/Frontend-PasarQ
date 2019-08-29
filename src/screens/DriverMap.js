@@ -8,21 +8,48 @@ import GetLocation from 'react-native-get-location'
 const origin = {latitude: -7.758497, longitude: 110.3781336};
 const destination = {latitude: -7.860551, longitude: 110.2834043};
 const GOOGLE_MAPS_APIKEY = 'AIzaSyANrU0IYG6amBR2BN2F7kzZk6j2Luhowwc';
+import { Database, Auth } from '../publics/firebase/index'
 
 export class DriverMap extends Component {
   constructor(props) {
     super(props)
     this.state = {
       coords: [],
-      mapRegion:{ latitude: 0,
+      mapRegion:{
+        latitude: 0,
         longitude: 0.01,
         latitudeDelta: 0.6,
-        longitudeDelta: 0.6},
+        longitudeDelta: 0.6
+      },
       latitude:0,
       longitude:0,
-
+      idFire:""
     }
+    AsyncStorage.getItem("id_firebase",(err,ress)=>{
+      if(ress){
+        this.setState({
+          idFire:ress
+        })
+      }
+    })
   }
+  componentDidMount =  () => {
+    // const idFire = await 
+     this.getCurrentPosition()
+    setInterval(() => {
+      this.setState({
+        latitude: this.state.latitude ,
+        longitude: this.state.longitude
+      })
+      this.updateLocation()
+    }, 5000);
+  }
+  updateLocation = async () => {
+    Database.ref('/driver').orderByChild('uid').equalTo(this.state.idFire).on('value', (result) => {
+      Database.ref('/driver/' + this.state.idFire).update({latitude: this.state.latitude, longitude: this.state.longitude })
+    })
+}
+
   getCurrentPosition() {
     GetLocation.getCurrentPosition({
         enableHighAccuracy: true,
