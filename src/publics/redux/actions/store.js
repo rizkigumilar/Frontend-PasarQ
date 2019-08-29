@@ -37,10 +37,10 @@ export const getByIdUser = (id_user) => {
     }
 }
 
-export const postStore = () => {
+export const postStore = (data) => {
     return {
         type: 'POST_STORE',
-        payload: axios.post(`${url}/store`,
+        payload: axios.post(`${url}/store`, data,
             {
                 headers: {
                     "authorization": "semangat-team-faraday"

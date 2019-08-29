@@ -16,10 +16,10 @@ export const getUsers = () => {
     }
 }
 
-export const updateUser = (id_user) => {
+export const updateUser = (id_user, data) => {
     return {
-        type: 'PATCH_USER', id_user,
-        payload: axios.patch(`${url}/user/${id_user}`,
+        type: 'PATCH_USER', id_user,data,
+        payload: axios.patch(`${url}/user/${id_user}`,data,
             {
                 headers: {
                     "authorization": "semangat-team-faraday"
