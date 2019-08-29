@@ -25,6 +25,17 @@ export const getItemId = (id_item) => {
             })
     }
 }
+export const getItemByIdstore = (id_store) => {
+    return {
+        type: 'GET_ITEMID_BYSTORE', id_store,
+        payload: axios.get(`${url}/item/bystore/${id_store}`,
+            {
+                headers: {
+                    "authorization": "semangat-team-faraday"
+                }
+            })
+    }
+}
 export const getItemBySubId = (id_subcategory) => {
     return {
         type: 'GET_ITEM_BY_SUBID', id_subcategory,
