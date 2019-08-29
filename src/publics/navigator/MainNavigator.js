@@ -1,6 +1,5 @@
 import {
     createAppContainer,
-    createDrawerNavigator,
     createStackNavigator,
     createSwitchNavigator,
 } from 'react-navigation';

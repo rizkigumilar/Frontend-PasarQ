@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {AsyncStorage} from 'react-native';
+import { AsyncStorage } from 'react-native';
 let url = ` http://pasarqita.muhammadrisano.online`;
 
 export const quantityplus = id_cart => {
@@ -16,6 +16,18 @@ export const quantityplus = id_cart => {
     ),
   };
 };
+
+export const postCart = (data) => {
+  return {
+    type: 'POST_CART',
+    payload: axios.post(`${url}/cart`, data,
+      {
+        headers: {
+          "authorization": "semangat-team-faraday"
+        }
+      })
+  }
+}
 
 export const quantitymin = id_cart => {
   return {

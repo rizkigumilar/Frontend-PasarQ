@@ -8,7 +8,8 @@ export const getCategory = () => {
         payload: axios.get(`${url}/category`,
             {
                 headers: {
-                    "authorization": "semangat-team-faraday"
+                    "authorization": "semangat-team-faraday",
+
                 }
             })
     }
