@@ -12,7 +12,7 @@ import {
   StatusBar,
   AsyncStorage,
 } from 'react-native';
-import {getCartUser} from '../publics/redux/actions/cart';
+import {getCartUser, deleteCart} from '../publics/redux/actions/cart';
 import {connect} from 'react-redux';
 
 class Cart extends Component {
@@ -29,26 +29,51 @@ class Cart extends Component {
 
   componentDidMount = () => {
     setTimeout(() => {
-      this.props.dispatch(getCartUser(this.state.iduser))
-      .then(res => {
-        console.log("ini data cart",this.props.cartList);
-        
+      this.props.dispatch(getCartUser(this.state.iduser)).then(res => {
         this.setState({
-          cartList : this.props.cartList
-        })
+          cartList: this.props.cartList,
+        });
       });
     }, 1000);
   };
 
-  deleteItem = () => {
-    this.setState({
-      showAlert: true,
+  getData = () => {
+    this.props.dispatch(getCartUser(this.state.iduser)).then(res => {
+      this.setState({
+        cartList: this.props.cartList,
+      });
     });
   };
 
-  checkOut = () => {
-    Alert.alert('Check out');
+  delete = async (id_cart) => {
+    await this.props.dispatch(deleteCart(id_cart)).then(() => {
+      this.getData()
+    });
   };
+
+  deleteItem = (id_cart) => {
+    Alert.alert(
+      'Delete Item',
+      'Are you sure? ',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {text: 'OK', onPress: () => this.delete(id_cart)},
+      ],
+      {cancelable: false},
+    );
+  }
+
+  onBtnMin = () => {
+    Alert.alert("min button")
+  }
+
+  onBtnPlus = () => {
+    Alert.alert("plus button")
+  }
 
   hideAlert = () => {
     this.setState({
@@ -67,24 +92,24 @@ class Cart extends Component {
           <Text style={styles.textProduct}>Rp. {item.price}</Text>
         </View>
         <View style={styles.quantity}>
-          <TouchableOpacity style={styles.buttonMin} onPress={this.onPress}>
+          <TouchableOpacity style={styles.buttonMin} onPress={this.onBtnMin}>
             <Text style={{color: 'white'}}> - </Text>
           </TouchableOpacity>
           <TextInput
             style={styles.inputQty}
-            placeholder="0"
+            value={`${item.quantity}`}
             keyboardType="default"
             underlineColorAndroid="transparent"
             textAlign={'center'}
           />
-          <TouchableOpacity style={styles.buttonMin} onPress={this.onPress}>
+          <TouchableOpacity style={styles.buttonMin} onPress={this.onBtnPlus}>
             <Text style={{color: 'white'}}> + </Text>
           </TouchableOpacity>
         </View>
         <View stye={styles.delete}>
           <TouchableOpacity
             style={styles.buttonDelete}
-            onPress={() => this.deleteItem()}>
+            onPress={() => this.deleteItem(item.id_cart)}>
             <Image
               style={styles.deleteIcon}
               source={require('../assets/delete.png')}
@@ -102,9 +127,7 @@ class Cart extends Component {
         <View style={styles.contentContainer}>
           <View style={styles.address}>
             <Text style={styles.location}>
-              Address: {'\n'}Jl. Selokan Mataram Gg. Nakula No. 303 C, Sinduaji,
-              Mlati, Kutu Dukuh, Sinduadi, Sleman, Kabupaten Sleman, Daerah
-              Istimewa Yogyakarta 83239
+              Your Cart
             </Text>
           </View>
           <View>
@@ -120,9 +143,6 @@ class Cart extends Component {
                 onPress={() => this.props.navigation.navigate('Payment')}>
                 <Text style={{color: 'white'}}> Checkout </Text>
               </TouchableOpacity>
-              <View style={styles.total}>
-                <Text style={{color: 'red'}}>Total : Rp. 50000</Text>
-              </View>
             </View>
           </View>
         </View>
@@ -144,7 +164,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   quantity: {
-    flexDirection : 'row',
+    flexDirection: 'row',
   },
   address: {
     backgroundColor: 'grey',

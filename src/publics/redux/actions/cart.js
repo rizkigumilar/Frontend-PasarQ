@@ -52,7 +52,7 @@ export const editCart = (data, id_cart) => {
 
 export const deleteCart = (id_cart) => {
     return {
-        type: 'PATCH_CART', id_cart,
+        type: 'DELETE_ITEM_CART', id_cart,
         payload: axios.delete(`${url}/cart/${id_cart}`,
             {
                 headers: {
