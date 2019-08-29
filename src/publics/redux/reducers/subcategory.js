@@ -47,6 +47,26 @@ const subcategory = (state = initialState, action) => {
                 isFulfilled: true,
                 subcategoryList: action.payload.data.result
             };
+        case 'GET_SUBCATEGORYBYCATEGORY_PENDING':
+            return {
+                ...state,
+                isLoading: true,
+                isFulfilled: false,
+                isRejected: false,
+            };
+        case 'GET_SUBCATEGORYBYCATEGORY_REJECTED':
+            return {
+                ...state,
+                isLoading: false,
+                isRejected: true,
+            };
+        case 'GET_SUBCATEGORYBYCATEGORY_FULFILLED':
+            return {
+                ...state,
+                isLoading: false,
+                isFulfilled: true,
+                subcategoryList: action.payload.data.result
+            };
         case 'POST_SUBCATEGORY_PENDING':
             return {
                 ...state,

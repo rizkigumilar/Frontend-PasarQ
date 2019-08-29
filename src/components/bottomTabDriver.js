@@ -1,43 +1,41 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Alert,TouchableOpacity, Text } from "react-native";
+import { StyleSheet, View, Alert, TouchableOpacity, Text } from "react-native";
 import { withNavigation } from 'react-navigation';
 import { Container, Header, Badge, Footer, FooterTab, Button, Icon } from 'native-base';
 
 export class bottomTab extends Component {
-    constructor(props) {
-      super(props);
-      this.state = { 
-        
-        }
+  constructor(props) {
+    super(props);
+    this.state = {
+
     }
-    JobDone () {
-      
-      Alert.alert(
-        'pastikan barang sudah tiba',
-        'di kediaman pelanggan',
-        [
-          {text: 'sampai', onPress: () => { this.props.navigation.navigate('DriverJob') }},
-          {
-            text: '',
-            onPress: () => console.log('Cancel Pressed'),
-            style: 'cancel',
-          },
-          {text: 'Belum sampai', onPress: () => console.log('OK Pressed')},
-        ],
-        {cancelable: false},
-      );
-    }
-    render() {
+  }
+  JobDone() {
+
+    Alert.alert(
+      'pastikan barang sudah tiba',
+      'di kediaman pelanggan',
+      [
+        { text: 'sampai', onPress: () => { this.props.navigation.navigate('DriverJob') } },
+        {
+          text: '',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        { text: 'Belum sampai', onPress: () => console.log('OK Pressed') },
+      ],
+      { cancelable: false },
+    );
+  }
+  render() {
     return (
       <Footer>
-        <FooterTab style={{ backgroundColor: "#037F03" }}>
-
+        <FooterTab style={{ backgroundColor: "#008000" }}>
           <Button onPress={() => { this.props.navigation.navigate('DetailPelanggan') }} vertical>
             <Icon type="FontAwesome" name="user-circle" />
             <Text style={{ color: "white" }} >Detail Job</Text>
           </Button>
-
-          <Button onPress={() => { this.JobDone()}} vertical>
+          <Button onPress={() => { this.JobDone() }} vertical>
             <Icon type="FontAwesome" name="check-circle" />
             <Text style={{ color: "white" }}>Selesai Antar</Text>
           </Button>

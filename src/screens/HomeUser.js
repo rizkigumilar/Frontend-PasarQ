@@ -1,55 +1,23 @@
 import React, { Component } from "react";
-import { FlatList, Text, Image, StatusBar } from "react-native";
+import { FlatList, Text, Image, StatusBar, View } from "react-native";
 import data from './dummy'
 import Slideshow from 'react-native-image-slider-show'
 import { Container, Header, Item, Input, Content, Card, CardItem, Fab, Button, Icon, Left, Body, Right } from 'native-base';
-import { Colors } from "react-native/Libraries/NewAppScreen";
+import { getCategory } from '../publics/redux/actions/category';
+import { connect } from 'react-redux'
 import Bottomtab from "../components/bottomTab";
 import { ScrollView } from "react-native-gesture-handler";
 import { connect } from 'react-redux'
 import getSubcategory from '../publics/redux/actions/subcategory';
 
-const data2 = [
-  {
-    imageUrl: "https://i1.wp.com/wp.tumbasin.id/wp-content/uploads/2019/06/telur-compressor.png",
-    title: "something"
-  },
-  {
-    imageUrl: "https://i1.wp.com/wp.tumbasin.id/wp-content/uploads/2019/06/telur-compressor.png",
-    title: "something two"
-  },
-  {
-    imageUrl: "https://i1.wp.com/wp.tumbasin.id/wp-content/uploads/2019/06/telur-compressor.png",
-    title: "something three"
-  },
-  {
-    imageUrl: "https://i1.wp.com/wp.tumbasin.id/wp-content/uploads/2019/06/telur-compressor.png",
-    title: "something four"
-  },
-  {
-    imageUrl: "https://i1.wp.com/wp.tumbasin.id/wp-content/uploads/2019/06/telur-compressor.png",
-    title: "something five"
-  },
-  {
-    imageUrl: "https://i1.wp.com/wp.tumbasin.id/wp-content/uploads/2019/06/telur-compressor.png",
-    title: "something five"
-  },
-  {
-    imageUrl: "https://i1.wp.com/wp.tumbasin.id/wp-content/uploads/2019/06/telur-compressor.png",
-    title: "something five"
-  },
+class Home extends Component {
 
-];
-
-
-
-export class HomeUser extends Component {
   constructor(props) {
     super(props);
     this.initData = data;
 
     this.state = {
-      data2: data2,
+      category: [],
       data: this.initData,
       position: 1,
       interval: null,
@@ -71,14 +39,12 @@ export class HomeUser extends Component {
       ]
     };
   }
-
   componentDidMount = async () => {
-    await this.props.dispatch(getSubcategory());
+    await this.props.dispatch(getCategory());
     this.setState({
-      testSub: this.props.Propssubcategory,
+      category: this.props.category.categoryList,
     });
   };
-
   // componentWillMount() {
   //   this.setState({
   //     interval: setInterval(() => {
@@ -88,98 +54,94 @@ export class HomeUser extends Component {
   //     }, 2000)
   //   })
   // }
-
   // componentWillUnmount() {
   //   clearInterval(this.state.interval)
   // }
-  render() {
-    console.log("test",this.props.Propssubcategory)
+  render() {   
+    console.log('data', this.state.category)
     return (
       <Container>
-      <StatusBar backgroundColor="green" />
-      
-      <Header style={{ backgroundColor: 'white' }} searchBar rounded>
-     
-        <Item>
-          <Icon name="ios-search" />
-          <Input placeholder="Search" style={{ borderColor: 'green' }} />
-          <Icon name="ios-people" />
-        </Item>
-        <Button transparent>
-          <Text>Search</Text>
-        </Button>
-      </Header>
-      <ScrollView>
-      <Slideshow titleStyle={{
-        fontWeight: 'bold',
-        color: 'white',
-        textShadowColor: 'black',
-        textShadowOffset: { width: -1, height: -1 },
-        textShadowRadius: 5,
-        fontSize: 19
-      }}
-        captionStyle={{
-          fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowOffset: { width: -1, height: -1 }, textShadowRadius: 5,
-
+        <StatusBar backgroundColor="green" />
+        <Header style={{ backgroundColor: 'white' }} searchBar rounded>
+          <Item>
+            <Input placeholder="Search" />
+            <Icon name="ios-search" />
+          </Item>
+          <Button>
+            <Text>Search</Text>
+          </Button>
+        </Header>
+        <Slideshow titleStyle={{
+          fontWeight: 'bold',
+          color: 'white',
+          textShadowColor: 'black',
+          textShadowOffset: { width: -1, height: -1 },
+          textShadowRadius: 5,
+          fontSize: 19
         }}
-        height={200}
-        arrowSize={15}
-        dataSource={this.state.dataSource}
-        position={this.state.position}
-        onPositionChanged={position => this.setState({ position })} />
-      <Card style={{ height: 150 }}>
-        <Text style={{ fontSize: 20, fontWeight: 'bold', justifyContent: 'center', textAlign: 'center' }}>Kategori Produk</Text>
-        <FlatList
-          horizontal
-          data={this.state.data2}
-          renderItem={({ item: rowData }) => {
-            return (
-              <Card style={{ width: 100 }}>
-                <CardItem button onPress={() => this.props.navigation.navigate('Product')} cardBody>
-                  <Image style={{ width: 100, height: 60 }} source={{ uri: `${rowData.imageUrl}` }} />
-                </CardItem>
-                <CardItem footer button onPress={() => this.props.navigation.navigate('Product')}>
-                  <Text>telor</Text>
-                </CardItem>
-              </Card>
-            );
+          captionStyle={{
+            fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowOffset: { width: -1, height: -1 }, textShadowRadius: 5,
+
           }}
-          keyExtractor={(item, index) => index}
-        />
-      </Card>
-
-      <FlatList
-        horizontal
-        data={this.state.data}
-        renderItem={({ item: rowData }) => {
-          return (
-            <Card style={{ heigth: 300, width: 200 }}>
-              <CardItem button onPress={() => this.props.navigation.navigate('Product')} cardBody>
-                <Image style={{ width: 180, height: 170 }} source={{ uri: `${rowData.image}` }} />
-              </CardItem>
-              <CardItem footer button onPress={() => this.props.navigation.navigate('Product')}>
-                <Text>{rowData.name}</Text>
-              </CardItem>
-            </Card>
-          );
-        }}
-        keyExtractor={(item, index) => index}
-      />
-      <Fab position="bottomRight" onPress={() => this.props.navigation.navigate('Cart')} style={{ backgroundColor: '#008000', top: "-100%", position: "absolute" }} >
-        <Icon name="cart" type="Ionicons" style={{ color: 'white' }} />
-      </Fab>
-      </ScrollView>
-      <Bottomtab />
-    </Container>
-    )
+          height={200}
+          arrowSize={15}
+          dataSource={this.state.dataSource}
+          position={this.state.position}
+          onPositionChanged={position => this.setState({ position })} />
+        <Card style={{ height: 150 }}>
+          <Text style={{ fontSize: 20, fontWeight: 'bold', justifyContent: 'center', textAlign: 'center' }}>Kategori Produk</Text>
+          <FlatList
+            horizontal
+            data={this.state.category}
+            renderItem={({ item: rowData }) => {
+              return (
+                <Card style={{ width: 100 }}>
+                  <CardItem button onPress={() => this.props.navigation.navigate('Product', { idCat: rowData.id_category })} cardBody>
+                    <Image style={{ width: 100, height: 60 }} source={{ uri: `${rowData.image}` }} />
+                  </CardItem>
+                  <CardItem footer button onPress={() => this.props.navigation.navigate('Product', { idCat: rowData.id_category })}>
+                    <Text>{rowData.name_category}</Text>
+                  </CardItem>
+                </Card>
+              );
+            }}
+            keyExtractor={(item, index) => index}
+          />
+        </Card>
+        <Card style={{ height: 280 }}>
+          <Text style={{ fontSize: 20, fontWeight: 'bold', justifyContent: 'center', textAlign: 'center' }}>Produk Terlaris</Text>
+          <FlatList
+            horizontal
+            data={this.state.data}
+            renderItem={({ item: rowData }) => {
+              return (
+                <Card style={{ heigth: 300, width: 200 }}>
+                  <CardItem button onPress={() => this.props.navigation.navigate('Product')} cardBody>
+                    <Image style={{ width: 180, height: 170 }} source={{ uri: `${rowData.image}` }} />
+                  </CardItem>
+                  <CardItem footer button onPress={() => this.props.navigation.navigate('Product')}>
+                    <Text>{rowData.name}</Text>
+                  </CardItem>
+                </Card>
+              );
+            }}
+            keyExtractor={(item, index) => index}
+          />
+        </Card>
+        <View>
+          <Fab position="bottomRight" onPress={() => this.props.navigation.navigate('Cart')} style={{ backgroundColor: '#008000', top: "-100%", position: "absolute" }} >
+            <Icon name="cart" type="Ionicons" style={{ color: 'white' }} />
+          </Fab>
+          <Bottomtab />
+        </View>
+      </Container>
+    );
+  }
+}
+const mapStateToProps = state => {
+  return {
+    category: state.category
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    Propssubcategory: state.subcategory,
-  };
-};
-
-export default connect(mapStateToProps)(HomeUser)
-
+export default connect(mapStateToProps)(Home);
