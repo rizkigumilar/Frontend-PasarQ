@@ -9,7 +9,6 @@ export const getCategory = () => {
             {
                 headers: {
                     "authorization": "semangat-team-faraday",
-
                 }
             })
     }
@@ -21,7 +20,7 @@ export const getCategoryId = (id_category) => {
         payload: axios.get(`${url}/category/${id_category}`,
             {
                 headers: {
-                    "authorization": "semangat-team-faraday"
+                    "authorization": "semangat-team-faraday",
                 }
             })
     }

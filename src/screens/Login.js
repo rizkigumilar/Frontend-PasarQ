@@ -20,6 +20,7 @@ import {
 import Logo from '../assets/logo.png'
 import { ScrollView } from 'react-native-gesture-handler';
 import GetLocation from 'react-native-get-location';
+import { Database, Auth } from '../publics/firebase/index'
 
 
 class Login extends Component {
@@ -64,24 +65,34 @@ class Login extends Component {
                 email: this.state.email,
                 password: this.state.password,
                 role: this.state.role_id
-            });
+						});
+						if (this.state.role_id == 3) {
+							await Auth.signInWithEmailAndPassword(this.state.email, this.state.password)
+							.then((response) => { 
+								Database.ref('/driver/' + response.user.uid).update({ status: 'online' })
+								AsyncStorage.setItem('id_firebase', response.user.uid)
+							})
+							.catch(error => {
+								alert(error.message)
+							})
+						} 
             await this.props.dispatch(login(this.state.data[0]))
                 .then(() => {
-                    Alert.alert(
-                        'Login',
-                        'Login Success',
-                        [
-                            {
-                                text: 'OK', onPress: () => this.props.navigation.navigate('AuthLoading', {
-                                    userid: this.state.userid,
-                                    token: this.state.token,
-                                    name: this.state.name,
-                                    email: this.state.email,
-                                    role: this.state.role_id
-                                })
-                            },
-                        ],
-                    );
+									Alert.alert(
+										'Login',
+										'Login Success',
+										[
+											{
+												text: 'OK', onPress: () => this.props.navigation.navigate('AuthLoading', {
+													userid: this.state.userid,
+													token: this.state.token,
+													name: this.state.name,
+													email: this.state.email,
+													role: this.state.role_id
+												})
+											},
+										],
+									);
                 })
                 .catch(() => {
                     Alert.alert(

@@ -54,8 +54,8 @@ class Edit extends Component {
                     <Text style={{ fontSize: 20, fontWeight: 'bold', alignItems: 'center', left: 70 }}>Edit Profile</Text>
                     <View style={styles.inputContainer}>
                         <TextInput style={styles.inputs}
-                            placeholder="Product Name"
-                            onChangeText={val => this.setState({ 'name_item': val })}
+                            placeholder="Name"
+                            onChangeText={val => this.setState({ 'name': val })}
                             value={this.state.name} />
                     </View>
 
