@@ -54,7 +54,6 @@ class Home extends Component {
     clearInterval(this.state.interval)
   }
   render() {
-    console.log('data', this.state.category)
     return (
       <Container>
 

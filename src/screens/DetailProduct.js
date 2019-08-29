@@ -7,7 +7,6 @@ import { getItemId } from '../publics/redux/actions/item';
 import { postCart } from '../publics/redux/actions/cart';
 
 
-
 class DetailProduct extends Component {
     constructor(props) {
         super(props)
