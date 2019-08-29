@@ -99,7 +99,7 @@ export default class Home extends Component {
                         </TouchableOpacity>
                     </View>
                     <View style={{ marginLeft: '5%' }}>
-                        <TouchableOpacity onPress={() => { this.props.navigation.navigate('HomeMitra') }}>
+                        <TouchableOpacity onPress={() => { this.props.navigation.navigate('Home') }}>
                             <Icon name='arrow-round-back' type='Ionicons' color='#fff' />
                         </TouchableOpacity>
                     </View>

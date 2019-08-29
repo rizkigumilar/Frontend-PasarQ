@@ -54,7 +54,7 @@ class HomeMitra extends Component {
                             renderItem={({ item, index }) => {
                                 return (
                                     <Card >
-                                        <CardItem cardBody button onPress={() => { this.props.navigation.navigate('Toko') }}>
+                                        <CardItem cardBody button onPress={() => { this.props.navigation.navigate('Toko', { data: item }) }}>
                                             <Image source={{ uri: `${item.photo}` }} style={styles.image} />
                                         </CardItem>
                                         <CardItem>

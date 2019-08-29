@@ -127,6 +127,26 @@ const store = (state = initialState, action) => {
                 isFulfilled: true,
                 storeList: [state.storeList, action.payload.data[0]]
             };
+        case 'GET_BY_ID_USER_PENDING':
+                return {
+                    ...state,
+                    isLoading: true,
+                    isFulfilled: false,
+                    isRejected: false,
+                };
+        case 'GET_BY_ID_USER_REJECTED':
+                return {
+                    ...state,
+                    isLoading: false,
+                    isRejected: true,
+                };
+        case 'GET_BY_ID_USER_FULFILLED':
+                return {
+                    ...state,
+                    isLoading: false,
+                    isFulfilled: true,
+                    storeList: action.payload.data.result
+                };
         default:
             return state;
     }
