@@ -1,5 +1,5 @@
-import React, { Component, Fragment } from 'react';
-import { Icon } from 'native-base';
+import React, {Component, Fragment} from 'react';
+import {Icon} from 'native-base';
 import {
   StyleSheet,
   Text,
@@ -12,7 +12,7 @@ import {
   Alert,
   AsyncStorage,
 } from 'react-native';
-import { withNavigation, NavigationEvents } from 'react-navigation';
+import {withNavigation, NavigationEvents} from 'react-navigation';
 import Geocoder from 'react-native-geocoder';
 
 class Payment extends Component {
@@ -26,30 +26,28 @@ class Payment extends Component {
   constructor(props) {
     super(props);
     AsyncStorage.getItem('email').then(value => {
-      this.setState({ email: value });
+      this.setState({email: value});
     });
     AsyncStorage.getItem('name').then(value => {
-      this.setState({ name: value });
+      this.setState({name: value});
     });
     AsyncStorage.getItem('address').then(value => {
-      this.setState({ address: value });
+      this.setState({address: value});
     });
     AsyncStorage.getItem('telp').then(value => {
-      this.setState({ telp: value });
+      this.setState({telp: value});
     });
   }
 
-
-
-
   geocode = async () => {
-    var lat = this.state.region.latitude
-    var lng = this.state.region.longitude
-    var Location = { lat, lng };
+    var lat = this.state.region.latitude;
+    var lng = this.state.region.longitude;
+    var Location = {lat, lng};
     Geocoder.geocodePosition(Location);
-    const address = res[0].subLocality + ', ' + res[0].subAdminArea + ', ' + res[0].adminArea;
+    const address =
+      res[0].subLocality + ', ' + res[0].subAdminArea + ', ' + res[0].adminArea;
 
-    return address
+    return address;
   };
 
   render() {
@@ -58,31 +56,32 @@ class Payment extends Component {
         <NavigationEvents
           onWillFocus={() =>
             AsyncStorage.getItem('email').then(value => {
-              this.setState({ email: value });
+              this.setState({email: value});
             })
           }
         />
         <NavigationEvents
           onWillFocus={() =>
             AsyncStorage.getItem('name').then(value => {
-              this.setState({ name: value });
+              this.setState({name: value});
             })
           }
         />
         <NavigationEvents
           onWillFocus={() =>
             AsyncStorage.getItem('address').then(value => {
-              this.setState({ address: value });
+              this.setState({address: value});
             })
           }
         />
         <NavigationEvents
           onWillFocus={() =>
             AsyncStorage.getItem('telp').then(value => {
-              this.setState({ telp: value });
+              this.setState({telp: value});
             })
           }
         />
+
         <View style={styles.header}>
           <View style={styles.back}>
             <Icon
@@ -98,22 +97,30 @@ class Payment extends Component {
           </View>
         </View>
         <View style={styles.containerProfile}>
-          <Text style={{ marginBottom: 5 }}>{this.state.name}</Text>
-          <View style={{ flexDirection: 'row' }}>
+          <View style={{flexDirection:'row', justifyContent : 'space-between'}}>
+            <Text style={{marginBottom: 7, fontSize: 17, color: 'red'}}>
+              {this.state.name}
+            </Text>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('Profile')}>
+              <Text style={{color : 'red', fontSize: 17}}>Edit Profile</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={{flexDirection: 'row'}}>
             <Icon name="pin" size={32} />
             <Text style={styles.text}>{this.state.address}</Text>
           </View>
-          <View style={{ flexDirection: 'row', marginTop: 5 }}>
+          <View style={{flexDirection: 'row', marginTop: 5}}>
             <Icon name="call" size={32} />
             <Text style={styles.text}>{this.state.telp}</Text>
           </View>
-          <View style={{ flexDirection: 'row', marginTop: 5 }}>
+          <View style={{flexDirection: 'row', marginTop: 5}}>
             <Icon name="mail" size={32} />
             <Text style={styles.text}>{this.state.email}</Text>
           </View>
         </View>
         <View style={styles.containerDelivery}>
-          <Text style={{ textAlign: 'center' }}>Pilihan Pengiriman</Text>
+          <Text style={{textAlign: 'center'}}>Pilihan Pengiriman</Text>
           <View
             style={{
               flexDirection: 'row',
@@ -124,12 +131,12 @@ class Payment extends Component {
             <TouchableOpacity
               style={styles.delivery}
               onPress={() => this.onPress}>
-              <Text style={{ textAlign: 'center' }}> 1 hour services </Text>
+              <Text style={{textAlign: 'center'}}> 1 hour services </Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.delivery}
               onPress={() => this.onPress}>
-              <Text style={{ textAlign: 'center' }}> 1 dat services </Text>
+              <Text style={{textAlign: 'center'}}> 1 dat services </Text>
             </TouchableOpacity>
           </View>
           <View
@@ -139,7 +146,7 @@ class Payment extends Component {
               marginHorizontal: 20,
             }}>
             <Text>Sub Total (5 items)</Text>
-            <Text style={{ color: 'red' }}>Rp. 50000</Text>
+            <Text style={{color: 'red'}}>Rp. 50000</Text>
           </View>
           <View
             style={{
@@ -148,10 +155,10 @@ class Payment extends Component {
               marginHorizontal: 20,
             }}>
             <Text>Biaya Pengiriman</Text>
-            <Text style={{ color: 'red' }}>Rp. 7000</Text>
+            <Text style={{color: 'red'}}>Rp. 7000</Text>
           </View>
         </View>
-        <View style={{ justifyContent: 'flex-end', flex: 1 }}>
+        <View style={{justifyContent: 'flex-end', flex: 1}}>
           <View
             style={{
               flexDirection: 'row',
@@ -160,11 +167,11 @@ class Payment extends Component {
               marginTop: 40,
               marginBottom: 20,
             }}>
-            <Text style={{ fontSize: 20, color: 'red' }}>Total : Rp. 7000</Text>
+            <Text style={{fontSize: 20, color: 'red'}}>Total : Rp. 7000</Text>
             <TouchableOpacity
               style={styles.button}
               onPress={() => this.onPress}>
-              <Text style={{ color: 'white' }}> Buat Pesanan </Text>
+              <Text style={{color: 'white'}}> Buat Pesanan </Text>
             </TouchableOpacity>
           </View>
         </View>
