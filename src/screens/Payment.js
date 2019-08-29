@@ -169,6 +169,8 @@ class Payment extends Component {
             </TouchableOpacity>
           </View>
         </View>
+      </View>
+
       </Fragment>
     );
   }
