@@ -2,15 +2,37 @@ import React, { Component } from "react";
 import { StyleSheet, View, Image, AsyncStorage, Alert, TouchableHighlight, StatusBar } from "react-native";
 import { Container, Content, Form, Label, Header, Item, Icon, Button, Input, Text, Fab } from 'native-base'
 import Bottomtab from "../components/BottomTabsDriver";
+import { NavigationEvents } from 'react-navigation';
 
 
 export default class Home extends Component {
     state = {
-        token: null,
         email: '',
         name: '',
-        id_user: '',
+        telp: '',
+        latitude: '',
+        longitude: ''
     };
+
+    constructor(props) {
+        super(props)
+        AsyncStorage.getItem('email').then(value => {
+            this.setState({ email: value });
+        });
+        AsyncStorage.getItem('name').then(value => {
+            this.setState({ name: value });
+        });
+        AsyncStorage.getItem('latitude').then(value => {
+            this.setState({ latitude: value });
+        });
+        AsyncStorage.getItem('longitude').then(value => {
+            this.setState({ longitude: value });
+        });
+        AsyncStorage.getItem('telp').then(value => {
+            this.setState({ telp: value });
+        });
+    }
+
     del = () => {
         AsyncStorage.removeItem('userid')
         AsyncStorage.removeItem('jwToken')
@@ -32,27 +54,27 @@ export default class Home extends Component {
     render() {
         return (
             <Container>
-                {/* <NavigationEvents
-              onWillFocus={() =>
-                AsyncStorage.getItem("name").then(value => {
-                  this.setState({ name: value });
-                })
-              }
-            />
-            <NavigationEvents
-              onWillFocus={() =>
-                AsyncStorage.getItem("token").then(value => {
-                  this.setState({ token: value });
-                })
-              }
-            />
-            <NavigationEvents
-              onWillFocus={() =>
-                AsyncStorage.getItem("email").then(value => {
-                  this.setState({ email: value });
-                })
-              }
-            /> */}
+                <NavigationEvents
+                    onWillFocus={() =>
+                        AsyncStorage.getItem("name").then(value => {
+                            this.setState({ name: value });
+                        })
+                    }
+                />
+                <NavigationEvents
+                    onWillFocus={() =>
+                        AsyncStorage.getItem("telp").then(value => {
+                            this.setState({ telp: value });
+                        })
+                    }
+                />
+                <NavigationEvents
+                    onWillFocus={() =>
+                        AsyncStorage.getItem("email").then(value => {
+                            this.setState({ email: value });
+                        })
+                    }
+                />
                 <Content>
                     <View style={styles.container}>
                         <Image
@@ -61,37 +83,25 @@ export default class Home extends Component {
                         />
                     </View>
                     <Form style={styles.formInput}>
-                        {this.state.token == null ? (
-                            <View>
-                                <Item inlineLabel>
-                                    <Label>Nama Driver :</Label>
-                                    <Input />
-                                </Item>
-                                <Item inlineLabel>
-                                    <Label>Email :</Label>
-                                    <Input />
-                                </Item>
-                                <Item inlineLabel last>
-                                    <Label>Location :</Label>
-                                    <Input />
-                                </Item>
-                            </View>
-                        ) : (
-                                <View>
-                                    <Item inlineLabel>
-                                        <Label>Full Name : {this.state.name}</Label>
-                                        <Input />
-                                    </Item>
-                                    <Item inlineLabel>
-                                        <Label>Email : {this.state.email}</Label>
-                                        <Input />
-                                    </Item>
-                                    <Item inlineLabel last>
-                                        <Label>New Password :</Label>
-                                        <Input />
-                                    </Item>
-                                </View>
-                            )}
+                        <View>
+                            <Item inlineLabel>
+                                <Label>Nama Driver : {this.state.name}</Label>
+
+                            </Item>
+                            <Item inlineLabel>
+                                <Label>Email : {this.state.email}</Label>
+
+                            </Item>
+                            <Item inlineLabel last>
+                                <Label>Location :</Label>
+
+                            </Item>
+                            <Item inlineLabel last>
+                                <Label>telp : {this.state.telp}</Label>
+
+                            </Item>
+                        </View>
+
                     </Form>
                     <View style={styles.save}>
                         <Button
@@ -110,7 +120,7 @@ export default class Home extends Component {
                                 <Text style={styles.loginText}>Logout</Text>
                             </TouchableHighlight>
                         </View>
-                        <View style={{ marginTop: 164 }}>
+                        <View style={{ marginTop: 224 }}>
                             <Bottomtab style={styles.BottomtabStyele} />
                         </View>
 

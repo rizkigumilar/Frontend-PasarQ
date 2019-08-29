@@ -6,6 +6,7 @@ import { withNavigation, NavigationEvents } from 'react-navigation';
 import Geocoder from 'react-native-geocoder';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 
+
 export default class Home extends Component {
 
     state = {
@@ -60,15 +61,14 @@ export default class Home extends Component {
 
 
     render() {
-        // console.warn('address', this.state.address)
-        // var lat = parseInt(this.state.latitude)
-        // var lng = parseInt(this.state.longitude)
-        // var Location = { lat, lng };
-        // Geocoder.geocodePosition(Location).then(res => {
-        //     this.setState({
-        //         address: res[0].formattedAddress
-        //     })
-        // })
+        var lat = -7.7584928
+        var lng = 110.3781484
+        var Location = { lat, lng };
+        Geocoder.geocodePosition(Location).then(res => {
+            this.setState({
+                address: res[0].formattedAddress
+            })
+        })
         return (
             <View style={{ flex: 1, backgroundColor: '#eee' }}>
                 <NavigationEvents
