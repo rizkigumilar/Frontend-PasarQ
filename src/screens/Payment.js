@@ -12,15 +12,18 @@ import {
   Alert,
   AsyncStorage,
 } from 'react-native';
-import {withNavigation, NavigationEvents} from 'react-navigation';
-import Geocoder from 'react-native-geocoder';
+import {getPayment} from '../publics/redux/actions/payment';
+import {NavigationEvents} from 'react-navigation';
+import {connect} from 'react-redux';
 
 class Payment extends Component {
   state = {
+    paymentList: [],
     email: '',
     name: '',
     address: '',
     telp: '',
+    iduser: ''
   };
 
   constructor(props) {
@@ -37,17 +40,19 @@ class Payment extends Component {
     AsyncStorage.getItem('telp').then(value => {
       this.setState({telp: value});
     });
+    AsyncStorage.getItem('iduser').then(value => {
+      this.setState({iduser: value});
+    });
   }
 
-  geocode = async () => {
-    var lat = this.state.region.latitude;
-    var lng = this.state.region.longitude;
-    var Location = {lat, lng};
-    Geocoder.geocodePosition(Location);
-    const address =
-      res[0].subLocality + ', ' + res[0].subAdminArea + ', ' + res[0].adminArea;
-
-    return address;
+  componentDidMount = () => {
+    setTimeout(() => {
+      this.props.dispatch(getPayment(this.state.iduser)).then(res => {
+        this.setState({
+          paymentList: this.props.paymentList,
+        });
+      });
+    }, 1000);
   };
 
   render() {
@@ -97,12 +102,13 @@ class Payment extends Component {
           </View>
         </View>
         <View style={styles.containerProfile}>
-          <View style={{flexDirection:'row', justifyContent : 'space-between'}}>
+          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
             <Text style={{marginBottom: 7, fontSize: 17, color: 'red'}}>
               {this.state.name}
             </Text>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('Profile')}>
-              <Text style={{color : 'red', fontSize: 17}}>Edit Profile</Text>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate('Profile')}>
+              <Text style={{color: 'red', fontSize: 17}}>Edit Profile</Text>
             </TouchableOpacity>
           </View>
 
@@ -158,6 +164,9 @@ class Payment extends Component {
             <Text style={{color: 'red'}}>Rp. 7000</Text>
           </View>
         </View>
+        <View style={styles.FlatList}>
+          <Text>FlatList</Text>
+        </View>
         <View style={{justifyContent: 'flex-end', flex: 1}}>
           <View
             style={{
@@ -180,7 +189,12 @@ class Payment extends Component {
   }
 }
 
-export default withNavigation(Payment);
+const mapStateToProp = state => {
+  return {
+    paymentList: state.payment.paymentList,
+  };
+};
+export default connect(mapStateToProp)(Payment);
 
 const styles = StyleSheet.create({
   header: {
@@ -223,5 +237,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#008000',
     padding: 10,
+  },
+  FlatList: {
+    flex: 1,
+    borderTopWidth: 3,
+    borderTopColor: 'red',
+    marginHorizontal: 20,
+    paddingTop: 10,
   },
 });
