@@ -3,6 +3,9 @@ import { FlatList, Image, View, StyleSheet } from 'react-native';
 import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right } from 'native-base';
 import data from './dummy';
 import { withNavigation } from 'react-navigation';
+import { getItemBySubId } from '../publics/redux/actions/item';
+import { connect } from 'react-redux'
+
 class CardProduct extends Component {
   constructor(props) {
     super();
@@ -10,18 +13,27 @@ class CardProduct extends Component {
     this.state = {
       data: this.initData,
       showAlert: false,
+      isidatanya:""
     };
   }
-  render() {
 
+  componentDidMount = async () => {
+    await this.props.dispatch(getItemBySubId(this.props.id_subcategory));
+    this.setState({
+      isidatanya: this.props.itemsProps,
+    });
+  };
+
+  render() {
+console.log('isidatanya', this.state.isidatanya)
     return (
       <Container>
         <Content>
           <View style={styles.FlatList}>
             <FlatList
-              data={this.state.data}
+              data={this.state.isidatanya}
               numColumns={2}
-              keyExtractor={item => item.id}
+              keyExtractor={item => item.id_item}
               renderItem={({ item, index }) => {
                 return (
                   <Card >
@@ -31,10 +43,9 @@ class CardProduct extends Component {
                     <CardItem>
                       <Left>
                         <Button success >
-                          <Text style={{ padding: 10, justifyContent: "center", textAlign: "center" }}>Rp {item.price} {item.name} / gram</Text>
+                          <Text style={{ padding: 10, justifyContent: "center", textAlign: "center" }}>Rp {item.price} {item.name_item} / gram</Text>
                         </Button>
                       </Left>
-
                     </CardItem>
                   </Card>
                 );
@@ -47,7 +58,15 @@ class CardProduct extends Component {
   }
 }
 
-export default withNavigation(CardProduct)
+const mapStateToProps = state => {
+  return {
+    itemsProps: state.item.itemList
+  }
+}
+
+export default connect(mapStateToProps)(CardProduct)
+
+// export default withNavigation(CardProduct)
 const styles = StyleSheet.create({
   header: {
     alignItems: "center",
