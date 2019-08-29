@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { FlatList, Text, Image, StatusBar, View, StyleSheet } from "react-native";
+import { FlatList, Text, Image, AsyncStorage, View, StyleSheet } from "react-native";
 import data from './dummy'
 import Slideshow from 'react-native-image-slider-show'
 import { Container, Header, Badge, Input, Content, Card, CardItem, Fab, Button, Icon, Left, Body, Right } from 'native-base';
@@ -7,7 +7,13 @@ import { getCategory } from '../publics/redux/actions/category';
 import { connect } from 'react-redux'
 import Bottomtab from "../components/bottomTab";
 import { ScrollView } from "react-native-gesture-handler";
-
+import {
+  getCartUser,
+  deleteCart,
+  quantityplus,
+  quantitymin,
+  checkoutCart
+} from '../publics/redux/actions/cart';
 class Home extends Component {
 
   constructor(props) {
@@ -20,6 +26,8 @@ class Home extends Component {
       position: 1,
       interval: null,
       testSub: '',
+      cartList: [],
+      iduser: '',
       dataSource: [
         {
           url: 'https://www.borneonews.co.id/images/upload/1485161905-pasar2.jpg',
@@ -36,27 +44,22 @@ class Home extends Component {
         }
       ]
     };
+    
   }
+
   componentDidMount = async () => {
+    const iduser = await AsyncStorage.getItem("userid")
+    console.warn("id" ,iduser)
     await this.props.dispatch(getCategory());
-    this.setState({
-      category: this.props.category.categoryList,
-    });
+    await this.props.dispatch(getCartUser(iduser))
+      this.setState({
+        cartList: this.props.cartList,
+        category: this.props.category.categoryList,
+      });
+    
   };
-  // componentWillMount() {
-  //   this.setState({
-  //     interval: setInterval(() => {
-  //       this.setState({
-  //         position: this.state.position === this.state.dataSource.length ? 0 : this.state.position + 1
-  //       })
-  //     }, 2000)
-  //   })
-  // }
-  // componentWillUnmount() {
-  //   clearInterval(this.state.interval)
-  // }
+
   render() {
-    console.log('data', this.state.category)
     return (
       <Container>
 
@@ -125,8 +128,12 @@ class Home extends Component {
 
         </ScrollView>
         <View>
+          <View pointerEvents={'none'} style={{ position: 'absolute', elevation: 40, bottom: 58, right: 18, zIndex: 1 }}>
+            <Badge warning>
+              <Text>{this.state.cartList.length}</Text>
+            </Badge>
+          </View>
           <Fab position="bottomRight" onPress={() => this.props.navigation.navigate('Cart')} style={{ backgroundColor: '#008000', top: "-80%", position: "absolute" }} >
-          <Badge warning><Text>2</Text></Badge>
             <Icon name="cart" type="Ionicons" style={{ color: 'white' }} />
           </Fab>
         </View>
@@ -137,8 +144,9 @@ class Home extends Component {
 }
 const mapStateToProps = state => {
   return {
-    category: state.category
-  }
+    category: state.category,
+    cartList: state.cart.cartList,
+    }
 }
 
 export default connect(mapStateToProps)(Home);
