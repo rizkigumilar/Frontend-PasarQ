@@ -20,7 +20,7 @@ class Payment extends Component {
     email: '',
     name: '',
     address: '',
-    telp: '123',
+    telp: '',
   };
 
   constructor(props) {
@@ -105,7 +105,7 @@ class Payment extends Component {
           </View>
           <View style={{flexDirection: 'row', marginTop: 5}}>
             <Icon name="call" size={32} />
-            <Text style={styles.text}>123</Text>
+            <Text style={styles.text}>{this.state.telp}</Text>
           </View>
           <View style={{flexDirection: 'row', marginTop: 5}}>
             <Icon name="mail" size={32} />

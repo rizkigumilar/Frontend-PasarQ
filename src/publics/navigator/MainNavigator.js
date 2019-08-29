@@ -25,6 +25,7 @@ import Add from '../../screens/AddProduct';
 import DriverJob from '../../screens/DriverJob';
 import HomeMitra1 from '../../screens/HomeMitra1';
 import AddToko from '../../screens/AddToko';
+import listStatusOrder from '../../screens/listStatusOrder';
 
 const AuthStack = createStackNavigator({
     Login: {
@@ -157,18 +158,19 @@ const DriverStack = createStackNavigator({
             header: null,
         },
     },
+    DriverMap: {
+        screen: DriverMap,
+        navigationOptions: {
+            header: null
+        }
+    },
     DriverJob: {
         screen: DriverJob,
         navigationOptions: {
             header: null
         }
     },
-    DriverMap: {
-        screen: DriverMap,
-        navigationOptions: {
-            header: null
-        }
-    }
+    
 })
 
 
