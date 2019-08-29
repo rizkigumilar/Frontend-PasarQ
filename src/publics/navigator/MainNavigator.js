@@ -175,6 +175,12 @@ const MitraStack = createStackNavigator({
             header: null,
         },
     },
+    ProfileJuragan: {
+        screen: ProfileJuragan,
+        navigationOptions: {
+            header: null,
+        },
+    },
 })
 const DriverStack = createStackNavigator({
     Home: {

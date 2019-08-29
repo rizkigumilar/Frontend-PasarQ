@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Image, StyleSheet, View, FlatList, TouchableOpacity, AsyncStorage } from 'react-native'
 import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right } from 'native-base'
-import { getByIdUser } from '../publics/redux/actions/store'
+import { getByIdUser} from '../publics/redux/actions/store'
 import { connect } from 'react-redux'
 
 class HomeMitra extends Component {
