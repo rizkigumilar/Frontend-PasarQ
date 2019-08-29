@@ -28,6 +28,7 @@ class SubCategory extends Component {
       <Container>
 
         <Header hasTabs style={{ backgroundColor: "#008000" }} searchBar rounded>
+          <Text style={{ color: 'white', fontSize: 36, fontWeight: 'bold' }}>PasarQ</Text>
         </Header>
 
         <FlatList

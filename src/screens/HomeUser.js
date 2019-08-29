@@ -7,6 +7,7 @@ import { getCategory } from '../publics/redux/actions/category';
 import { connect } from 'react-redux'
 import Bottomtab from "../components/bottomTab";
 import { ScrollView } from "react-native-gesture-handler";
+import { whileStatement } from "@babel/types";
 
 class Home extends Component {
 
@@ -24,15 +25,12 @@ class Home extends Component {
         {
           url: 'https://www.borneonews.co.id/images/upload/1485161905-pasar2.jpg',
           title: 'Nikmati kemudahan belanja kepasar',
-          caption: 'pasar Tumpah ',
         }, {
-          url: 'https://cdn.brilio.net/news/2017/03/18/123095/603331-penjual-ini-punya-paras-cantik-yang-bikin-konsumen-gagal-fokus.jpg',
+          url: 'http://1.bp.blogspot.com/-hrH7JhJY2DM/TaKv8WQrfkI/AAAAAAAAASw/pgb8bhB6Bm4/s1600/p05-a-1_55.jpg',
           title: 'Tanpa harus pergi kepasar',
-          caption: 'pasar Tumpeh-tumpeh',
         }, {
-          url: 'https://cdn-radar.jawapos.com/uploads/radarmadura/news/2019/02/05/penertiban-pedagang-pasar-tumpah-tak-jelas_m_117804.jpg',
+          url: 'https://asset.kompas.com/data/photo/2013/08/13/1707181fresh-marketok780x390.jpg',
           title: 'hanya dengan satu klik',
-          caption: 'Pasar keramat jati',
         }
       ]
     };
@@ -60,8 +58,8 @@ class Home extends Component {
     return (
       <Container>
 
-        <Header style={{ backgroundColor: 'white' }} searchBar rounded>
-          <Image />
+        <Header style={{ backgroundColor: '#008000' }} searchBar rounded>
+          <Text style={{ color: 'white', fontSize: 36, fontWeight: 'bold' }}>PasarQ</Text>
         </Header>
         <ScrollView>
           <Slideshow titleStyle={{
@@ -81,16 +79,16 @@ class Home extends Component {
             dataSource={this.state.dataSource}
             position={this.state.position}
             onPositionChanged={position => this.setState({ position })} />
-          <Card style={{ height: 150 }}>
+          <Card style={{ height: 350 }}>
             <Text style={{ fontSize: 20, fontWeight: 'bold', justifyContent: 'center', textAlign: 'center' }}>Kategori Produk</Text>
             <FlatList
               horizontal
               data={this.state.category}
               renderItem={({ item: rowData }) => {
                 return (
-                  <Card style={{ width: 100 }}>
+                  <Card style={{ width: 200 }}>
                     <CardItem button onPress={() => this.props.navigation.navigate('Product', { idCat: rowData.id_category })} cardBody>
-                      <Image style={{ width: 100, height: 60 }} source={{ uri: `${rowData.image}` }} />
+                      <Image style={{ width: 200, height: 260 }} source={{ uri: `${rowData.image}` }} />
                     </CardItem>
                     <CardItem footer button onPress={() => this.props.navigation.navigate('Product', { idCat: rowData.id_category })}>
                       <Text>{rowData.name_category}</Text>
@@ -101,16 +99,16 @@ class Home extends Component {
               keyExtractor={(item, index) => index}
             />
           </Card>
-          <Card style={{ height: 280 }}>
+          <Card style={{ height: 180 }}>
             <Text style={{ fontSize: 20, fontWeight: 'bold', justifyContent: 'center', textAlign: 'center' }}>Produk Terlaris</Text>
             <FlatList
               horizontal
               data={this.state.data}
               renderItem={({ item: rowData }) => {
                 return (
-                  <Card style={{ heigth: 300, width: 200 }}>
+                  <Card style={{ heigth: 150, width: 200 }}>
                     <CardItem button onPress={() => this.props.navigation.navigate('Product')} cardBody>
-                      <Image style={{ width: 180, height: 170 }} source={{ uri: `${rowData.image}` }} />
+                      <Image style={{ width: 180, height: 100 }} source={{ uri: `${rowData.image}` }} />
                     </CardItem>
                     <CardItem footer button onPress={() => this.props.navigation.navigate('Product')}>
                       <Text>{rowData.name}</Text>
@@ -145,8 +143,19 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "rgba(62,220,62,1)"
   },
-
-
+  header: {
+    flexDirection: 'row',
+    height: 60,
+    borderBottomWidth: 1,
+    borderBottomColor: 'grey',
+  },
+  label: {
+    justifyContent: 'center',
+  },
+  contentContainer: {
+    backgroundColor: 'white',
+    flex: 1,
+  },
   BottomtabStyele: {
     top: "90.33%",
     left: "-8.56%",
