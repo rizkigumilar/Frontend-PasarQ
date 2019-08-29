@@ -4,6 +4,7 @@ import data from './dummy'
 import Slideshow from 'react-native-image-slider-show'
 import { Container, Header, Badge, Input, Content, Card, CardItem, Fab, Button, Icon, Left, Body, Right } from 'native-base';
 import { getCategory } from '../publics/redux/actions/category';
+import { getStore } from '../publics/redux/actions/store';
 import { connect } from 'react-redux'
 import Bottomtab from "../components/bottomTab";
 import { ScrollView } from "react-native-gesture-handler";
@@ -14,15 +15,16 @@ import {
   quantitymin,
   checkoutCart
 } from '../publics/redux/actions/cart';
+import { withNavigation } from "react-navigation";
+
 class Home extends Component {
 
   constructor(props) {
     super(props);
-    this.initData = data;
 
     this.state = {
       category: [],
-      data: this.initData,
+      store: [],
       position: 1,
       interval: null,
       testSub: '',
@@ -56,10 +58,26 @@ class Home extends Component {
         cartList: this.props.cartList,
         category: this.props.category.categoryList,
       });
-    
+    await this.props.dispatch(getStore());
+    this.setState({
+      store: this.props.store.storeList
+    })
   };
-
+  componentWillMount() {
+    this.setState({
+      interval: setInterval(() => {
+        this.setState({
+          position: this.state.position === this.state.dataSource.length ? 0 : this.state.position + 1
+        })
+      }, 2000)
+    })
+  }
+  componentWillUnmount() {
+    clearInterval(this.state.interval)
+  }
   render() {
+    // console.log('data', this.state.category)
+    // console.log('data store', this.state.store)
     return (
       <Container>
 
@@ -105,19 +123,19 @@ class Home extends Component {
               keyExtractor={(item, index) => index}
             />
           </Card>
-          <Card style={{ height: 280 }}>
-            <Text style={{ fontSize: 20, fontWeight: 'bold', justifyContent: 'center', textAlign: 'center' }}>Produk Terlaris</Text>
+          <Card style={{ height: 180 }}>
+            <Text style={{ fontSize: 20, fontWeight: 'bold', justifyContent: 'center', textAlign: 'center' }}>Daftar Toko Mitra</Text>
             <FlatList
               horizontal
-              data={this.state.data}
+              data={this.state.store}
               renderItem={({ item: rowData }) => {
                 return (
-                  <Card style={{ heigth: 300, width: 200 }}>
-                    <CardItem button onPress={() => this.props.navigation.navigate('Product')} cardBody>
-                      <Image style={{ width: 180, height: 170 }} source={{ uri: `${rowData.image}` }} />
+                  <Card style={{ heigth: 150, width: 200 }}>
+                    <CardItem button onPress={() => this.props.navigation.navigate('StoreProduct', { idStore: rowData.id_store, name: rowData.name_store })} cardBody>
+                      <Image style={{ width: 180, height: 100 }} source={{ uri: `${rowData.photo}` }} />
                     </CardItem>
-                    <CardItem footer button onPress={() => this.props.navigation.navigate('Product')}>
-                      <Text>{rowData.name}</Text>
+                    <CardItem footer button onPress={() => this.props.navigation.navigate('StoreProduct', { idStore: item.id_store, name: rowData.name_store })}>
+                      <Text>{rowData.name_store}</Text>
                     </CardItem>
                   </Card>
                 );
@@ -146,10 +164,11 @@ const mapStateToProps = state => {
   return {
     category: state.category,
     cartList: state.cart.cartList,
-    }
+    store: state.store
+  }r
 }
 
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps)(withNavigation(Home));
 const styles = StyleSheet.create({
   root: {
     flex: 1,

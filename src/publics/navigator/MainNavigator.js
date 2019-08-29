@@ -1,6 +1,5 @@
 import {
     createAppContainer,
-    createDrawerNavigator,
     createStackNavigator,
     createSwitchNavigator,
 } from 'react-navigation';
@@ -27,6 +26,7 @@ import HomeMitra from '../../screens/HomeMitra';
 import AddToko from '../../screens/AddToko';
 import listStatusOrder from '../../screens/listStatusOrder';
 import EditProfile from '../../screens/EditProfile';
+import StoreProduct from '../../screens/StoreProduct'
 
 const AuthStack = createStackNavigator({
     Login: {
@@ -64,6 +64,12 @@ const UserStack = createStackNavigator({
     },
     Product: {
         screen: Product,
+        navigationOptions: {
+            header: null,
+        },
+    },
+    StoreProduct: {
+        screen: StoreProduct,
         navigationOptions: {
             header: null,
         },

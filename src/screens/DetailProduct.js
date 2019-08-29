@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, StatusBar, AsyncStorage, Alert } from 'react-native'
+import { View, Text, StyleSheet, StatusBar, AsyncStorage, Alert, Image } from 'react-native'
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler'
 import { connect } from 'react-redux';
 import { Header, Left, Button, Icon, Body, Title, Thumbnail, Fab } from 'native-base'
