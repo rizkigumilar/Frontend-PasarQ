@@ -25,7 +25,17 @@ export const getSubcategoryId = (id_subcategory) => {
             })
     }
 }
-
+export const getSubcategoryByCategory = (id_category) => {
+    return {
+        type: 'GET_SUBCATEGORYBYCATEGORY', id_category,
+        payload: axios.get(`${url}/subcategory/bycategory/${id_category}`,
+            {
+                headers: {
+                    "authorization": "semangat-team-faraday"
+                }
+            })
+    }
+}
 export const postSubcategory = () => {
     return {
         type: 'POST_SUBCATEGORY',
