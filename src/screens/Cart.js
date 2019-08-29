@@ -12,7 +12,13 @@ import {
   StatusBar,
   AsyncStorage,
 } from 'react-native';
-import {getCartUser, deleteCart} from '../publics/redux/actions/cart';
+import {
+  getCartUser,
+  deleteCart,
+  quantityplus,
+  quantitymin,
+  checkoutCart
+} from '../publics/redux/actions/cart';
 import {connect} from 'react-redux';
 
 class Cart extends Component {
@@ -45,13 +51,13 @@ class Cart extends Component {
     });
   };
 
-  delete = async (id_cart) => {
+  delete = async id_cart => {
     await this.props.dispatch(deleteCart(id_cart)).then(() => {
-      this.getData()
+      this.getData();
     });
   };
 
-  deleteItem = (id_cart) => {
+  deleteItem = id_cart => {
     Alert.alert(
       'Delete Item',
       'Are you sure? ',
@@ -65,21 +71,34 @@ class Cart extends Component {
       ],
       {cancelable: false},
     );
-  }
+  };
 
-  onBtnMin = () => {
-    Alert.alert("min button")
-  }
+  onBtnMin = async (id_cart, quantity) => {
+    if (quantity <= 1) {
+      quantity == 1;
+    } else {
+      await this.props.dispatch(quantitymin(id_cart)).then(() => {
+        this.getData();
+      });
+    }
+  };
 
-  onBtnPlus = () => {
-    Alert.alert("plus button")
-  }
+  onBtnPlus = async id_cart => {
+    await this.props.dispatch(quantityplus(id_cart)).then(() => {
+      this.getData();
+    });
+  };
 
   hideAlert = () => {
     this.setState({
       showAlert: false,
     });
   };
+
+  checkout = async (id_user) => {
+    await this.props.dispatch(checkoutCart(id_user))
+    this.props.navigation.navigate('Payment')
+  }
 
   renderItem = ({item}) => {
     return (
@@ -92,7 +111,9 @@ class Cart extends Component {
           <Text style={styles.textProduct}>Rp. {item.price}</Text>
         </View>
         <View style={styles.quantity}>
-          <TouchableOpacity style={styles.buttonMin} onPress={this.onBtnMin}>
+          <TouchableOpacity
+            style={styles.buttonMin}
+            onPress={() => this.onBtnMin(item.id_cart, item.quantity)}>
             <Text style={{color: 'white'}}> - </Text>
           </TouchableOpacity>
           <TextInput
@@ -102,7 +123,9 @@ class Cart extends Component {
             underlineColorAndroid="transparent"
             textAlign={'center'}
           />
-          <TouchableOpacity style={styles.buttonMin} onPress={this.onBtnPlus}>
+          <TouchableOpacity
+            style={styles.buttonMin}
+            onPress={() => this.onBtnPlus(item.id_cart)}>
             <Text style={{color: 'white'}}> + </Text>
           </TouchableOpacity>
         </View>
@@ -126,9 +149,7 @@ class Cart extends Component {
         <StatusBar backgroundColor="#008000" />
         <View style={styles.contentContainer}>
           <View style={styles.address}>
-            <Text style={styles.location}>
-              Your Cart
-            </Text>
+            <Text style={styles.location}>Your Cart</Text>
           </View>
           <View>
             <FlatList
@@ -140,7 +161,7 @@ class Cart extends Component {
             <View style={styles.checkoutBtn}>
               <TouchableOpacity
                 style={styles.button}
-                onPress={() => this.props.navigation.navigate('Payment')}>
+                onPress={() => this.checkout(this.state.iduser)}>
                 <Text style={{color: 'white'}}> Checkout </Text>
               </TouchableOpacity>
             </View>
