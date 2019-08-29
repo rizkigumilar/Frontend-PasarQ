@@ -1,6 +1,5 @@
-
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, StatusBar, AsyncStorage } from 'react-native'
+import { View, Text, StyleSheet, StatusBar, AsyncStorage, Alert } from 'react-native'
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler'
 import { connect } from 'react-redux';
 import { Header, Left, Button, Icon, Body, Title, Thumbnail, Fab } from 'native-base'
@@ -33,56 +32,58 @@ class DetailProduct extends Component {
             id_item: this.state.data.id_item,
             id_user: this.state.idUser
         }
-        await this.props.dispatch(postCart(data)).then(() => {
-            // this.props.navigation.navigate('Cart')
+        await this.props.dispatch(postCart(data)).then((res) => {
+            this.props.navigation.navigate('Cart')
+        }).catch(() => {
+            Alert.alert("Barang sudah ditambahkan")
         })
     };
     render() {
         console.warn(this.state.idUser)
         return (
-                <View>
-                    <StatusBar backgroundColor='#1bbd19' />
-                    <View style={styles.header}>
-                        <View style={styles.back}>
-                            <Icon
-                                name="arrow-back"
-                                color="#000000"
-                                size={32}
-                                style={styles.menuIcon}
-                                onPress={() => this.props.navigation.navigate('Product')}
-                            />
-                        </View>
-                        <View style={styles.label}>
-                            <Text>Product</Text>
-                        </View>
+            <View>
+                <StatusBar backgroundColor='#1bbd19' />
+                <View style={styles.header}>
+                    <View style={styles.back}>
+                        <Icon
+                            name="arrow-back"
+                            color="#000000"
+                            size={32}
+                            style={styles.menuIcon}
+                            onPress={() => this.props.navigation.navigate('Product')}
+                        />
                     </View>
-                    <View>
-                        <Thumbnail square source={{ uri: this.state.data.image }} style={styles.img} />
-                        <Text style={styles.itemName}> {this.state.data.name_item} </Text>
-                        <Text style={styles.itemPrice}> Rp. {this.state.data.price} </Text>
-                        <TouchableOpacity style={styles.button} onPress={() => this.addToCart()}>
-                            <View>
-                                <Text style={styles.buttonText}>
-                                    Tambah ke Keranjang
-                            </Text>
-                            </View>
-                            <View>
-                                <Icon
-                                    name="cart"
-                                    style={{ color: 'white', top: 10, left: 10 }}
-                                    size={32}
-                                />
-                            </View>
-                        </TouchableOpacity>
-                        <Text style={styles.desc}>Deskripsi Produk :</Text>
-                        <Text style={styles.desc}> {this.state.data.description} </Text>
-                    </View>
-                    <View style={{ marginTop: 50 }}>
-                        <Fab position="bottomRight" onPress={() => this.props.navigation.navigate('ChatRoom', { idStore: this.state.data.id_store, idItem: this.state.data.id_item })} style={{ backgroundColor: '#008000', top: "-100%", position: "absolute" }} >
-                            <Icon name="chatboxes" type="Ionicons" style={{ color: 'white' }} />
-                        </Fab>
+                    <View style={styles.label}>
+                        <Text>Product</Text>
                     </View>
                 </View>
+                <View>
+                    <Thumbnail square source={{ uri: this.state.data.image }} style={styles.img} />
+                    <Text style={styles.itemName}> {this.state.data.name_item} </Text>
+                    <Text style={styles.itemPrice}> Rp. {this.state.data.price} </Text>
+                    <TouchableOpacity style={styles.button} onPress={() => this.addToCart()}>
+                        <View>
+                            <Text style={styles.buttonText}>
+                                Tambah ke Keranjang
+                            </Text>
+                        </View>
+                        <View>
+                            <Icon
+                                name="cart"
+                                style={{ color: 'white', top: 10, left: 10 }}
+                                size={32}
+                            />
+                        </View>
+                    </TouchableOpacity>
+                    <Text style={styles.desc}>Deskripsi Produk :</Text>
+                    <Text style={styles.desc}> {this.state.data.description} </Text>
+                </View>
+                <View style={{ marginTop: 50 }}>
+                    <Fab position="bottomRight" onPress={() => this.props.navigation.navigate('ChatRoom', { idStore: this.state.data.id_store, idItem: this.state.data.id_item })} style={{ backgroundColor: '#008000', top: "-100%", position: "absolute" }} >
+                        <Icon name="chatboxes" type="Ionicons" style={{ color: 'white' }} />
+                    </Fab>
+                </View>
+            </View>
         )
     }
 }

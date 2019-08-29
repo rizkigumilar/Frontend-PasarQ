@@ -43,14 +43,7 @@ const AuthStack = createStackNavigator({
     },
 });
 
-
 const UserStack = createStackNavigator({
-    // Cart: {
-    //     screen: Cart,
-    //     navigationOptions: {
-    //         header: null,
-    //     },
-    // },
     Home: {
         screen: HomeUser,
         navigationOptions: {
