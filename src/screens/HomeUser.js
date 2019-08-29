@@ -69,7 +69,7 @@ class Home extends Component {
             <Text>Search</Text>
           </Button>
         </Header>
-        <ScrollView>
+        <ScrollView >
           <Slideshow titleStyle={{
             fontWeight: 'bold',
             color: 'white',
@@ -90,7 +90,7 @@ class Home extends Component {
           <Card style={{ height: 150 }}>
             <Text style={{ fontSize: 20, fontWeight: 'bold', justifyContent: 'center', textAlign: 'center' }}>Kategori Produk</Text>
             <FlatList
-              horizontal
+              horizontal pagingEnabled
               data={this.state.category}
               renderItem={({ item: rowData }) => {
                 return (
