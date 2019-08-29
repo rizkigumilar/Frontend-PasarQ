@@ -44,12 +44,6 @@ const AuthStack = createStackNavigator({
 });
 
 const UserStack = createStackNavigator({
-    // Payment: {
-    //     screen: Payment,
-    //     navigationOptions: {
-    //         header: null,
-    //     },
-    // },
     Home: {
         screen: HomeUser,
         navigationOptions: {
