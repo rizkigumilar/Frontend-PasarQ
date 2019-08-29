@@ -92,10 +92,10 @@ class Home extends Component {
             renderItem={({ item: rowData }) => {
               return (
                 <Card style={{ width: 100 }}>
-                  <CardItem button onPress={() => this.props.navigation.navigate('Product', rowData.id_category)} cardBody>
+                  <CardItem button onPress={() => this.props.navigation.navigate('Product', { idCat: rowData.id_category })} cardBody>
                     <Image style={{ width: 100, height: 60 }} source={{ uri: `${rowData.image}` }} />
                   </CardItem>
-                  <CardItem footer button onPress={() => this.props.navigation.navigate('Product', rowData.id_category)}>
+                  <CardItem footer button onPress={() => this.props.navigation.navigate('Product', { idCat: rowData.id_category })}>
                     <Text>{rowData.name_category}</Text>
                   </CardItem>
                 </Card>
