@@ -22,11 +22,12 @@ import DriverMap from '../../screens/DriverMap';
 import BarangToko from '../../screens/BarangToko';
 import Add from '../../screens/AddProduct';
 import DriverJob from '../../screens/DriverJob';
-import HomeMitra from '../../screens/HomeMitra';
+import HomeMitra from '../../screens/HomeMitra1';
 import AddToko from '../../screens/AddToko';
 import listStatusOrder from '../../screens/listStatusOrder';
 import EditProfile from '../../screens/EditProfile';
 import StoreProduct from '../../screens/StoreProduct'
+import ProfileJuragan from '../../screens/ProfileJuragan'
 
 const AuthStack = createStackNavigator({
     Login: {
@@ -168,6 +169,12 @@ const MitraStack = createStackNavigator({
             header: null,
         },
     },
+    ProfileJuragan: {
+        screen: ProfileJuragan,
+        navigationOptions: {
+            header: null,
+        },
+    },
 })
 const DriverStack = createStackNavigator({
     Home: {
@@ -188,6 +195,12 @@ const DriverStack = createStackNavigator({
             header: null
         }
     },
+    ProfileJuragan: {
+        screen: ProfileJuragan,
+        navigationOptions: {
+            header: null
+        }
+    }
 
 })
 

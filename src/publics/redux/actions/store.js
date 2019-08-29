@@ -25,11 +25,22 @@ export const getStoreId = (id_store) => {
             })
     }
 }
+export const getByIdUser = (id_user) => {
+    return {
+        type: 'GET_BYIDUSER', id_user,
+        payload: axios.get(`${url}/store/byuser/${id_user}`,
+            {
+                headers: {
+                    "authorization": "semangat-team-faraday"
+                }
+            })
+    }
+}
 
-export const postStore = () => {
+export const postStore = (data) => {
     return {
         type: 'POST_STORE',
-        payload: axios.post(`${url}/store`,
+        payload: axios.post(`${url}/store`, data,
             {
                 headers: {
                     "authorization": "semangat-team-faraday"

@@ -27,6 +27,27 @@ const payment = (state = initialState, action) => {
                 isFulfilled: true,
                 paymentList: action.payload.data.result
             };
+        // buat pesanan
+        case 'BUAT_PESANAN_PENDING':
+            return {
+                ...state,
+                isLoading: true,
+                isFulfilled: false,
+                isRejected: false,
+            };
+        case 'BUAT_PESANAN_REJECTED':
+            return {
+                ...state,
+                isLoading: false,
+                isRejected: true,
+            };
+        case 'BUAT_PESANAN_FULFILLED':
+            return {
+                ...state,
+                isLoading: false,
+                isFulfilled: true,
+                paymentList: action.payload.data.result
+            };        
         case 'GET_PAYMENTID_PENDING':
             return {
                 ...state,

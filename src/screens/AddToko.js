@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableHighlight, Alert, TouchableOpacity, Image, AsyncStorage } from 'react-native';
-import {Form,Label,Item,Input,Container,Header,Content,Button,Picker} from 'native-base';
+import { Form, Label, Item, Input, Container, Header, Content, Button, Picker } from 'native-base';
 import { postStore } from '../publics/redux/actions/store'
 import { getMarket } from '../publics/redux/actions/market'
 import { ScrollView } from 'react-native-gesture-handler'
@@ -8,7 +8,7 @@ import { connect } from 'react-redux'
 import { withNavigation } from 'react-navigation'
 
 class AddToko extends Component {
-    constructor(props){
+    constructor(props) {
         super(props)
         this.state = {
             post: [],
@@ -19,12 +19,12 @@ class AddToko extends Component {
             iduser: ''
         }
         AsyncStorage.getItem('userid').then(value => {
-            this.setState({iduser: value});
-          });
+            this.setState({ iduser: value });
+        });
     }
 
     DaftarToko = () => {
-        console.log('asdasd'+this.state.idMarket)
+        console.log('asdasd' + this.state.idMarket)
         this.props.dispatch(postStore({
             name_store: this.state.namaToko,
             id_market: this.state.idMarket,
@@ -34,15 +34,15 @@ class AddToko extends Component {
     }
 
     componentWillMount = () => {
-        setTimeout( async () => {
+        setTimeout(async () => {
             await this.props.dispatch(getMarket(this.state.market)).then(() => {
                 this.setState({
                     market: this.props.market
                 })
             })
         }, 1000)
-      }
-      
+    }
+
 
     render() {
         return (
@@ -55,13 +55,13 @@ class AddToko extends Component {
                         />
                     </View>
                     <Form style={styles.formInput}>
-                            <View>
-                                <Item floatingLabel>
-                                    <Label>Nama Toko </Label>
-                                    <Input name='namaToko' value={this.state.namaToko} onChangeText={(namaToko) => this.setState({ namaToko })}/>
-                                </Item>
-                            </View>
-                            <View style={{ marginTop: '13%' }}> 
+                        <View>
+                            <Item floatingLabel>
+                                <Label>Nama Toko </Label>
+                                <Input name='namaToko' value={this.state.namaToko} onChangeText={(namaToko) => this.setState({ namaToko })} />
+                            </Item>
+                        </View>
+                        <View style={{ marginTop: '13%' }}>
                             <Item rounded style={{ marginVertical: 10, borderColor: 'white', backgroundColor: '#DCDCDC', bottom: 30 }}>
                                 <Image style={styles.inputIcon} source={{ uri: 'https://png.pngtree.com/svg/20160728/role_permissions_679763.png' }} />
                                 <Picker

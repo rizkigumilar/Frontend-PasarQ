@@ -14,16 +14,23 @@ import {
   StatusBar,
 } from 'react-native';
 import { Fab, Icon } from 'native-base';
+import { connect } from 'react-redux';
+import { getItemByIdstore } from '../publics/redux/actions/item';
 
 class BarangToko extends Component {
   constructor(props) {
     super();
-    this.initData = Data;
     this.state = {
-      data: this.initData,
-      showAlert: false,
+      idUser: props.navigation.getParam('idUser'),
+      data: [],
     };
   }
+  componentDidMount = async () => {
+    await this.props.dispatch(getItemByIdstore(this.state.idStore));
+    this.setState({
+      data: this.props.item.itemList,
+    })
+  };
 
   deleteItem = () => {
     this.setState({
@@ -66,7 +73,7 @@ class BarangToko extends Component {
   };
 
   render() {
-    const { showAlert } = this.state;
+    const { showAlert } = this.state
     return (
       <Fragment>
         <StatusBar backgroundColor="#008000" />
@@ -112,8 +119,13 @@ class BarangToko extends Component {
     );
   }
 }
+const mapStateToProps = state => {
+  return {
+    item: state.item
+  }
+}
 
-export default BarangToko;
+export default connect(mapStateToProps)(BarangToko)
 
 const styles = StyleSheet.create({
   contentContainer: {

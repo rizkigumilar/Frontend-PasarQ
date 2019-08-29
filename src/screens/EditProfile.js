@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { updateUser } from '../publics/redux/actions/user';
 import { Item, Picker, } from 'native-base';
-import { View, Text, TextInput, StyleSheet, TouchableHighlight, Alert, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableHighlight, AsyncStorage, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import ImagePicker from 'react-native-image-picker';
 
@@ -12,11 +13,14 @@ class Edit extends Component {
             name: props.navigation.getParam('name'),
             email: props.navigation.getParam('email'),
             telp: props.navigation.getParam('telp'),
-            address: props.navigation.getParam('address')
+            id_user: "",
+            address: props.navigation.getParam('address'),
+            user: [],
+            filePath: null
         };
-    }
-    onClickListener = (viewId) => {
-        Alert.alert("Alert", "Button pressed " + viewId);
+        AsyncStorage.getItem('userid').then(value => {
+            this.setState({ id_user: value });
+        });
     }
     chooseFile = () => {
         var options = {
@@ -27,7 +31,6 @@ class Edit extends Component {
             },
         };
         ImagePicker.showImagePicker(options, response => {
-            console.log('Response = ', response);
             if (response.didCancel) {
                 console.log('Cancel');
                 alert('User cancelled image picker');
@@ -46,16 +49,32 @@ class Edit extends Component {
         });
     };
 
+    updateProfile = () => (
+        dataFile = new FormData(),
+        dataFile.append('image',
+            {
+                uri: this.state.filePath.uri,
+                type: 'image/jpg',
+                name: 'lah'
+            }
+        ),
+        dataFile.append('name', this.state.name),
+        dataFile.append('email', this.state.email),
+        dataFile.append('address', this.state.address),
+        this.props.dispatch(updateUser(this.state.id_user, dataFile))
+
+    )
 
     render() {
+
         return (
             <ScrollView>
                 <View style={styles.wrapper}>
                     <Text style={{ fontSize: 20, fontWeight: 'bold', alignItems: 'center', left: 70 }}>Edit Profile</Text>
                     <View style={styles.inputContainer}>
                         <TextInput style={styles.inputs}
-                            placeholder="Product Name"
-                            onChangeText={val => this.setState({ 'name_item': val })}
+                            placeholder="Name"
+                            onChangeText={val => this.setState({ 'name': val })}
                             value={this.state.name} />
                     </View>
 
@@ -77,7 +96,7 @@ class Edit extends Component {
                         onPress={this.chooseFile.bind(this)}>
                         <Text style={{ color: 'black', height: 50, marginTop: 10, marginBottom: -20 }}>Choose Photo </Text>
                     </TouchableOpacity>
-                    <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]}>
+                    <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={this.updateProfile}>
                         <Text style={styles.loginText}>Save</Text>
                     </TouchableHighlight>
                 </View>
@@ -86,7 +105,12 @@ class Edit extends Component {
         );
     }
 }
-export default Edit
+const mapStateToProps = state => {
+    return {
+        user: state.user
+    }
+}
+export default connect(mapStateToProps)(Edit)
 
 const styles = StyleSheet.create({
     wrapper: {
