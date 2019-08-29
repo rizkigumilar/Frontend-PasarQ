@@ -97,76 +97,77 @@ class Payment extends Component {
           </View>
         </View>
         <View style={styles.containerProfile}>
-          <Text style={{marginBottom: 5}}>{this.state.name}</Text>
-          <View style={{flexDirection: 'row'}}>
           <Text style={{ marginBottom: 5 }}>{this.state.name}</Text>
           <View style={{ flexDirection: 'row' }}>
-            <Icon name="pin" size={32} />
-            <Text style={styles.text}>{this.state.address}</Text>
+            <Text style={{ marginBottom: 5 }}>{this.state.name}</Text>
+            <View style={{ flexDirection: 'row' }}>
+              <Icon name="pin" size={32} />
+              <Text style={styles.text}>{this.state.address}</Text>
+            </View>
+            <View style={{ flexDirection: 'row', marginTop: 5 }}>
+              <Icon name="call" size={32} />
+              <Text style={styles.text}>{this.state.telp}</Text>
+            </View>
+            <View style={{ flexDirection: 'row', marginTop: 5 }}>
+              <Icon name="mail" size={32} />
+              <Text style={styles.text}>{this.state.email}</Text>
+            </View>
           </View>
-          <View style={{ flexDirection: 'row', marginTop: 5 }}>
-            <Icon name="call" size={32} />
-            <Text style={styles.text}>{this.state.telp}</Text>
+          <View style={styles.containerDelivery}>
+            <Text style={{ textAlign: 'center' }}>Pilihan Pengiriman</Text>
+            <View
+              style={{
+                flexDirection: 'row',
+                marginTop: 10,
+                justifyContent: 'space-between',
+                marginBottom: 20,
+              }}>
+              <TouchableOpacity
+                style={styles.delivery}
+                onPress={() => this.onPress}>
+                <Text style={{ textAlign: 'center' }}> 1 hour services </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.delivery}
+                onPress={() => this.onPress}>
+                <Text style={{ textAlign: 'center' }}> 1 day services </Text>
+              </TouchableOpacity>
+            </View>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                marginHorizontal: 20,
+              }}>
+              <Text>Sub Total (5 items)</Text>
+              <Text style={{ color: 'red' }}>Rp. 50000</Text>
+            </View>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                marginHorizontal: 20,
+              }}>
+              <Text>Biaya Pengiriman</Text>
+              <Text style={{ color: 'red' }}>Rp. 7000</Text>
+            </View>
           </View>
-          <View style={{ flexDirection: 'row', marginTop: 5 }}>
-            <Icon name="mail" size={32} />
-            <Text style={styles.text}>{this.state.email}</Text>
-          </View>
-        </View>
-        <View style={styles.containerDelivery}>
-          <Text style={{ textAlign: 'center' }}>Pilihan Pengiriman</Text>
-          <View
-            style={{
-              flexDirection: 'row',
-              marginTop: 10,
-              justifyContent: 'space-between',
-              marginBottom: 20,
-            }}>
-            <TouchableOpacity
-              style={styles.delivery}
-              onPress={() => this.onPress}>
-              <Text style={{ textAlign: 'center' }}> 1 hour services </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.delivery}
-              onPress={() => this.onPress}>
-              <Text style={{ textAlign: 'center' }}> 1 dat services </Text>
-            </TouchableOpacity>
-          </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              marginHorizontal: 20,
-            }}>
-            <Text>Sub Total (5 items)</Text>
-            <Text style={{ color: 'red' }}>Rp. 50000</Text>
-          </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              marginHorizontal: 20,
-            }}>
-            <Text>Biaya Pengiriman</Text>
-            <Text style={{ color: 'red' }}>Rp. 7000</Text>
-          </View>
-        </View>
-        <View style={{ justifyContent: 'flex-end', flex: 1 }}>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              marginHorizontal: 20,
-              marginTop: 40,
-              marginBottom: 20,
-            }}>
-            <Text style={{ fontSize: 20, color: 'red' }}>Total : Rp. 7000</Text>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => this.onPress}>
-              <Text style={{ color: 'white' }}> Buat Pesanan </Text>
-            </TouchableOpacity>
+          <View style={{ justifyContent: 'flex-end', flex: 1 }}>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                marginHorizontal: 20,
+                marginTop: 40,
+                marginBottom: 20,
+              }}>
+              <Text style={{ fontSize: 20, color: 'red' }}>Total : Rp. 7000</Text>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => this.onPress}>
+                <Text style={{ color: 'white' }}> Buat Pesanan </Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </Fragment>

@@ -26,6 +26,7 @@ import DriverJob from '../../screens/DriverJob';
 import HomeMitra from '../../screens/HomeMitra';
 import AddToko from '../../screens/AddToko';
 import listStatusOrder from '../../screens/listStatusOrder';
+import EditProfile from '../../screens/EditProfile';
 
 const AuthStack = createStackNavigator({
     Login: {
@@ -110,6 +111,12 @@ const UserStack = createStackNavigator({
             header: null,
         },
     },
+    EditProfile: {
+        screen: EditProfile,
+        navigationOptions: {
+            header: null,
+        },
+    },
 
 });
 
@@ -176,7 +183,7 @@ const DriverStack = createStackNavigator({
             header: null
         }
     },
-    
+
 })
 
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { View, Text, TouchableOpacity, AsyncStorage, Image, StyleSheet, Alert } from 'react-native'
 import { Icon } from 'native-base'
 import BottomTab from '../components/bottomTab';
-import { withNavigation, NavigationEvents } from 'react-navigation';
+import { NavigationEvents } from 'react-navigation';
 import Geocoder from 'react-native-geocoder';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 
@@ -117,7 +117,7 @@ export default class Home extends Component {
                             <Text style={{ color: 'white', width: '100%', borderTopWidth: 1, padding: 10 }}>Handphone : {this.state.telp}</Text>
                         </View>
                     </View>
-                    <TouchableHighlight onPress={() => this.EditProfile()} style={styles.linearGradientB}>
+                    <TouchableHighlight onPress={() => this.props.navigation.navigate('EditProfile', { name: this.state.name, telp: this.state.telp, email: this.state.email, address: this.state.address })} style={styles.linearGradientB}>
                         <View>
                             <Text style={{ alignSelf: 'center', marginBottom: 10, color: 'white', fontSize: 20 }}>Edit Profile</Text>
                         </View>

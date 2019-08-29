@@ -7,8 +7,6 @@ import { getCategory } from '../publics/redux/actions/category';
 import { connect } from 'react-redux'
 import Bottomtab from "../components/bottomTab";
 import { ScrollView } from "react-native-gesture-handler";
-import { connect } from 'react-redux'
-import getSubcategory from '../publics/redux/actions/subcategory';
 
 class Home extends Component {
 
@@ -21,7 +19,7 @@ class Home extends Component {
       data: this.initData,
       position: 1,
       interval: null,
-      testSub:'',
+      testSub: '',
       dataSource: [
         {
           url: 'https://www.borneonews.co.id/images/upload/1485161905-pasar2.jpg',
@@ -57,7 +55,7 @@ class Home extends Component {
   // componentWillUnmount() {
   //   clearInterval(this.state.interval)
   // }
-  render() {   
+  render() {
     console.log('data', this.state.category)
     return (
       <Container>

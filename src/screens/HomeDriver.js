@@ -11,7 +11,8 @@ export default class Home extends Component {
         name: '',
         telp: '',
         latitude: '',
-        longitude: ''
+        longitude: '',
+        photo: ''
     };
 
     constructor(props) {
@@ -30,6 +31,9 @@ export default class Home extends Component {
         });
         AsyncStorage.getItem('telp').then(value => {
             this.setState({ telp: value });
+        });
+        AsyncStorage.getItem('photo').then(value => {
+            this.setState({ photo: value });
         });
     }
 
@@ -75,30 +79,30 @@ export default class Home extends Component {
                         })
                     }
                 />
+                <NavigationEvents
+                    onWillFocus={() =>
+                        AsyncStorage.getItem("photo").then(value => {
+                            this.setState({ photo: value });
+                        })
+                    }
+                />
                 <Content>
                     <View style={styles.container}>
                         <Image
                             style={styles.profileImage}
-                            source={require('../assets/group.png')}
+                            source={{ uri: this.state.photo }}
                         />
                     </View>
                     <Form style={styles.formInput}>
                         <View>
                             <Item inlineLabel>
                                 <Label>Nama Driver : {this.state.name}</Label>
-
                             </Item>
                             <Item inlineLabel>
                                 <Label>Email : {this.state.email}</Label>
-
-                            </Item>
-                            <Item inlineLabel last>
-                                <Label>Location :</Label>
-
                             </Item>
                             <Item inlineLabel last>
                                 <Label>telp : {this.state.telp}</Label>
-
                             </Item>
                         </View>
 
@@ -120,7 +124,7 @@ export default class Home extends Component {
                                 <Text style={styles.loginText}>Logout</Text>
                             </TouchableHighlight>
                         </View>
-                        <View style={{ marginTop: 224 }}>
+                        <View style={{ marginTop: 248 }}>
                             <Bottomtab style={styles.BottomtabStyele} />
                         </View>
 
