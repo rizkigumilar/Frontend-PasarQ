@@ -41,7 +41,6 @@ class Payment extends Component {
 
 
 
-
   geocode = async () => {
     var lat = this.state.region.latitude
     var lng = this.state.region.longitude
@@ -98,6 +97,8 @@ class Payment extends Component {
           </View>
         </View>
         <View style={styles.containerProfile}>
+          <Text style={{marginBottom: 5}}>{this.state.name}</Text>
+          <View style={{flexDirection: 'row'}}>
           <Text style={{ marginBottom: 5 }}>{this.state.name}</Text>
           <View style={{ flexDirection: 'row' }}>
             <Icon name="pin" size={32} />
