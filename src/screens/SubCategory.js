@@ -1,52 +1,55 @@
 import React, { Component } from 'react';
 import { Container, Header, Footer, TabHeading, Tab, Tabs, Item, Button, Text, Icon, Input, ScrollableTab, Fab } from 'native-base';
-import { StyleSheet, StatusBar } from "react-native";
+import { StyleSheet, StatusBar, FlatList } from "react-native";
 import CardProduct from './CardProduct';
 import Bottomtab from "../components/bottomTab";
+import { connect } from 'react-redux'
+import { getSubcategoryByCategory } from '../publics/redux/actions/subcategory';
 
-export default class SubCategory extends Component {
+class SubCategory extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      idCat: props.navigation.getParam('idCat'),
+      data: []
+    }
+  }
+  componentDidMount = async () => {
+    await this.props.dispatch(getSubcategoryByCategory(this.state.idCat));
+    this.setState({
+      data: this.props.subcategory,
+    });
+  };
+
   render() {
+    console.log("param", this.state.data)
+    console.log("id category", this.state.idCat)
     return (
       <Container>
-        <StatusBar backgroundColor="transparent" />
-        <Header hasTabs style={{ backgroundColor: "#FFFFFF" }} searchBar rounded>
-          <Item>
-            <Icon name="ios-search" />
-            <Input placeholder="Search" />
-            <Icon name="ios-people" />
-          </Item>
-          <Button transparent>
-            <Text>Search</Text>
-          </Button>
+
+        <Header hasTabs style={{ backgroundColor: "#008000" }} searchBar rounded>
+          <Text style={{ color: 'white', fontSize: 36, fontWeight: 'bold' }}>PasarQ</Text>
         </Header>
-        <Tabs  renderTabBar={() => <ScrollableTab underlineStyle={{ backgroundColor: '#008000' }} />}>
-          <Tab heading={
-            <TabHeading style={{ backgroundColor: "#FFFFFF" }}>
-              <Text style={{ color: 'black' }}>Sayur Mayur</Text>
-            </TabHeading>}>
-            <CardProduct />
-          </Tab>
-          <Tab heading={<TabHeading style={{ backgroundColor: "#FFFFFF" }}>
-            <Text style={{ color: 'black' }}>Daging Dagingan</Text>
-          </TabHeading>}>
-            <CardProduct />
-          </Tab>
-          <Tab heading={<TabHeading style={{ backgroundColor: "#FFFFFF" }}>
-            <Text style={{ color: 'black' }}>Buah</Text>
-          </TabHeading>}>
-            <CardProduct />
-          </Tab>
-          <Tab heading={<TabHeading style={{ backgroundColor: "#FFFFFF" }}>
-            <Text style={{ color: 'black' }}>Sembako</Text>
-          </TabHeading>}>
-            <CardProduct />
-          </Tab>
-          <Tab heading={<TabHeading style={{ backgroundColor: "#FFFFFF" }}>
-            <Text style={{ color: 'black' }}>Bumbu Dapur</Text>
-          </TabHeading>}>
-            <CardProduct />
-          </Tab>
-        </Tabs>
+
+        <FlatList
+          pagingEnabled={true}
+          horizontal
+          data={this.state.data}
+          renderItem={({ item: rowData }) => {
+            return (
+              <Tabs>
+                <Tab heading={<TabHeading style={{ backgroundColor: "#008000" }}><Text style={{ color: '#FFFFFF' }}>{rowData.name_subcategory}</Text></TabHeading>}>
+                  <CardProduct id_subcategory={rowData.id_subcategory} />
+                </Tab>
+              </Tabs>
+            );
+          }}
+          keyExtractor={(item, index) => index}
+        />
+
+
+
+
         <Fab position="bottomRight" onPress={() => this.props.navigation.navigate('Cart')} style={{ backgroundColor: '#008000', top: "-100%", position: "absolute" }} >
           <Icon name="cart" type="Ionicons" style={{ color: 'white' }} />
         </Fab>
@@ -56,6 +59,13 @@ export default class SubCategory extends Component {
     );
   }
 }
+const mapStateToProps = state => {
+  return {
+    subcategory: state.subcategory.subcategoryList
+  }
+}
+
+export default connect(mapStateToProps)(SubCategory)
 const styles = StyleSheet.create({
   root: {
     flex: 1,

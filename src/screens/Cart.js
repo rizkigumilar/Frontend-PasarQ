@@ -1,6 +1,4 @@
 import React, {Component, Fragment} from 'react';
-import Data from '../dummyData/Data';
-import AwesomeAlert from 'react-native-awesome-alert';
 import {
   StyleSheet,
   Text,
@@ -12,26 +10,83 @@ import {
   ScrollView,
   Alert,
   StatusBar,
+  AsyncStorage,
 } from 'react-native';
+import {
+  getCartUser,
+  deleteCart,
+  quantityplus,
+  quantitymin,
+  checkoutCart
+} from '../publics/redux/actions/cart';
+import {connect} from 'react-redux';
 
 class Cart extends Component {
   constructor(props) {
     super();
-    this.initData = Data;
     this.state = {
-      data: this.initData,
-      showAlert: false,
+      cartList: [],
+      iduser: '',
     };
+    AsyncStorage.getItem('userid').then(value => {
+      this.setState({iduser: value});
+    });
   }
 
-  deleteItem = () => {
-    this.setState({
-      showAlert: true,
+  componentDidMount = () => {
+    setTimeout(() => {
+      this.props.dispatch(getCartUser(this.state.iduser)).then(res => {
+        this.setState({
+          cartList: this.props.cartList,
+        });
+      });
+    }, 1000);
+  };
+
+  getData = () => {
+    this.props.dispatch(getCartUser(this.state.iduser)).then(res => {
+      this.setState({
+        cartList: this.props.cartList,
+      });
     });
   };
 
-  checkOut = () => {
-    Alert.alert('Check out');
+  delete = async id_cart => {
+    await this.props.dispatch(deleteCart(id_cart)).then(() => {
+      this.getData();
+    });
+  };
+
+  deleteItem = id_cart => {
+    Alert.alert(
+      'Delete Item',
+      'Are you sure? ',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {text: 'OK', onPress: () => this.delete(id_cart)},
+      ],
+      {cancelable: false},
+    );
+  };
+
+  onBtnMin = async (id_cart, quantity) => {
+    if (quantity <= 1) {
+      quantity == 1;
+    } else {
+      await this.props.dispatch(quantitymin(id_cart)).then(() => {
+        this.getData();
+      });
+    }
+  };
+
+  onBtnPlus = async id_cart => {
+    await this.props.dispatch(quantityplus(id_cart)).then(() => {
+      this.getData();
+    });
   };
 
   hideAlert = () => {
@@ -40,6 +95,11 @@ class Cart extends Component {
     });
   };
 
+  checkout = async (id_user) => {
+    await this.props.dispatch(checkoutCart(id_user))
+    this.props.navigation.navigate('Payment')
+  }
+
   renderItem = ({item}) => {
     return (
       <View style={styles.item}>
@@ -47,28 +107,32 @@ class Cart extends Component {
           <Image style={styles.imageProduct} source={{uri: `${item.image}`}} />
         </View>
         <View style={styles.desc}>
-          <Text style={styles.textProduct}>{item.name}</Text>
+          <Text style={styles.textProduct}>{item.name_item}</Text>
           <Text style={styles.textProduct}>Rp. {item.price}</Text>
         </View>
-        <View style={styles.qty}>
-          <TouchableOpacity style={styles.buttonMin} onPress={this.onPress}>
+        <View style={styles.quantity}>
+          <TouchableOpacity
+            style={styles.buttonMin}
+            onPress={() => this.onBtnMin(item.id_cart, item.quantity)}>
             <Text style={{color: 'white'}}> - </Text>
           </TouchableOpacity>
           <TextInput
             style={styles.inputQty}
-            placeholder="0"
+            value={`${item.quantity}`}
             keyboardType="default"
             underlineColorAndroid="transparent"
             textAlign={'center'}
           />
-          <TouchableOpacity style={styles.buttonMin} onPress={this.onPress}>
+          <TouchableOpacity
+            style={styles.buttonMin}
+            onPress={() => this.onBtnPlus(item.id_cart)}>
             <Text style={{color: 'white'}}> + </Text>
           </TouchableOpacity>
         </View>
         <View stye={styles.delete}>
           <TouchableOpacity
             style={styles.buttonDelete}
-            onPress={() => this.deleteItem()}>
+            onPress={() => this.deleteItem(item.id_cart)}>
             <Image
               style={styles.deleteIcon}
               source={require('../assets/delete.png')}
@@ -80,66 +144,48 @@ class Cart extends Component {
   };
 
   render() {
-    const {showAlert} = this.state;
     return (
       <Fragment>
         <StatusBar backgroundColor="#008000" />
         <View style={styles.contentContainer}>
           <View style={styles.address}>
-            <Text style={styles.location}>
-              Address: {'\n'}Jl. Selokan Mataram Gg. Nakula No. 303 C, Sinduaji,
-              Mlati, Kutu Dukuh, Sinduadi, Sleman, Kabupaten Sleman, Daerah
-              Istimewa Yogyakarta 83239
-            </Text>
+            <Text style={styles.location}>Your Cart</Text>
           </View>
           <View>
             <FlatList
               style={styles.flatList}
-              data={this.state.data}
-              keyExtractor={item => item.id.toString()}
+              data={this.state.cartList}
+              keyExtractor={item => item.id_cart}
               renderItem={this.renderItem}
             />
             <View style={styles.checkoutBtn}>
               <TouchableOpacity
                 style={styles.button}
-                onPress={() => this.props.navigation.navigate('Payment')}>
+                onPress={() => this.checkout(this.state.iduser)}>
                 <Text style={{color: 'white'}}> Checkout </Text>
               </TouchableOpacity>
-              <View style={styles.total}>
-                <Text style={{color: 'red'}}>Total : Rp. 50000</Text>
-              </View>
             </View>
           </View>
-          <AwesomeAlert
-            show={showAlert}
-            showProgress={false}
-            title="Delete this item?"
-            closeOnTouchOutside={true}
-            closeOnHardwareBackPress={false}
-            showCancelButton={true}
-            showConfirmButton={true}
-            cancelText="No, cancel"
-            confirmText="Yes, delete it"
-            confirmButtonColor="#008000"
-            onCancelPressed={() => {
-              this.hideAlert();
-            }}
-            onConfirmPressed={() => {
-              this.hideAlert();
-            }}
-          />
         </View>
       </Fragment>
     );
   }
 }
 
-export default Cart;
+const mapStateToProp = state => {
+  return {
+    cartList: state.cart.cartList,
+  };
+};
+export default connect(mapStateToProp)(Cart);
 
 const styles = StyleSheet.create({
   contentContainer: {
     backgroundColor: 'white',
     flex: 1,
+  },
+  quantity: {
+    flexDirection: 'row',
   },
   address: {
     backgroundColor: 'grey',

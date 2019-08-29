@@ -1,6 +1,5 @@
 import {
     createAppContainer,
-    createDrawerNavigator,
     createStackNavigator,
     createSwitchNavigator,
 } from 'react-navigation';
@@ -8,7 +7,7 @@ import {
 import Login from '../../screens/Login';
 import Register from '../../screens/Register';
 import AuthLoading from '../../screens/Splash';
-import HomeMitra from '../../screens/HomeMitra';
+import ProfileMitra from '../../screens/ProfileMitra';
 import HomeUser from '../../screens/HomeUser';
 import HomeDriver from '../../screens/HomeDriver'
 import Product from '../../screens/SubCategory';
@@ -23,8 +22,10 @@ import DriverMap from '../../screens/DriverMap';
 import BarangToko from '../../screens/BarangToko';
 import Add from '../../screens/AddProduct';
 import DriverJob from '../../screens/DriverJob';
-import HomeMitra1 from '../../screens/HomeMitra1';
+import HomeMitra from '../../screens/HomeMitra';
 import AddToko from '../../screens/AddToko';
+import listStatusOrder from '../../screens/listStatusOrder';
+import EditProfile from '../../screens/EditProfile';
 
 const AuthStack = createStackNavigator({
     Login: {
@@ -41,10 +42,15 @@ const AuthStack = createStackNavigator({
     },
 });
 
-
 const UserStack = createStackNavigator({
     Home: {
         screen: HomeUser,
+        navigationOptions: {
+            header: null,
+        },
+    },
+    listStatusOrder: {
+        screen: listStatusOrder,
         navigationOptions: {
             header: null,
         },
@@ -103,18 +109,24 @@ const UserStack = createStackNavigator({
             header: null,
         },
     },
+    EditProfile: {
+        screen: EditProfile,
+        navigationOptions: {
+            header: null,
+        },
+    },
 
 });
 
 const MitraStack = createStackNavigator({
     Home: {
-        screen: HomeMitra1,
+        screen: HomeMitra,
         navigationOptions: {
             header: null,
         },
     },
     Toko: {
-        screen: HomeMitra,
+        screen: ProfileMitra,
         navigationOptions: {
             header: null,
         },
@@ -157,18 +169,19 @@ const DriverStack = createStackNavigator({
             header: null,
         },
     },
+    DriverMap: {
+        screen: DriverMap,
+        navigationOptions: {
+            header: null
+        }
+    },
     DriverJob: {
         screen: DriverJob,
         navigationOptions: {
             header: null
         }
     },
-    DriverMap: {
-        screen: DriverMap,
-        navigationOptions: {
-            header: null
-        }
-    }
+
 })
 
 

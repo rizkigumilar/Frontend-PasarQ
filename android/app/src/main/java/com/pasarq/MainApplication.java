@@ -1,5 +1,5 @@
 package com.pasarq;
-
+import com.devfd.RNGeocoder.RNGeocoderPackage;
 import android.app.Application;
 import android.util.Log;
 import com.bottomsheetbehavior.BottomSheetBehaviorPackage;

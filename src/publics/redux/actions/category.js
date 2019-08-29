@@ -8,7 +8,8 @@ export const getCategory = () => {
         payload: axios.get(`${url}/category`,
             {
                 headers: {
-                    "authorization": "semangat-team-faraday"
+                    "authorization": "semangat-team-faraday",
+
                 }
             })
     }
@@ -30,18 +31,6 @@ export const postCategory = () => {
     return {
         type: 'POST_CATEGORY',
         payload: axios.post(`${url}/category`,
-            {
-                headers: {
-                    "authorization": "semangat-team-faraday"
-                }
-            })
-    }
-}
-
-export const editCategory = (data, id_category) => {
-    return {
-        type: 'PATCH_CATEGORY', id_category,
-        payload: axios.patch(`${url}/category/${id_category}`,
             {
                 headers: {
                     "authorization": "semangat-team-faraday"

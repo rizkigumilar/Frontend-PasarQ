@@ -14,12 +14,12 @@ export class bottomTab extends Component {
     return (
       <Footer>
 
-        <FooterTab style={{ backgroundColor: "#037F03" }}>
+        <FooterTab style={{ backgroundColor: "#008000" }}>
           <Button onPress={() => { this.props.navigation.navigate('Home') }} vertical>
             <Icon name="home" />
             <Text style={{ color: "white" }} >Home</Text>
           </Button>
-          <Button onPress={() => { this.props.navigation.navigate('Maps') }} vertical>
+          <Button onPress={() => { this.props.navigation.navigate('listStatusOrder') }} vertical>
             <Icon name="repeat" />
             <Text style={{ color: "white" }}>Transaksi</Text>
           </Button>

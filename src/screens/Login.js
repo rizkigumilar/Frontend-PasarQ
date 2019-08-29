@@ -135,7 +135,8 @@ class Login extends Component {
                                     onValueChange={(itemValue, itemIndex) =>
                                         this.setState({ role_id: itemValue })
                                     }>
-                                    <Picker.Item label="User" value="4" />
+                                    <Picker.Item label="Masuk Sebagai" value="" />
+                                    <Picker.Item label="Pembeli" value="4" />
                                     <Picker.Item label="Driver" value="3" />
                                     <Picker.Item label="Toko Mitra" value="2" />
                                 </Picker>
