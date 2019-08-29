@@ -40,7 +40,6 @@ class DetailProduct extends Component {
     render() {
         console.warn(this.state.idUser)
         return (
-            <ScrollView>
                 <View>
                     <StatusBar backgroundColor='#1bbd19' />
                     <View style={styles.header}>
@@ -84,7 +83,6 @@ class DetailProduct extends Component {
                         </Fab>
                     </View>
                 </View>
-            </ScrollView>
         )
     }
 }
