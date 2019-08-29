@@ -14,6 +14,7 @@ import {
 import { Picker, Item } from 'native-base'
 import { ScrollView } from 'react-native-gesture-handler';
 import GetLocation from 'react-native-get-location';
+import { Database, Auth } from '../publics/firebase/index'
 
 class Register extends Component {
 
@@ -21,7 +22,8 @@ class Register extends Component {
         super(props);
         this.state = {
             user: [],
-            data: []
+            data: [],
+            rolenya:""
         };
     }
     componentDidMount = async () => {
@@ -59,6 +61,14 @@ class Register extends Component {
             alert('Harap mengisi Semua Form!')
         }
         else {
+            if (this.state.role_id == 2) {
+                this.setState({ rolenya :"Toko"})
+            } else if (this.state.role_id == 3){
+                this.setState({ rolenya :"Driver"})
+            } else {
+                this.setState({ rolenya :"Pembeli"})
+            }
+            console.warn("response",this.state.rolenya)
             const Data = {
                 email: this.state.email,
                 name: this.state.name,
@@ -69,32 +79,52 @@ class Register extends Component {
                 longitude: this.state.longitude || 0,
                 role_id: this.state.role_id
             }
-            await this.setState({
-                user: Data
+            Auth.createUserWithEmailAndPassword(this.state.email, this.state.password)
+            .then((response) => {
+                console.warn(response)
+                Database.ref('/'+this.state.rolenya+'/' + response.user.uid).set({
+                    email: this.state.email,
+                    name: this.state.name,
+                    password: this.state.password,
+                    telp: this.state.telp,
+                    address: this.state.address,
+                    avatar: 'https://res.cloudinary.com/dnqtceffv/image/upload/v1566043986/srhwjzljnfq79cg2glov.png',
+                    latitude: this.state.latitude || 0,
+                    longitude: this.state.longitude || 0,
+                    status: 'offline'
+                })
+                this.props.navigation.navigate('Login')
             })
+            .catch(error => {
+                alert(error.message)
+                this.setState({
+                    fullname: '',
+                    email: '',
+                    password: ''
+                })
+  
+                this.props.navigation.navigate('Register')
+            })
+            
+            await this.setState({ user: Data })
 
             this.props.dispatch(register(Data))
                 .then(() => {
                     Alert.alert(
                         'Register',
                         'Register Success',
-                        [
-                            { text: 'OK', onPress: () => this.props.navigation.navigate('Login') },
-                        ],
+                        [{ text: 'OK', onPress: () => this.props.navigation.navigate('Login') }],
                     );
                 })
                 .catch(() => {
                     Alert.alert(
                         'Register',
                         'Register Failed',
-                        [
-                            { text: 'Try Again' },
-                        ],
+                        [{ text: 'Try Again' }],
+                            
+                        
                     );
-
                 });
-            console.log(this.state.user);
-            console.log(Data);
         };
     };
     render() {
@@ -163,6 +193,7 @@ class Register extends Component {
                             onValueChange={(itemValue, itemIndex) =>
                                 this.setState({ role_id: itemValue })
                             }>
+
                             <Picker.Item label="Daftar Sebagai" value="" />
                             <Picker.Item label="Pembeli" value="4" />
                             <Picker.Item label="Driver" value="3" />

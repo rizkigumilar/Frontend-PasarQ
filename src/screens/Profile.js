@@ -13,6 +13,7 @@ import BottomTab from '../components/bottomTab';
 import { NavigationEvents } from 'react-navigation';
 import Geocoder from 'react-native-geocoder';
 import { TouchableHighlight } from 'react-native-gesture-handler';
+import { Database, Auth } from '../publics/firebase/index'
 
 
 export default class Home extends Component {
@@ -43,10 +44,13 @@ export default class Home extends Component {
         });
     }
 
-    del = () => {
+    LOG_OUT = async () => {
+        const userToken = await AsyncStorage.getItem('id_firebase');
+        Database.ref('/Pembeli/' + userToken).update({ status: "offline" })
         AsyncStorage.removeItem('userid');
         AsyncStorage.removeItem('jwToken');
-        AsyncStorage.removeItem('role_id').then(() => {
+        AsyncStorage.removeItem('role_id')
+        Auth.signOut().then(() => {
             this.setState({ isLogin: false });
             this.setState({ data: [] });
             Alert.alert('Logout', 'Logout success', [
@@ -55,7 +59,7 @@ export default class Home extends Component {
                     onPress: () => this.props.navigation.navigate('Auth'),
                 },
             ]);
-        });
+        }).catch(error => { alert(error.message) })
     };
     EditProfile = () => {
         Alert.alert('Edit Profile');
@@ -95,7 +99,7 @@ export default class Home extends Component {
                 />
                 <View style={styles.linearGradient}>
                     <View style={{ marginLeft: '85%', marginTop: '4%' }}>
-                        <TouchableOpacity onPress={this.del}>
+                        <TouchableOpacity onPress={this.LOG_OUT}>
                             <Icon name="exit" type="Ionicons" color="#FFFFFF" />
                         </TouchableOpacity>
                     </View>
