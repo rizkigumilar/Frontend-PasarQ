@@ -10,19 +10,19 @@ class HomeMitra extends Component {
         this.state = {
             store: [],
             iduser: '',
-            data:[]
-    
+            data: []
+
         }
         AsyncStorage.getItem('userid').then(value => {
-            this.setState({iduser: value});
-          });
+            this.setState({ iduser: value });
+        });
     }
     getMitra = () => {
-        setTimeout( async () => {
+        setTimeout(async () => {
             await this.props.dispatch(getByIdUser(this.state.iduser));
-        this.setState({
-            store: this.props.store.storeList,
-        })
+            this.setState({
+                store: this.props.store.storeList,
+            })
         }, 1000)
     }
     componentDidMount = () => {
@@ -30,17 +30,12 @@ class HomeMitra extends Component {
         this.focusListener = navigation.addListener('didFocus', () => {
             this.getMitra()
         })
-      }
+    }
 
     render() {
         return (
             <Container>
                 <Header style={{ backgroundColor: '#11c232' }}>
-                    <Left>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('ProfileJuragan')}>
-                            <Icon name='contact' type='Ionicons' />
-                        </TouchableOpacity>
-                    </Left>
                     <Body>
                         <Text> Home Mitra </Text>
                     </Body>

@@ -46,18 +46,18 @@ class Home extends Component {
         }
       ]
     };
-    
+
   }
 
   componentDidMount = async () => {
     const iduser = await AsyncStorage.getItem("userid")
-    console.warn("id" ,iduser)
+    console.warn("id", iduser)
     await this.props.dispatch(getCategory());
     await this.props.dispatch(getCartUser(iduser))
-      this.setState({
-        cartList: this.props.cartList,
-        category: this.props.category.categoryList,
-      });
+    this.setState({
+      cartList: this.props.cartList,
+      category: this.props.category.categoryList,
+    });
     await this.props.dispatch(getStore());
     this.setState({
       store: this.props.store.storeList
@@ -80,9 +80,8 @@ class Home extends Component {
     // console.log('data store', this.state.store)
     return (
       <Container>
-
-        <Header style={{ backgroundColor: 'white' }} searchBar rounded>
-          <Image />
+        <Header style={{ backgroundColor: '#008000' }} searchBar rounded>
+          <Text style={{ color: 'white', fontSize: 36, fontWeight: 'bold' }}>PasarQ</Text>
         </Header>
         <ScrollView >
           <Slideshow titleStyle={{
@@ -102,18 +101,18 @@ class Home extends Component {
             dataSource={this.state.dataSource}
             position={this.state.position}
             onPositionChanged={position => this.setState({ position })} />
-          <Card style={{ height: 150 }}>
+          <Card style={{ height: 350 }}>
             <Text style={{ fontSize: 20, fontWeight: 'bold', justifyContent: 'center', textAlign: 'center' }}>Kategori Produk</Text>
             <FlatList
               horizontal pagingEnabled
               data={this.state.category}
               renderItem={({ item: rowData }) => {
                 return (
-                  <Card style={{ width: 100 }}>
+                  <Card style={{ width: 200 }}>
                     <CardItem button onPress={() => this.props.navigation.navigate('Product', { idCat: rowData.id_category })} cardBody>
-                      <Image style={{ width: 100, height: 60 }} source={{ uri: `${rowData.image}` }} />
+                      <Image style={{ width: 200, height: 260 }} source={{ uri: `${rowData.image}` }} />
                     </CardItem>
-                    
+
                     <CardItem footer button onPress={() => this.props.navigation.navigate('Product', { idCat: rowData.id_category })}>
                       <Text>{rowData.name_category}</Text>
                     </CardItem>
@@ -146,7 +145,7 @@ class Home extends Component {
 
         </ScrollView>
         <View>
-          <View pointerEvents={'none'} style={{ position: 'absolute', elevation: 40, bottom: 58, right: 18, zIndex: 1 }}>
+          <View pointerEvents={'none'} style={{ position: 'absolute', elevation: 40, bottom: 50, right: 18, zIndex: 1 }}>
             <Badge warning>
               <Text>{this.state.cartList.length}</Text>
             </Badge>

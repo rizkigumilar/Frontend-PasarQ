@@ -16,6 +16,18 @@ export const getUsers = () => {
     }
 }
 
+export const updateUser = (id_user) => {
+    return {
+        type: 'PATCH_USER', id_user,
+        payload: axios.patch(`${url}/user/${id_user}`,
+            {
+                headers: {
+                    "authorization": "semangat-team-faraday"
+                }
+            })
+    }
+}
+
 export const register = (data) => {
     console.log(data)
     return {
@@ -45,6 +57,8 @@ export const login = (data) => {
             const longitude = res.data.result.longitude
             const telp = res.data.result.telp
             const role_id = res.data.result.role_id.toString()
+            const photo = res.data.result.photo
+            AsyncStorage.setItem('photo', photo)
             AsyncStorage.setItem('role_id', role_id)
             AsyncStorage.setItem('longitude', longitude)
             AsyncStorage.setItem('latitude', latitude)
