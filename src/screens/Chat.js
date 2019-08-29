@@ -1,6 +1,6 @@
-import React, {Component, Fragment} from 'react';
+import React, { Component, Fragment } from 'react';
 import Data from '../dummyData/Data';
-import {Icon} from 'native-base';
+import { Icon, Body, ListItem, Left, Thumbnail } from 'native-base';
 import {
   StyleSheet,
   Text,
@@ -12,7 +12,9 @@ import {
   ScrollView,
   Alert,
   StatusBar,
+  TouchableHighlight
 } from 'react-native';
+
 
 class Chat extends Component {
   constructor(props) {
@@ -40,20 +42,20 @@ class Chat extends Component {
     });
   };
 
-  renderItem = ({item}) => {
+  renderItem = ({ item }) => {
     return (
-      <View style={styles.item}>
-        <View style={styles.image}>
-          <Image
+      <ListItem avatar onPress={() => this.props.navigation.navigate('ChatRoom')}>
+        <Left>
+          <Thumbnail
             style={styles.imageProduct}
             source={require('../assets/group.png')}
           />
-        </View>
-        <View style={styles.desc}>
+        </Left>
+        <Body style={styles.desc} >
           <Text style={styles.textProduct}>Nama Juragan</Text>
           <Text style={styles.textProduct}>Nama Toko</Text>
-        </View>
-      </View>
+        </Body>
+      </ListItem>
     );
   };
 
@@ -78,15 +80,12 @@ class Chat extends Component {
           </View>
           <ScrollView>
             <View>
-              <TouchableOpacity
-                onPress={() => this.props.navigation.navigate('ChatRoom')}>
-                <FlatList
-                  style={styles.flatList}
-                  data={this.state.data}
-                  keyExtractor={item => item.id.toString()}
-                  renderItem={this.renderItem}
-                />
-              </TouchableOpacity>
+              <FlatList
+                style={styles.flatList}
+                data={this.state.data}
+                keyExtractor={item => item.id.toString()}
+                renderItem={this.renderItem}
+              />
             </View>
           </ScrollView>
         </View>
@@ -149,7 +148,6 @@ const styles = StyleSheet.create({
   imageProduct: {
     width: 70,
     height: 70,
-    marginLeft: 20,
   },
   checkoutBtn: {
     flexDirection: 'row-reverse',
