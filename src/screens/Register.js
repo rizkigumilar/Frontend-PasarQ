@@ -85,9 +85,20 @@ class Register extends Component {
                     longitude: this.state.longitude || 0,
                     status: 'offline'
                 })
-                this.setState({
+                const Data = {
+                    email: this.state.email,
+                    name: this.state.name,
+                    password: this.state.password,
+                    telp: this.state.telp,
+                    address: this.state.address,
+                    latitude: this.state.latitude || 0,
+                    longitude: this.state.longitude || 0,
+                    role_id: this.state.role_id,
                     id_firebase:response.user.uid
-                })
+                }
+                
+                this.props.dispatch(register(Data))
+                
                 this.props.navigation.navigate('Login')
             })
             .catch(error => {
@@ -98,20 +109,9 @@ class Register extends Component {
   
                 this.props.navigation.navigate('Register')
             })
-            const Data = {
-                email: this.state.email,
-                name: this.state.name,
-                password: this.state.password,
-                telp: this.state.telp,
-                address: this.state.address,
-                latitude: this.state.latitude || 0,
-                longitude: this.state.longitude || 0,
-                role_id: this.state.role_id,
-                id_firebase:this.state.id_firebase
-            }
-            await this.setState({ user: Data })
+           
 
-            this.props.dispatch(register(Data))
+            await this.setState({ user: Data })
                 .then(() => {
                     Alert.alert(
                         'Register',
