@@ -14,6 +14,9 @@ import {
   StatusBar,
   TouchableHighlight
 } from 'react-native';
+import { connect } from 'react-redux'
+import { getStore } from '../publics/redux/actions/store';
+import { withNavigation } from "react-navigation";
 
 
 class Chat extends Component {
@@ -21,10 +24,18 @@ class Chat extends Component {
     super();
     this.initData = Data;
     this.state = {
+      idCat: props.navigation.getParam('idCat'),
       data: this.initData,
       showAlert: false,
+      store:[]
     };
   }
+  componentDidMount = async () => {
+    await this.props.dispatch(getStore());
+    this.setState({
+      store: this.props.store.storeList
+    })
+  };
 
   deleteItem = () => {
     this.setState({
@@ -42,17 +53,17 @@ class Chat extends Component {
     });
   };
 
-  renderItem = ({ item }) => {
+  renderItem = ({ item : isidata}) => {
     return (
-      <ListItem avatar onPress={() => this.props.navigation.navigate('ChatRoom')}>
+      <ListItem avatar onPress={() => this.props.navigation.navigate('ChatRoom', { idCat: isidata })}>
         <Left>
           <Thumbnail
             style={styles.imageProduct}
-            source={require('../assets/group.png')}
+            source={{uri: `${isidata.photo}`}}
           />
         </Left>
         <Body style={styles.desc} >
-          <Text style={styles.textProduct}>Nama Juragan</Text>
+          <Text style={styles.textProduct}>{isidata.name_store}</Text>
           <Text style={styles.textProduct}>Nama Toko</Text>
         </Body>
       </ListItem>
@@ -75,15 +86,15 @@ class Chat extends Component {
               />
             </View>
             <View style={styles.label}>
-              <Text>Home</Text>
+              <Text>chat kios</Text>
             </View>
           </View>
           <ScrollView>
             <View>
               <FlatList
                 style={styles.flatList}
-                data={this.state.data}
-                keyExtractor={item => item.id.toString()}
+                data={this.state.store}
+                keyExtractor={(item, index) => index}
                 renderItem={this.renderItem}
               />
             </View>
@@ -93,8 +104,12 @@ class Chat extends Component {
     );
   }
 }
-
-export default Chat;
+const mapStateToProps = state => {
+  return {
+    store: state.store
+  }
+}
+export default connect(mapStateToProps)(withNavigation(Chat));
 
 const styles = StyleSheet.create({
   header: {
