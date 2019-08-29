@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { View, Text, TouchableOpacity, AsyncStorage, Image, StyleSheet, Alert } from 'react-native'
 import { Icon } from 'native-base'
-import {withNavigation, NavigationEvents} from 'react-navigation';
+import {NavigationEvents} from 'react-navigation';
 import Geocoder from 'react-native-geocoder';
 
 export default class Home extends Component {
@@ -98,7 +98,7 @@ export default class Home extends Component {
                             <Icon name='exit' type='Ionicons' color='#fff' />
                         </TouchableOpacity>
                     </View>
-                    <View style={{ marginLeft: '5%', marginTop: '-7%' }}>
+                    <View style={{ marginLeft: '5%' }}>
                         <TouchableOpacity onPress={() => { this.props.navigation.navigate('HomeMitra') }}>
                             <Icon name='arrow-round-back' type='Ionicons' color='#fff' />
                         </TouchableOpacity>

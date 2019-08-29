@@ -1,24 +1,43 @@
 import React, { Component } from 'react'
-import { Image, StyleSheet, View, FlatList, TouchableOpacity } from 'react-native'
+import { Image, StyleSheet, View, FlatList, TouchableOpacity, AsyncStorage } from 'react-native'
 import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right } from 'native-base'
-import Data from './dummy'
-import { withNavigation } from 'react-navigation'
+import { getByIdUser } from '../publics/redux/actions/store'
+import { connect } from 'react-redux'
 
 class HomeMitra extends Component {
     constructor(props) {
         super(props)
-        this.initData = Data
         this.state = {
-            data: this.initData
+            store: [],
+            iduser: '',
+            data:[]
+    
         }
+        AsyncStorage.getItem('userid').then(value => {
+            this.setState({iduser: value});
+          });
     }
+    getMitra = () => {
+        setTimeout( async () => {
+            await this.props.dispatch(getByIdUser(this.state.iduser));
+        this.setState({
+            store: this.props.store.storeList,
+        })
+        }, 1000)
+    }
+    componentDidMount = () => {
+        const { navigation } = this.props
+        this.focusListener = navigation.addListener('didFocus', () => {
+            this.getMitra()
+        })
+      }
 
     render() {
         return (
             <Container>
                 <Header style={{ backgroundColor: '#11c232' }}>
                     <Left>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('ProfileJuragan')}>
                             <Icon name='contact' type='Ionicons' />
                         </TouchableOpacity>
                     </Left>
@@ -34,19 +53,19 @@ class HomeMitra extends Component {
                 <Content>
                     <View style={styles.FlatList}>
                         <FlatList
-                            data={this.state.data}
+                            data={this.state.store}
                             numColumns={2}
-                            keyExtractor={item => item.id}
+                            keyExtractor={item => item.iduser}
                             renderItem={({ item, index }) => {
                                 return (
                                     <Card >
                                         <CardItem cardBody button onPress={() => { this.props.navigation.navigate('Toko') }}>
-                                            <Image source={{ uri: `${item.image}` }} style={styles.image} />
+                                            <Image source={{ uri: `${item.photo}` }} style={styles.image} />
                                         </CardItem>
                                         <CardItem>
                                             <Left>
                                                 <TouchableOpacity style={{ flex: 1, backgroundColor: '#11c232' }} >
-                                                    <Text style={{ padding: 10, justifyContent: "center", textAlign: "center" }}>{item.name}</Text>
+                                                    <Text style={{ padding: 10, justifyContent: "center", textAlign: "center" }}>{item.name_store}</Text>
                                                 </TouchableOpacity>
                                             </Left>
 
@@ -62,7 +81,12 @@ class HomeMitra extends Component {
     }
 }
 
-export default withNavigation(HomeMitra)
+const mapStateToProps = state => {
+    return {
+        store: state.store
+    };
+};
+export default connect(mapStateToProps)(HomeMitra);
 const styles = StyleSheet.create({
     header: {
         alignItems: "center",
@@ -91,7 +115,6 @@ const styles = StyleSheet.create({
     image: {
         width: 190,
         height: 211,
-        borderRadius: 10
     },
 
     searchBar: {
@@ -117,7 +140,7 @@ const styles = StyleSheet.create({
     FlatList: {
         alignItems: "center",
         display: "flex",
-        justifyContent: "center"
+        justifyContent: "center",
     },
     item: {
         backgroundColor: "black",
