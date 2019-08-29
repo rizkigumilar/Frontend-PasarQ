@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FlatList,  Image, StatusBar } from "react-native";
-import { Container, Header, Content, List, ListItem, Thumbnail, Text, Left, Body, Right, Button } from 'native-base';
+import { Container, Header, Content,Title, List, ListItem, Thumbnail, Text, Left, Body, Right, Button } from 'native-base';
 const data2 = [
   {
     imageUrl: "https://i1.wp.com/wp.tumbasin.id/wp-content/uploads/2019/06/telur-compressor.png",
@@ -43,21 +43,28 @@ export default class ListThumbnailExample extends Component {
       interval: null,
       testSub:'',
     };
+    
   }
   render() {
     return (
       <Container>
-        <Header />
+        <Header>
+          <Left/>
+          <Body>
+            <Title>status orderan kamu</Title>
+          </Body>
+          <Right />
+        </Header>
         <Content>
         <FlatList
-          horizontal
+          
           data={this.state.data2}
           renderItem={({ item: rowData }) => {
             return (
               <List>
-                <ListItem thumbnail>
+                <ListItem thumbnail onPress={() => { this.props.navigation.navigate('DriverMap') }}>
                   <Left>
-                    <Thumbnail square source={{ uri: 'Image URL' }} />
+                    <Thumbnail square source={{ uri: `${rowData.imageUrl}` }} />
                   </Left>
                   <Body>
                     <Text>{rowData.imageUrl}</Text>

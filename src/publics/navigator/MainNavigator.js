@@ -50,6 +50,12 @@ const UserStack = createStackNavigator({
             header: null,
         },
     },
+    listStatusOrder: {
+        screen: listStatusOrder,
+        navigationOptions: {
+            header: null,
+        },
+    },
     DriverMap: {
         screen: DriverMap,
         navigationOptions: {
