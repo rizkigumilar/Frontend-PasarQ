@@ -45,12 +45,12 @@ const AuthStack = createStackNavigator({
 
 
 const UserStack = createStackNavigator({
-    Cart: {
-        screen: Cart,
-        navigationOptions: {
-            header: null,
-        },
-    },
+    // Cart: {
+    //     screen: Cart,
+    //     navigationOptions: {
+    //         header: null,
+    //     },
+    // },
     Home: {
         screen: HomeUser,
         navigationOptions: {
@@ -81,12 +81,12 @@ const UserStack = createStackNavigator({
             header: null,
         },
     },
-    // Cart: {
-    //     screen: Cart,
-    //     navigationOptions: {
-    //         header: null,
-    //     },
-    // },
+    Cart: {
+        screen: Cart,
+        navigationOptions: {
+            header: null,
+        },
+    },
     Payment: {
         screen: Payment,
         navigationOptions: {
