@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from 'react';
+import React, { Component, Fragment } from 'react';
 import {
   StyleSheet,
   Text,
@@ -18,9 +18,10 @@ import {
   deleteCart,
   quantityplus,
   quantitymin,
-  checkoutCart
+  checkoutCart,
 } from '../publics/redux/actions/cart';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
+import NumberFormat from 'react-number-format';
 
 class Cart extends Component {
   constructor(props) {
@@ -30,7 +31,7 @@ class Cart extends Component {
       iduser: '',
     };
     AsyncStorage.getItem('userid').then(value => {
-      this.setState({iduser: value});
+      this.setState({ iduser: value });
     });
   }
 
@@ -68,9 +69,9 @@ class Cart extends Component {
           onPress: () => console.log('Cancel Pressed'),
           style: 'cancel',
         },
-        {text: 'OK', onPress: () => this.delete(id_cart)},
+        { text: 'OK', onPress: () => this.delete(id_cart) },
       ],
-      {cancelable: false},
+      { cancelable: false },
     );
   };
 
@@ -96,26 +97,32 @@ class Cart extends Component {
     });
   };
 
-  checkout = async (id_user) => {
-    await this.props.dispatch(checkoutCart(id_user))
-    this.props.navigation.navigate('Payment')
-  }
+  checkout = async id_user => {
+    await this.props.dispatch(checkoutCart(id_user));
+    this.props.navigation.navigate('Payment');
+  };
 
-  renderItem = ({item}) => {
+  renderItem = ({ item }) => {
     return (
       <View style={styles.item}>
         <View style={styles.image}>
-          <Image style={styles.imageProduct} source={{uri: `${item.image}`}} />
+          <Image style={styles.imageProduct} source={{ uri: `${item.image}` }} />
         </View>
         <View style={styles.desc}>
           <Text style={styles.textProduct}>{item.name_item}</Text>
-          <Text style={styles.textProduct}>Rp. {item.price}</Text>
+          <NumberFormat
+            value={item.price}
+            displayType={'text'}
+            thousandSeparator={true}
+            prefix={'Rp '}
+            renderText={value => <Text style={styles.textProduct}>{value}</Text>}
+          />
         </View>
         <View style={styles.quantity}>
           <TouchableOpacity
             style={styles.buttonMin}
             onPress={() => this.onBtnMin(item.id_cart, item.quantity)}>
-            <Text style={{color: 'white'}}> - </Text>
+            <Text style={{ color: 'white' }}> - </Text>
           </TouchableOpacity>
           <TextInput
             style={styles.inputQty}
@@ -127,7 +134,7 @@ class Cart extends Component {
           <TouchableOpacity
             style={styles.buttonMin}
             onPress={() => this.onBtnPlus(item.id_cart)}>
-            <Text style={{color: 'white'}}> + </Text>
+            <Text style={{ color: 'white' }}> + </Text>
           </TouchableOpacity>
         </View>
         <View stye={styles.delete}>
@@ -147,40 +154,29 @@ class Cart extends Component {
   render() {
     return (
       <Container>
-        <Header>
-          <Left>
-            <Button onPress={() => this.props.navigation.navigate('Home')} transparent>
-              <Icon name='arrow-back' />
-            </Button>
-          </Left>
-          <Body>
-            <Title>Keranjang mu</Title>
-          </Body>
-          <Right>
-            <Button transparent>
-              <Icon name='menu' />
-            </Button>
-          </Right>
-        </Header>
         <View style={styles.contentContainer}>
-          
-          <View>
-            <FlatList
-              style={styles.flatList}
-              data={this.state.cartList}
-              keyExtractor={item => item.id_cart}
-              renderItem={this.renderItem}
-            />
-            <View style={styles.checkoutBtn}>
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => this.checkout(this.state.iduser)}>
-                <Text style={{color: 'white'}}> Checkout </Text>
-              </TouchableOpacity>
-            </View>
+          <View style={styles.address}>
+            <Text style={styles.location}>Your Cart</Text>
           </View>
+          <ScrollView>
+            <View>
+              <FlatList
+                style={styles.flatList}
+                data={this.state.cartList}
+                keyExtractor={item => item.id_cart}
+                renderItem={this.renderItem}
+              />
+            </View>
+          </ScrollView>
         </View>
-        </Container>
+        <View style={styles.checkoutBtn}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => this.checkout(this.state.iduser)}>
+            <Text style={{ color: 'white' }}> Checkout </Text>
+          </TouchableOpacity>
+        </View>
+      </Container>
     );
   }
 }
@@ -201,7 +197,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   address: {
-    backgroundColor: 'grey',
+    backgroundColor: '#008000',
+    height: 60,
+    justifyContent: "center"
   },
   image: {
     flex: 1,
@@ -228,6 +226,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     color: 'white',
     paddingVertical: 10,
+    fontSize: 18
   },
   item: {
     borderBottomWidth: 1,
@@ -244,9 +243,10 @@ const styles = StyleSheet.create({
     marginLeft: 20,
   },
   checkoutBtn: {
-    flexDirection: 'row-reverse',
     marginHorizontal: '6%',
-    marginTop: 20,
+    height: 60,
+    justifyContent: 'center',
+    alignSelf: "center"
   },
   total: {
     alignItems: 'center',
@@ -257,6 +257,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#008000',
     padding: 10,
+    justifyContent: 'center',
+    width: 150
   },
   buttonMin: {
     width: 30,

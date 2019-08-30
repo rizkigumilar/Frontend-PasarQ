@@ -26,7 +26,9 @@ class Chat extends Component {
     this.state = {
       data: this.initData,
       showAlert: false,
-      chatList:[]
+      chatList:[],
+      store: []
+
     };
   }
   componentDidMount = async () => {
@@ -52,7 +54,7 @@ class Chat extends Component {
     });
   };
 
-  renderItem = ({ item : isidata}) => {
+  renderItem = ({ item: isidata }) => {
     return (
       <ListItem avatar onPress={() => this.props.navigation.navigate('ChatRoom', { datauser: isidata })}>
         <Left>

@@ -22,12 +22,14 @@ import DriverMap from '../../screens/DriverMap';
 import BarangToko from '../../screens/BarangToko';
 import Add from '../../screens/AddProduct';
 import DriverJob from '../../screens/DriverJob';
-import HomeMitra from '../../screens/HomeMitra';
+import HomeMitra from '../../screens/HomeMitra1';
 import AddToko from '../../screens/AddToko';
 import listStatusOrder from '../../screens/listStatusOrder';
 import EditProfile from '../../screens/EditProfile';
 import StoreProduct from '../../screens/StoreProduct'
 import ChatToko from '../../screens/ChatToko'
+import ProfileJuragan from '../../screens/ProfileJuragan'
+import DetailPembayaran from '../../screens/DetailPembayaran'
 
 const AuthStack = createStackNavigator({
     Login: {
@@ -89,6 +91,12 @@ const UserStack = createStackNavigator({
     },
     Payment: {
         screen: Payment,
+        navigationOptions: {
+            header: null,
+        },
+    },
+    DetailPembayaran: {
+        screen: DetailPembayaran,
         navigationOptions: {
             header: null,
         },
@@ -175,6 +183,12 @@ const MitraStack = createStackNavigator({
             header: null,
         },
     },
+    ProfileJuragan: {
+        screen: ProfileJuragan,
+        navigationOptions: {
+            header: null,
+        },
+    },
 })
 const DriverStack = createStackNavigator({
     Home: {
@@ -195,6 +209,12 @@ const DriverStack = createStackNavigator({
             header: null
         }
     },
+    ProfileJuragan: {
+        screen: ProfileJuragan,
+        navigationOptions: {
+            header: null
+        }
+    }
 
 })
 

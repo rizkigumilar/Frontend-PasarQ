@@ -3,15 +3,41 @@ import { StyleSheet, View, Image, AsyncStorage, Alert, TouchableHighlight, Statu
 import { Container, Content, Form, Label, Header, Item, Icon, Button, Input, Text, Fab } from 'native-base'
 import Bottomtab from "../components/BottomTabMitra";
 import { Database, Auth } from '../publics/firebase/index'
+import { NavigationEvents } from 'react-navigation';
 
 
 export default class Home extends Component {
-    state = {
-        token: null,
-        email: '',
-        name: '',
-        id_user: '',
-    };
+    constructor(props) {
+        super(props)
+        this.state = {
+            email: '',
+            name: '',
+            telp: '',
+            latitude: '',
+            longitude: '',
+            photo: '',
+            data: props.navigation.getParam('data')
+        };
+
+        AsyncStorage.getItem('email').then(value => {
+            this.setState({ email: value });
+        });
+        AsyncStorage.getItem('name').then(value => {
+            this.setState({ name: value });
+        });
+        AsyncStorage.getItem('latitude').then(value => {
+            this.setState({ latitude: value });
+        });
+        AsyncStorage.getItem('longitude').then(value => {
+            this.setState({ longitude: value });
+        });
+        AsyncStorage.getItem('telp').then(value => {
+            this.setState({ telp: value });
+        });
+        AsyncStorage.getItem('photo').then(value => {
+            this.setState({ photo: value });
+        });
+    }
     del = async () => {
         const userToken = await AsyncStorage.getItem('id_firebase');
 
@@ -27,38 +53,46 @@ export default class Home extends Component {
                     }
                 ]
             )
-                AsyncStorage.clear();
-                this.props.navigation.navigate('auth');
-            }).catch(error => { alert(error.message) })
+            AsyncStorage.clear();
+            this.props.navigation.navigate('auth');
+        }).catch(error => { alert(error.message) })
         AsyncStorage.removeItem('userid')
         AsyncStorage.removeItem('jwToken')
         AsyncStorage.removeItem('role_id')
     };
 
     render() {
+        console.log('data', this.state.data)
         return (
             <Container>
-                {/* <NavigationEvents
-              onWillFocus={() =>
-                AsyncStorage.getItem("name").then(value => {
-                  this.setState({ name: value });
-                })
-              }
-            />
-            <NavigationEvents
-              onWillFocus={() =>
-                AsyncStorage.getItem("token").then(value => {
-                  this.setState({ token: value });
-                })
-              }
-            />
-            <NavigationEvents
-              onWillFocus={() =>
-                AsyncStorage.getItem("email").then(value => {
-                  this.setState({ email: value });
-                })
-              }
-            /> */}
+                <NavigationEvents
+                    onWillFocus={() =>
+                        AsyncStorage.getItem("name").then(value => {
+                            this.setState({ name: value });
+                        })
+                    }
+                />
+                <NavigationEvents
+                    onWillFocus={() =>
+                        AsyncStorage.getItem("telp").then(value => {
+                            this.setState({ telp: value });
+                        })
+                    }
+                />
+                <NavigationEvents
+                    onWillFocus={() =>
+                        AsyncStorage.getItem("email").then(value => {
+                            this.setState({ email: value });
+                        })
+                    }
+                />
+                <NavigationEvents
+                    onWillFocus={() =>
+                        AsyncStorage.getItem("photo").then(value => {
+                            this.setState({ photo: value });
+                        })
+                    }
+                />
                 <Content>
                     <View style={styles.container}>
                         <Image
@@ -67,44 +101,24 @@ export default class Home extends Component {
                         />
                     </View>
                     <Form style={styles.formInput}>
-                        {this.state.token == null ? (
-                            <View>
-                                <Item inlineLabel>
-                                    <Label>Nama Toko :</Label>
-                                    <Input />
-                                </Item>
-                                <Item inlineLabel>
-                                    <Label>Email :</Label>
-                                    <Input />
-                                </Item>
-                                <Item inlineLabel last>
-                                    <Label>Location :</Label>
-                                    <Input />
-                                </Item>
-                            </View>
-                        ) : (
-                                <View>
-                                    <Item inlineLabel>
-                                        <Label>Full Name : {this.state.name}</Label>
-                                        <Input />
-                                    </Item>
-                                    <Item inlineLabel>
-                                        <Label>Email : {this.state.email}</Label>
-                                        <Input />
-                                    </Item>
-                                    <Item inlineLabel last>
-                                        <Label>New Password :</Label>
-                                        <Input />
-                                    </Item>
-                                </View>
-                            )}
+                        <View>
+                            <Item inlineLabel>
+                                <Label>Nama Toko : {this.state.name}</Label>
+                            </Item>
+                            <Item inlineLabel>
+                                <Label>Email :{this.state.email}</Label>
+                            </Item>
+                            <Item inlineLabel last>
+                                <Label>Telp: {this.state.telp}</Label>
+                            </Item>
+                        </View>
                     </Form>
                     <View style={styles.save}>
                         <Button
                             style={styles.buttonSave}
                             rounded
                             info
-                            onPress={() => this.props.navigation.navigate('BarangToko')}>
+                            onPress={() => this.props.navigation.navigate('BarangToko', { idStore: this.state.data.id_store })}>
                             <Text style={{ color: "white" }}>Lihat Jenis Barang</Text>
                         </Button>
                     </View>
@@ -116,7 +130,7 @@ export default class Home extends Component {
                                 <Text style={styles.loginText}>Logout</Text>
                             </TouchableHighlight>
                         </View>
-                        <View style={{ marginTop: 164 }}>
+                        <View style={{ marginTop: 248 }}>
                             <Bottomtab style={styles.BottomtabStyele} />
                         </View>
 
