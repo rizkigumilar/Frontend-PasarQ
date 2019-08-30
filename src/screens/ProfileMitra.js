@@ -1,78 +1,84 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { StyleSheet, View, Image, AsyncStorage, Alert, TouchableHighlight, StatusBar } from "react-native";
 import { Container, Content, Form, Label, Header, Item, Icon, Button, Input, Text, Fab } from 'native-base'
 import Bottomtab from "../components/BottomTabMitra";
+import {NavigationEvents} from 'react-navigation';
+import Geocoder from 'react-native-geocoder';
+import { getByIdUser} from '../publics/redux/actions/store'
+import { connect } from 'react-redux'
 
 
-export default class Home extends Component {
-    state = {
-        token: null,
-        email: '',
-        name: '',
-        id_user: '',
-    };
-    del = () => {
-        AsyncStorage.removeItem('userid')
-        AsyncStorage.removeItem('jwToken')
-        AsyncStorage.removeItem('role_id')
-            .then(() => {
-                this.setState({ isLogin: false })
-                this.setState({ data: [] })
-                Alert.alert(
-                    'Logout',
-                    'Logout success', [
-                        {
-                            text: 'OK', onPress: () => this.props.navigation.navigate('Auth')
-                        }
-                    ]
-                )
-            })
-    };
+class Home extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            idItem: props.navigation.getParam('idItem'),
+            photoStore: props.navigation.getParam('photoStore'),
+            store: [],
+            iduser: '',
+            data:[],
+            email: '',
+            address: ''
+        
+        }
+        AsyncStorage.getItem('userid').then(value => {
+            this.setState({iduser: value});
+          });
+          AsyncStorage.getItem('email').then(value => {
+            this.setState({email: value});
+          });
+          AsyncStorage.getItem('address').then(value => {
+            this.setState({address: value});
+          });
+    }
+      
+      geocode = async () => {
+        var lat = this.state.region.latitude
+        var lng = this.state.region.longitude
+        var Location = {lat, lng};
+        Geocoder.geocodePosition(Location);
+        const address = res[0].subLocality + ', ' + res[0].subAdminArea + ', ' + res[0].adminArea;
+    
+        return address
+      };
 
     render() {
         return (
             <Container>
-                {/* <NavigationEvents
-              onWillFocus={() =>
-                AsyncStorage.getItem("name").then(value => {
-                  this.setState({ name: value });
-                })
-              }
-            />
-            <NavigationEvents
-              onWillFocus={() =>
-                AsyncStorage.getItem("token").then(value => {
-                  this.setState({ token: value });
-                })
-              }
-            />
-            <NavigationEvents
-              onWillFocus={() =>
-                AsyncStorage.getItem("email").then(value => {
-                  this.setState({ email: value });
-                })
-              }
-            /> */}
+                <NavigationEvents
+                onWillFocus={() =>
+                 AsyncStorage.getItem('email').then(value => {
+                   this.setState({email: value});
+                 })
+                 }
+                 />
+                 <NavigationEvents
+                onWillFocus={() =>
+                AsyncStorage.getItem('address').then(value => {
+                    this.setState({address: value});
+                 })
+                 }
+        />
                 <Content>
                     <View style={styles.container}>
                         <Image
                             style={styles.profileImage}
-                            source={require('../assets/group.png')}
+                            source={{ uri: `${this.state.photoStore}` }}
                         />
                     </View>
                     <Form style={styles.formInput}>
                         {this.state.token == null ? (
                             <View>
                                 <Item inlineLabel>
-                                    <Label>Nama Toko :</Label>
+                                    <Label>Nama Toko : {this.state.idItem}</Label>
                                     <Input />
                                 </Item>
                                 <Item inlineLabel>
-                                    <Label>Email :</Label>
+                                    <Label>Email : {this.state.email}</Label>
                                     <Input />
                                 </Item>
                                 <Item inlineLabel last>
-                                    <Label>Location :</Label>
+                                    <Label>Location : {this.state.address}</Label>
                                     <Input />
                                 </Item>
                             </View>
@@ -120,6 +126,13 @@ export default class Home extends Component {
         )
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        store: state.store
+    };
+};
+export default connect(mapStateToProps)(Home);
 
 const styles = StyleSheet.create({
     BottomtabStyele: {
