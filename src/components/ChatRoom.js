@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
   menuIcon: {
-    width: 20,
+    width: 21,
     height: 30,
   },
   label: {
