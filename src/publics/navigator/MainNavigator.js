@@ -27,6 +27,7 @@ import AddToko from '../../screens/AddToko';
 import listStatusOrder from '../../screens/listStatusOrder';
 import EditProfile from '../../screens/EditProfile';
 import StoreProduct from '../../screens/StoreProduct'
+import ChatToko from '../../screens/ChatToko'
 import ProfileJuragan from '../../screens/ProfileJuragan'
 import DetailPembayaran from '../../screens/DetailPembayaran'
 
@@ -136,6 +137,12 @@ const UserStack = createStackNavigator({
 const MitraStack = createStackNavigator({
     Home: {
         screen: HomeMitra,
+        navigationOptions: {
+            header: null,
+        },
+    },
+    ChatToko: {
+        screen: ChatToko,
         navigationOptions: {
             header: null,
         },

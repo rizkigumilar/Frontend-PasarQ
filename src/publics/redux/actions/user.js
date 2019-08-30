@@ -16,6 +16,20 @@ export const getUsers = () => {
     }
 }
 
+export const getUsersByRole = (idRole) => {
+    return {
+        type: 'GET_USER_BY_ROLE',idRole,
+        payload: axios.get(`${url}/user/roleid/${idRole}`,
+            {
+                headers: {
+                    "authorization": "semangat-team-faraday",
+                    "x-access-token": `token: ${AsyncStorage.jwToken}`,
+                    "x-control-user": AsyncStorage.userid
+                }
+        })
+    }
+}
+
 export const updateUser = (id_user, data) => {
     return {
         type: 'PATCH_USER', id_user,data,

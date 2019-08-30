@@ -19,7 +19,7 @@ export class bottomTab extends Component {
                         <Icon name="home" />
                         <Text style={{ color: "white" }} >Home</Text>
                     </Button>
-                    <Button onPress={() => { this.props.navigation.navigate('Chat') }} vertical>
+                    <Button onPress={() => { this.props.navigation.navigate('ChatToko') }} vertical>
                         <Icon name="chatboxes" />
                         <Text style={{ color: "white" }}>Chat</Text>
                     </Button>
