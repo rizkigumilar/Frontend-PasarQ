@@ -1,5 +1,5 @@
-import React, {Component, Fragment} from 'react';
-import {Icon, ListItem, Left, Right, Radio} from 'native-base';
+import React, { Component, Fragment } from 'react';
+import { Icon, ListItem, Left, Right, Radio } from 'native-base';
 import {
   StyleSheet,
   Text,
@@ -12,9 +12,9 @@ import {
   Alert,
   AsyncStorage,
 } from 'react-native';
-import {getPayment, paymentSend} from '../publics/redux/actions/payment';
-import {NavigationEvents} from 'react-navigation';
-import {connect} from 'react-redux';
+import { getPayment, paymentSend } from '../publics/redux/actions/payment';
+import { NavigationEvents, withNavigation } from 'react-navigation';
+import { connect } from 'react-redux';
 import NumberFormat from 'react-number-format';
 
 class Payment extends Component {
@@ -34,19 +34,19 @@ class Payment extends Component {
   constructor(props) {
     super(props);
     AsyncStorage.getItem('email').then(value => {
-      this.setState({email: value});
+      this.setState({ email: value });
     });
     AsyncStorage.getItem('name').then(value => {
-      this.setState({name: value});
+      this.setState({ name: value });
     });
     AsyncStorage.getItem('address').then(value => {
-      this.setState({address: value});
+      this.setState({ address: value });
     });
     AsyncStorage.getItem('telp').then(value => {
-      this.setState({telp: value});
+      this.setState({ telp: value });
     });
     AsyncStorage.getItem('userid').then(value => {
-      this.setState({userid: value});
+      this.setState({ userid: value });
     });
   }
 
@@ -63,7 +63,7 @@ class Payment extends Component {
   express = () => {
     this.setState({
       biayaPengiriman: 15000,
-      totalHarga: this.state.paymentList.total_price + 5000,
+      totalHarga: this.state.paymentList.total_price + 15000,
       id_delivery: 2,
     });
   };
@@ -71,7 +71,7 @@ class Payment extends Component {
   day = () => {
     this.setState({
       biayaPengiriman: 5000,
-      totalHarga: this.state.paymentList.total_price + 15000,
+      totalHarga: this.state.paymentList.total_price + 5000,
       id_delivery: 1,
     });
   };
@@ -80,14 +80,23 @@ class Payment extends Component {
     if (this.state.namaBank == '' || this.state.biayaPengiriman == 0) {
       alert('anda belum memilih bank transfer atau memilih pengiriman');
     } else {
-      alert(`buat pesanan sukses ${this.state.namaBank}`);
       await this.props.dispatch(
         paymentSend(
-          this.state.paymentList.id_payment,{
-          id_delivery: this.state.id_delivery,
-          payment_method: this.state.namaBank,
-        }),
-      );
+          this.state.paymentList.id_payment, {
+            id_delivery: this.state.id_delivery,
+            payment_method: this.state.namaBank,
+          })
+      ).then(() => {
+        Alert.alert(
+          'Success',
+          'Payment Success',
+          [
+            {
+              text: 'OK', onPress: () => this.props.navigation.navigate('DetailPembayaran', { bank: this.state.namaBank })
+            },
+          ],
+        );
+      })
     }
   };
 
@@ -97,35 +106,35 @@ class Payment extends Component {
         <NavigationEvents
           onWillFocus={() =>
             AsyncStorage.getItem('email').then(value => {
-              this.setState({email: value});
+              this.setState({ email: value });
             })
           }
         />
         <NavigationEvents
           onWillFocus={() =>
             AsyncStorage.getItem('name').then(value => {
-              this.setState({name: value});
+              this.setState({ name: value });
             })
           }
         />
         <NavigationEvents
           onWillFocus={() =>
             AsyncStorage.getItem('address').then(value => {
-              this.setState({address: value});
+              this.setState({ address: value });
             })
           }
         />
         <NavigationEvents
           onWillFocus={() =>
             AsyncStorage.getItem('telp').then(value => {
-              this.setState({telp: value});
+              this.setState({ telp: value });
             })
           }
         />
         <NavigationEvents
           onWillFocus={() =>
             AsyncStorage.getItem('userid').then(value => {
-              this.setState({userid: value});
+              this.setState({ userid: value });
             })
           }
         />
@@ -145,31 +154,31 @@ class Payment extends Component {
           </View>
         </View>
         <View style={styles.containerProfile}>
-          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-            <Text style={{marginBottom: 7, fontSize: 17, color: 'red'}}>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+            <Text style={{ marginBottom: 7, fontSize: 17, color: 'red' }}>
               {this.state.name}
             </Text>
             <TouchableOpacity
               onPress={() => this.props.navigation.navigate('Profile')}>
-              <Text style={{color: 'red', fontSize: 17}}>Edit Profile</Text>
+              <Text style={{ color: 'red', fontSize: 17 }}>Edit Profile</Text>
             </TouchableOpacity>
           </View>
 
-          <View style={{flexDirection: 'row'}}>
+          <View style={{ flexDirection: 'row' }}>
             <Icon name="pin" size={32} />
             <Text style={styles.text}>{this.state.address}</Text>
           </View>
-          <View style={{flexDirection: 'row', marginTop: 5}}>
+          <View style={{ flexDirection: 'row', marginTop: 5 }}>
             <Icon name="call" size={32} />
             <Text style={styles.text}>{this.state.telp}</Text>
           </View>
-          <View style={{flexDirection: 'row', marginTop: 5}}>
+          <View style={{ flexDirection: 'row', marginTop: 5 }}>
             <Icon name="mail" size={32} />
             <Text style={styles.text}>{this.state.email}</Text>
           </View>
         </View>
         <View style={styles.containerDelivery}>
-          <Text style={{textAlign: 'center'}}>Pilihan Pengiriman</Text>
+          <Text style={{ textAlign: 'center' }}>Pilihan Pengiriman</Text>
           <View
             style={{
               flexDirection: 'row',
@@ -180,12 +189,12 @@ class Payment extends Component {
             <TouchableOpacity
               style={styles.delivery}
               onPress={() => this.express()}>
-              <Text style={{textAlign: 'center'}}> 1 hour service </Text>
+              <Text style={{ textAlign: 'center' }}> 1 hour service </Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.delivery}
               onPress={() => this.day()}>
-              <Text style={{textAlign: 'center'}}> 1 day service </Text>
+              <Text style={{ textAlign: 'center' }}> 1 day service </Text>
             </TouchableOpacity>
           </View>
           <View
@@ -201,7 +210,7 @@ class Payment extends Component {
               displayType={'text'}
               thousandSeparator={true}
               prefix={'Rp '}
-              renderText={value => <Text style={{color: 'red'}}>{value}</Text>}
+              renderText={value => <Text style={{ color: 'red' }}>{value}</Text>}
             />
           </View>
           <View
@@ -216,7 +225,7 @@ class Payment extends Component {
               displayType={'text'}
               thousandSeparator={true}
               prefix={'Rp '}
-              renderText={value => <Text style={{color: 'red'}}>{value}</Text>}
+              renderText={value => <Text style={{ color: 'red' }}>{value}</Text>}
             />
           </View>
         </View>
@@ -236,13 +245,13 @@ class Payment extends Component {
               <View style={styles.paymentMethod}>
                 <View style={styles.banking}>
                   <ListItem>
-                    <View style={{flexDirection: 'row'}}>
+                    <View style={{ flexDirection: 'row' }}>
                       <Left>
                         <Image
                           style={styles.imageProduct}
                           source={require('../assets/1423261-bank-negara-indonesia-bni-waena--kantor-cabang-jayapura-papua.png')}
                         />
-                        <Text style={{paddingTop: 15, paddingLeft: 10}}>
+                        <Text style={{ paddingTop: 15, paddingLeft: 10 }}>
                           Bank BNI
                         </Text>
                       </Left>
@@ -250,20 +259,20 @@ class Payment extends Component {
                         <Radio
                           color={'#f0ad4e'}
                           selectedColor={'#5cb85c'}
-                          onPress={() => this.setState({namaBank: 'BNI'})}
+                          onPress={() => this.setState({ namaBank: 'BNI' })}
                           selected={this.state.namaBank == 'BNI'}
                         />
                       </Right>
                     </View>
                   </ListItem>
                   <ListItem>
-                    <View style={{flexDirection: 'row'}}>
+                    <View style={{ flexDirection: 'row' }}>
                       <Left>
                         <Image
                           style={styles.imageProduct}
                           source={require('../assets/kisspng-logo-brand-bank-syariah-mandiri-font-bank-mandiri-5c096898ec8ba1.9972779515441204729689.jpg')}
                         />
-                        <Text style={{paddingTop: 15, paddingLeft: 10}}>
+                        <Text style={{ paddingTop: 15, paddingLeft: 10 }}>
                           Bank Mandiri
                         </Text>
                       </Left>
@@ -271,7 +280,7 @@ class Payment extends Component {
                         <Radio
                           color={'#f0ad4e'}
                           selectedColor={'#5cb85c'}
-                          onPress={() => this.setState({namaBank: 'Mandiri'})}
+                          onPress={() => this.setState({ namaBank: 'Mandiri' })}
                           selected={this.state.namaBank == 'Mandiri'}
                         />
                       </Right>
@@ -283,7 +292,7 @@ class Payment extends Component {
                         style={styles.imageProduct}
                         source={require('../assets/images.png')}
                       />
-                      <Text style={{paddingTop: 15, paddingLeft: 10}}>
+                      <Text style={{ paddingTop: 15, paddingLeft: 10 }}>
                         Bank BCA Syariah
                       </Text>
                     </Left>
@@ -291,20 +300,20 @@ class Payment extends Component {
                       <Radio
                         color={'#f0ad4e'}
                         selectedColor={'#5cb85c'}
-                        onPress={() => this.setState({namaBank: 'BCA'})}
+                        onPress={() => this.setState({ namaBank: 'BCA' })}
                         selected={this.state.namaBank == 'BCA'}
                       />
                     </Right>
-                    <View style={{flexDirection: 'row'}}></View>
+                    <View style={{ flexDirection: 'row' }}></View>
                   </ListItem>
                   <ListItem>
                     <Left>
-                      <View style={{flexDirection: 'row'}}>
+                      <View style={{ flexDirection: 'row' }}>
                         <Image
                           style={styles.imageProduct}
                           source={require('../assets/brand.gif')}
                         />
-                        <Text style={{paddingTop: 15, paddingLeft: 10}}>
+                        <Text style={{ paddingTop: 15, paddingLeft: 10 }}>
                           Bank CIMB
                         </Text>
                       </View>
@@ -313,7 +322,7 @@ class Payment extends Component {
                       <Radio
                         color={'#f0ad4e'}
                         selectedColor={'#5cb85c'}
-                        onPress={() => this.setState({namaBank: 'CIMB'})}
+                        onPress={() => this.setState({ namaBank: 'CIMB' })}
                         selected={this.state.namaBank == 'CIMB'}
                       />
                     </Right>
@@ -323,7 +332,7 @@ class Payment extends Component {
             </View>
           </ScrollView>
         </View>
-        <View style={{justifyContent: 'flex-end'}}>
+        <View style={{ justifyContent: 'flex-end' }}>
           <View
             style={{
               flexDirection: 'row',
@@ -338,13 +347,13 @@ class Payment extends Component {
               thousandSeparator={true}
               prefix={'Rp '}
               renderText={value => (
-                <Text style={{fontSize: 20, color: 'red'}}>{value}</Text>
+                <Text style={{ fontSize: 20, color: 'red' }}>{value}</Text>
               )}
             />
             <TouchableOpacity
               style={styles.button}
               onPress={() => this.buatPesanan()}>
-              <Text style={{color: 'white'}}> Buat Pesanan </Text>
+              <Text style={{ color: 'white' }}> Buat Pesanan </Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -358,7 +367,7 @@ const mapStateToProp = state => {
     paymentList: state.payment.paymentList,
   };
 };
-export default connect(mapStateToProp)(Payment);
+export default connect(mapStateToProp)(withNavigation(Payment));
 
 const styles = StyleSheet.create({
   paymentMethod: {
