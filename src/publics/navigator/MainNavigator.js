@@ -28,6 +28,7 @@ import listStatusOrder from '../../screens/listStatusOrder';
 import EditProfile from '../../screens/EditProfile';
 import StoreProduct from '../../screens/StoreProduct'
 import ProfileJuragan from '../../screens/ProfileJuragan'
+import DetailPembayaran from '../../screens/DetailPembayaran'
 
 const AuthStack = createStackNavigator({
     Login: {
@@ -89,6 +90,12 @@ const UserStack = createStackNavigator({
     },
     Payment: {
         screen: Payment,
+        navigationOptions: {
+            header: null,
+        },
+    },
+    DetailPembayaran: {
+        screen: DetailPembayaran,
         navigationOptions: {
             header: null,
         },

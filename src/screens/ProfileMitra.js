@@ -38,8 +38,8 @@ export default class Home extends Component {
             this.setState({ photo: value });
         });
     }
-    del = () => {
-const userToken = await AsyncStorage.getItem('id_firebase');
+    del = async () => {
+        const userToken = await AsyncStorage.getItem('id_firebase');
 
         Database.ref('/Toko/' + userToken).update({ status: "offline" })
         Auth.signOut().then(() => {
@@ -53,9 +53,9 @@ const userToken = await AsyncStorage.getItem('id_firebase');
                     }
                 ]
             )
-                AsyncStorage.clear();
-                this.props.navigation.navigate('auth');
-            }).catch(error => { alert(error.message) })
+            AsyncStorage.clear();
+            this.props.navigation.navigate('auth');
+        }).catch(error => { alert(error.message) })
         AsyncStorage.removeItem('userid')
         AsyncStorage.removeItem('jwToken')
         AsyncStorage.removeItem('role_id')

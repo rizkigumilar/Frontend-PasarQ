@@ -27,7 +27,7 @@ class Chat extends Component {
       idCat: props.navigation.getParam('idCat'),
       data: this.initData,
       showAlert: false,
-      store:[]
+      store: []
     };
   }
   componentDidMount = async () => {
@@ -53,18 +53,17 @@ class Chat extends Component {
     });
   };
 
-  renderItem = ({ item : isidata}) => {
+  renderItem = ({ item: isidata }) => {
     return (
       <ListItem avatar onPress={() => this.props.navigation.navigate('ChatRoom', { idCat: isidata })}>
         <Left>
           <Thumbnail
             style={styles.imageProduct}
-            source={{uri: `${isidata.photo}`}}
+            source={{ uri: `${isidata.photo}` }}
           />
         </Left>
         <Body style={styles.desc} >
           <Text style={styles.textProduct}>{isidata.name_store}</Text>
-          <Text style={styles.textProduct}>Nama Toko</Text>
         </Body>
       </ListItem>
     );
