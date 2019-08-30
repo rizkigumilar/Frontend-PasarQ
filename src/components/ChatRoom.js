@@ -1,35 +1,72 @@
 import React, {Component, Fragment} from 'react';
 import {GiftedChat} from 'react-native-gifted-chat';
-import {StyleSheet, View, Text, Image, ScrollView} from 'react-native';
+import {StyleSheet, View, Text, Image, AsyncStorage} from 'react-native';
 import {Icon} from 'native-base';
+import { Database, Auth } from '../publics/firebase/index'
 
 class ChatRoom extends React.Component {
-  state = {
-    messages: [],
-  };
+  constructor(props) {
+    super();
+    this.initData = Data;
+    this.state = {
+      messages: [],
+      datauser: props.navigation.getParam('datauser'),
+      text: '',
+      avatar: '',
+      name: ''
+    };
+
+    AsyncStorage.getItem('photo', (err, result) => {
+      if (result) {
+          this.setState({
+              avatar: result
+          })
+      }
+  })
+  AsyncStorage.getItem('name', (err, result) => {
+    if (result) {
+        this.setState({
+            name: result
+        })
+    }
+})
+  }
 
   componentWillMount() {
-    this.setState({
-      messages: [
-        {
-          _id: 1,
-          text: 'Hello developer',
-          createdAt: new Date(),
-          user: {
-            _id: 2,
-            name: 'React Native',
-            avatar: 'https://placeimg.com/140/140/any',
-          },
-        },
-      ],
-    });
-  }
+       
+    Database.ref('messages').child(Auth.currentUser.uid).child(this.state.datauser.id_firebase )
+        .on('child_added', (value) => {
+            this.setState((prevState) => {
+                return {
+                    messages: GiftedChat.append(prevState.messages, value.val())
+                }
+            })
+        })
+    }
 
-  onSend(messages = []) {
-    this.setState(previousState => ({
-      messages: GiftedChat.append(previousState.messages, messages),
-    }));
-  }
+onSend = () => {
+
+    if (this.state.text.length > 0) {
+        let msgId = Database.ref('messages').child(Auth.currentUser.uid).child(this.state.datauser.id_firebase).push().key
+        let updates = {}
+        let message = {
+            _id: msgId,
+            text: this.state.text,
+            createdAt: new Date(),
+            user: {
+                _id: Auth.currentUser.uid,
+                username: this.state.datauser.name,
+                avatar: this.state.avatar
+            }
+        }
+
+        updates['messages/' + this.state.datauser.id_firebase + '/' + Auth.currentUser.uid + '/' + msgId] = message
+        updates['messages/' + Auth.currentUser.uid + '/' + this.state.datauser.id_firebase + '/' + msgId] = message
+
+        Database.ref().update(updates)
+        this.setState({ text: '' })
+    }
+}
 
   render() {
     return (
@@ -48,18 +85,22 @@ class ChatRoom extends React.Component {
             <View style={styles.image}>
               <Image
                 style={styles.imageProduct}
-                source={require('../assets/group.png')}
+                source={{uri: `${this.state.datauser.photo}`}}
               />
             </View>
-            <Text style={styles.juragan}>Nama Juragan</Text>
+            <Text style={styles.juragan}>{this.state.datauser.name}</Text>
           </View>
         </View>
-          <GiftedChat
-            messages={this.state.messages}
-            onSend={messages => this.onSend(messages)}
-            user={{
-              _id: 1,
+        <GiftedChat
+          text={this.state.text} showUserAvatar={true}
+          messages={this.state.messages} onSend={this.onSend}
+          user={{
+              _id: Auth.currentUser.uid,
+              username: this.state.datauser.name,
+              avatar: this.state.avatar
             }}
+              onInputTextChanged={(value) => this.setState({ text: value })}
+              isLoadingEarlier={true}
           />
       </Fragment>
     );

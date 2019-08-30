@@ -24,13 +24,15 @@ class Chat extends Component {
     super();
     this.initData = Data;
     this.state = {
+      idCat: props.navigation.getParam('idCat'),
       data: this.initData,
       showAlert: false,
-      chatList:[]
+      StateUser:[],
+      chatList:""
     };
   }
   componentDidMount = async () => {
-    await this.props.dispatch(getUsersByRole(2));
+    await this.props.dispatch(getUsersByRole(4));
     this.setState({
       chatList: this.props.Propsuser.userList
     })
@@ -56,21 +58,20 @@ class Chat extends Component {
     return (
       <ListItem avatar onPress={() => this.props.navigation.navigate('ChatRoom', { datauser: isidata })}>
         <Left>
-          {/* <Thumbnail
+          <Thumbnail
             style={styles.imageProduct}
             source={{uri: `${isidata.photo}`}}
-          /> */}
+          />
         </Left>
         <Body style={styles.desc} >
           <Text style={styles.textProduct}>{isidata.name}</Text>
-          <Text style={styles.textProduct}>{isidata.address}</Text>
+          <Text style={styles.textProduct}>{isidata.id_firebase}</Text>
         </Body>
       </ListItem>
     );
   };
 
   render() {
-    console.log("tes",this.props.Propsuser.userList)
     return (
       <Fragment>
         <StatusBar backgroundColor="#008000" />
@@ -86,7 +87,7 @@ class Chat extends Component {
               />
             </View>
             <View style={styles.label}>
-              <Text>chat user</Text>
+              <Text>chat kios</Text>
             </View>
           </View>
           <ScrollView>
@@ -106,7 +107,7 @@ class Chat extends Component {
 }
 const mapStateToProps = state => {
   return {
-    Propsuser:state.user
+    Propsuser: state.user
   }
 }
 export default connect(mapStateToProps)(withNavigation(Chat));
