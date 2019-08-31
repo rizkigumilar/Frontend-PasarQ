@@ -55,9 +55,6 @@ PasarQ is an is an application to shop to make it easier to shop at the nearest 
 ## Related Project (Backend)
 * [PasarQ RESTful API](https://github.com/muhammadrisano/Pasar-Qita-Backend-Express.git)
 
-## Trello
-You can see the Trello for this project [`here`](https://trello.com/b/1CmpyTfb/faraday-pasarq)
-
 ## Contributors
 <center>
   <table>
