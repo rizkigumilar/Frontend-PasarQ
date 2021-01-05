@@ -9,7 +9,7 @@
   "dependencies": {
     "@builderx/icons": "^0.1.10",
     "@mapbox/polyline": "^1.1.0",
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "firebase": "^6.4.0",
     "native-base": "^2.13.5",
     "prop-types": "^15.7.2",
