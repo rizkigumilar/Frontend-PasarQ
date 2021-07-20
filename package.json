@@ -16,7 +16,7 @@
     "react": "16.8.6",
     "react-dom": "^16.9.0",
     "react-drag-drawer": "^3.3.1",
-    "react-native": "0.60.5",
+    "react-native": "0.62.3",
     "react-native-awesome-alert": "^0.4.5",
     "react-native-bottom-sheet-behavior": "^2.0.0",
     "react-native-draggable-view": "0.0.6",
